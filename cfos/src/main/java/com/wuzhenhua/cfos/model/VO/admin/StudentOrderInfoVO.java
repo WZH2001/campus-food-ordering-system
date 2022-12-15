@@ -5,7 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title StudentOrderInfoVO
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 学生订单信息返回参数
+ * @Date 2022/12/14 14:18
  */
 @Data
 @NoArgsConstructor

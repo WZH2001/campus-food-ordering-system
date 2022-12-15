@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.controller.user;
 
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
 import com.wuzhenhua.cfos.service.user.UserService;
@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserController
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户操作
+ * @Date 2022/12/14 14:18
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "【common--用户登录】")
+@Api(tags = "【common--用户操作】")
 public class UserController {
     @Autowired
     private UserService userService;

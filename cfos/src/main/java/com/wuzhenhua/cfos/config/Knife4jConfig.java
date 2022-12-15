@@ -13,7 +13,11 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title Knife4jConfig
+ * @ProjectName: campus-food-ordering-system
+ * @Description: Knife4j测试文档
+ * @Date 2022/12/14 14:18
  */
 @Configuration
 @EnableSwagger2

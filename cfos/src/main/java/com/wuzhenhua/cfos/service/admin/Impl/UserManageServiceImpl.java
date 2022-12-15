@@ -1,8 +1,8 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.PageUtil;
+import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.mapper.admin.UserManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.SellerBaseInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
@@ -16,7 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserManageServiceImpl
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户管理
+ * @Date 2022/12/14 14:18
  */
 @Service
 public class UserManageServiceImpl implements UserManageService {

@@ -7,7 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserMapper
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户操作
+ * @Date 2022/12/14 14:18
  */
 @Mapper
 public interface UserMapper {

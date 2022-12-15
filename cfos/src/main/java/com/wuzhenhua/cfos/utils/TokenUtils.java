@@ -1,4 +1,4 @@
-package com.wuzhenhua.cfos.common;
+package com.wuzhenhua.cfos.utils;
 
 import cn.hutool.core.date.DateUtil;
 import com.auth0.jwt.JWT;
@@ -10,7 +10,11 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title TokenUtils
+ * @ProjectName: campus-food-ordering-system
+ * @Description: Token工具类
+ * @Date 2022/12/14 14:18
  */
 @Component
 public class TokenUtils {

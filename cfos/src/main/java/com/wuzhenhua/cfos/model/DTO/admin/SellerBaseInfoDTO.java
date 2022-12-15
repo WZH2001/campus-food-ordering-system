@@ -1,12 +1,16 @@
 package com.wuzhenhua.cfos.model.DTO.admin;
 
-import com.wuzhenhua.cfos.common.PageUtil;
+import com.wuzhenhua.cfos.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title SellerBaseInfoDTO
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 查询商家基本信息请求参数
+ * @Date 2022/12/14 14:18
  */
 @Data
 @NoArgsConstructor

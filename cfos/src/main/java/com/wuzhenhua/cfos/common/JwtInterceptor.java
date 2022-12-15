@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.wuzhenhua.cfos.utils.TokenUtils;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,7 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title JwtInterceptor
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 验证Token
+ * @Date 2022/12/14 14:18
  */
 @Component
 public class JwtInterceptor implements HandlerInterceptor {

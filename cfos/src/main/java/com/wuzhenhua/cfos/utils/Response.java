@@ -1,11 +1,15 @@
-package com.wuzhenhua.cfos.common;
+package com.wuzhenhua.cfos.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title Response
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 实现统一返回
+ * @Date 2022/12/14 14:18
  */
 @Data
 @NoArgsConstructor

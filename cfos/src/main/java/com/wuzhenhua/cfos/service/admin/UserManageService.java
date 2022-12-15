@@ -1,12 +1,16 @@
 package com.wuzhenhua.cfos.service.admin;
 
-import com.wuzhenhua.cfos.common.PageUtil;
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.PageUtil;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.admin.SellerBaseInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserManageService
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户管理
+ * @Date 2022/12/14 14:18
  */
 public interface UserManageService {
     /**

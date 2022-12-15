@@ -2,10 +2,14 @@ package com.wuzhenhua.cfos.service.user;
 
 import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.Response;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserService
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户操作
+ * @Date 2022/12/14 14:18
  */
 public interface UserService {
     /**

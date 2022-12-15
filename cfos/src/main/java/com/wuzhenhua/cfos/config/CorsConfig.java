@@ -7,7 +7,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title CorsConfig
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 实现跨域请求
+ * @Date 2022/12/14 14:18
  */
 @Configuration
 public class CorsConfig {

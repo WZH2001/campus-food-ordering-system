@@ -8,7 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title MenuMapper
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 商家菜单
+ * @Date 2022/12/14 14:18
  */
 @Mapper
 public interface MenuMapper {

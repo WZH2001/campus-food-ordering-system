@@ -1,8 +1,8 @@
 package com.wuzhenhua.cfos.service.user.Impl;
 
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.common.Response;
-import com.wuzhenhua.cfos.common.TokenUtils;
+import com.wuzhenhua.cfos.utils.Response;
+import com.wuzhenhua.cfos.utils.TokenUtils;
 import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.mapper.user.UserMapper;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
@@ -14,7 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserServiceImpl
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户操作
+ * @Date 2022/12/14 14:18
  */
 @Service
 public class UserServiceImpl implements UserService {

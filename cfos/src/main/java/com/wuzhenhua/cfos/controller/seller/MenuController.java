@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.controller.seller;
 
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.service.seller.MenuService;
@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title MenuController
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 商家菜单
+ * @Date 2022/12/14 14:18
  */
 @Api(tags = "【商家--商家菜单】")
 @RestController

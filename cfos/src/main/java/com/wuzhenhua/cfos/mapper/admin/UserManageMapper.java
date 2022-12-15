@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserManageMapper
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户管理
+ * @Date 2022/12/14 14:18
  */
 @Mapper
 public interface UserManageMapper {

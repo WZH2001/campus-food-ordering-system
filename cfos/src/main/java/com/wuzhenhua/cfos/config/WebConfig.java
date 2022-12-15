@@ -7,7 +7,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title WebConfig
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 拦截器
+ * @Date 2022/12/14 14:18
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

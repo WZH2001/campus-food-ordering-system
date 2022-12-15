@@ -1,8 +1,8 @@
 package com.wuzhenhua.cfos.service.seller.Impl;
 
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.common.TokenUtils;
+import com.wuzhenhua.cfos.utils.TokenUtils;
 import com.wuzhenhua.cfos.mapper.seller.MenuMapper;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
@@ -17,7 +17,11 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title MenuServiceImpl
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 商家菜单
+ * @Date 2022/12/14 14:18
  */
 @Service
 public class MenuServiceImpl implements MenuService {

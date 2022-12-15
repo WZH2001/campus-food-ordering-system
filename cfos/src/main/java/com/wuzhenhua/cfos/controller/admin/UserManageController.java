@@ -1,7 +1,7 @@
 package com.wuzhenhua.cfos.controller.admin;
 
-import com.wuzhenhua.cfos.common.PageUtil;
-import com.wuzhenhua.cfos.common.Response;
+import com.wuzhenhua.cfos.utils.PageUtil;
+import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.admin.SellerBaseInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
 import com.wuzhenhua.cfos.service.admin.UserManageService;
@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title UserManageController
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 用户管理
+ * @Date 2022/12/14 14:18
  */
 @RestController
 @RequestMapping("/user")

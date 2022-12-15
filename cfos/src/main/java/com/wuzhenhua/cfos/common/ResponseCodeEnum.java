@@ -1,7 +1,11 @@
 package com.wuzhenhua.cfos.common;
 
 /**
- * @author 吴振华
+ * @Author wuzhenhua
+ * @Title ResponseCodeEnum
+ * @ProjectName: campus-food-ordering-system
+ * @Description: 返回状态码
+ * @Date 2022/12/14 14:18
  */
 public enum ResponseCodeEnum {
     SUCCESS("A0000", "成功"),
