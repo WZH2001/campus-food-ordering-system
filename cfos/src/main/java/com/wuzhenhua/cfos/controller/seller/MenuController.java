@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(tags = "【商家--商家菜单】")
 @RestController
-@RequestMapping("/seller")
+@RequestMapping("/sellerMenu")
 public class MenuController {
     @Autowired
     MenuService menuService;
