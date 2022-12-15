@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/campus-food-ordering-system.iml" filepath="$PROJECT_DIR$/campus-food-ordering-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cfos/cfos.iml" filepath="$PROJECT_DIR$/cfos/cfos.iml" />
+    </modules>
+  </component>
+</project>

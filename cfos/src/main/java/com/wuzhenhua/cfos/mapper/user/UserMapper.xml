@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.user.UserMapper">
+    <insert id="studentRegister">
+        insert into student(student_id, student_username, student_password, role_id, is_delete)
+        values(#{register.userId}, #{register.username}, #{register.password}, #{register.roleId}, 0)
+    </insert>
+
+    <insert id="sellerRegister">
+        insert into seller(seller_id, seller_username, seller_password, role_id, is_delete)
+        values(#{register.userId}, #{register.username}, #{register.password}, #{register.roleId}, 0)
+    </insert>
+
+    <select id="adminLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            admin_id as userId,
+            admin_username as username,
+            admin_password as password,
+            role_id as roleId
+        from
+            admin
+        where
+            admin_username = #{login.username}
+    </select>
+
+    <select id="studentLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            student_id as userId,
+            student_username as username,
+            student_password as password,
+            role_id as roleId
+        from
+            student
+        where
+            student_username = #{login.username}
+    </select>
+
+    <select id="sellerLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            seller_id as userId,
+            seller_username as username,
+            seller_password as password,
+            role_id as roleId
+        from
+            seller
+        where
+            seller_username = #{login.username}
+    </select>
+</mapper>

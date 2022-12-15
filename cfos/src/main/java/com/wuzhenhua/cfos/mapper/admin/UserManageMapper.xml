@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.admin.UserManageMapper">
+    <select id="studentBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentBaseInfoVO">
+        select
+            s.student_id as studentId,
+            s.student_username as username,
+            s.student_name as name,
+            s.student_telephone as telephone,
+            s.student_address as address
+        from
+            student s
+        where
+            s.is_delete = 0
+            <if test="username != null and username !=''">
+                AND student_username Like concat('%',#{username},'%')
+            </if>
+            <if test="address != null and address !=''">
+                AND student_address Like concat('%',#{address},'%')
+            </if>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="studentBaseInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        student s
+        where
+        s.is_delete = 0
+        <if test="username != null and username !=''">
+            AND student_username Like concat('%',#{username},'%')
+        </if>
+        <if test="address != null and address !=''">
+            AND student_address Like concat('%',#{address},'%')
+        </if>
+    </select>
+
+    <select id="studentOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentOrderInfoVO">
+        select
+            st.student_id as studentId,
+            st.student_name as name,
+            fo.order_time as orderTime,
+            fo.take_time as takeTime,
+            f.food_name as foodName,
+            f.food_price as foodPrice,
+            se.window_name as windowName,
+            se.window_address as windowAddress
+        from
+            forder fo
+        inner join
+            student st
+        on
+            st.student_id = fo.student_id
+        inner join
+            food f
+        on
+            f.food_id = fo.food_id
+        inner join
+            seller se
+        on
+            se.seller_id = f.seller_id
+        where
+            st.is_delete = 0
+        and
+            f.is_delete = 0
+        and
+            se.is_delete = 0
+        and
+            st.student_id = #{studentId}
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="studentOrderInfoTotal" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            forder fo
+                inner join
+            student st
+            on
+                st.student_id = fo.student_id
+                inner join
+            food f
+            on
+                f.food_id = fo.food_id
+                inner join
+            seller se
+            on
+                se.seller_id = f.seller_id
+        where
+            st.is_delete = 0
+          and
+            f.is_delete = 0
+          and
+            se.is_delete = 0
+          and
+            st.student_id = #{studentId}
+    </select>
+
+    <select id="studentCollectInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentCollectInfoVO">
+        select
+            st.student_id as studentId,
+            st.student_name as name,
+            c.collect_time as collectTime,
+            f.food_name as foodName,
+            f.food_price as foodPrice,
+            se.window_name as windowName,
+            se.window_address as windowAddress
+        from
+            collect c
+        inner join
+            student st
+        on
+            st.student_id = c.student_id
+        inner join
+            food f
+        on
+            f.food_id = c.food_id
+        inner join
+            seller se
+        on
+            se.seller_id = f.seller_id
+        where
+            st.is_delete = 0
+        and
+            f.is_delete = 0
+        and
+            se.is_delete = 0
+        and
+            st.student_id = #{studentId}
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="studentCollectInfoTotal" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            collect c
+                inner join
+            student st
+            on
+                st.student_id = c.student_id
+                inner join
+            food f
+            on
+                f.food_id = c.food_id
+                inner join
+            seller se
+            on
+                se.seller_id = f.seller_id
+        where
+            st.is_delete = 0
+          and
+            f.is_delete = 0
+          and
+            se.is_delete = 0
+          and
+            st.student_id = #{studentId}
+    </select>
+
+    <select id="sellerBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerBaseInfoVO">
+        select
+            s.seller_id as sellerId,
+            s.seller_username as username,
+            s.principal_name as principalName,
+            s.principal_telephone as principalTelephone,
+            s.window_name as windowName,
+            s.window_address as windowAddress,
+            s.work_time as workTime
+        from
+            seller s
+       where
+            s.is_delete = 0
+        <if test="username != null and username !=''">
+            AND seller_username Like concat('%',#{username},'%')
+        </if>
+        <if test="address != null and address !=''">
+            AND window_address Like concat('%',#{address},'%')
+        </if>
+        <if test="windowName != null and windowName !=''">
+            AND window_name Like concat('%',#{windowName},'%')
+        </if>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="sellerBaseInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        seller s
+        where
+        s.is_delete = 0
+        <if test="username != null and username !=''">
+            AND seller_username Like concat('%',#{username},'%')
+        </if>
+        <if test="address != null and address !=''">
+            AND window_address Like concat('%',#{address},'%')
+        </if>
+        <if test="windowName != null and windowName !=''">
+            AND window_name Like concat('%',#{windowName},'%')
+        </if>
+    </select>
+
+    <select id="sellerFoodInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerFoodInfoVO">
+        select
+            s.seller_id as sellerId,
+            s.window_name as windowName,
+            f.food_name as foodName,
+            f.food_price as foodPrice,
+            f.description as foodDescription
+        from
+            seller s
+        inner join
+            food f
+        on
+            s.seller_id = f.seller_id
+        where
+            s.seller_id = #{sellerId}
+        and
+            s.is_delete = 0
+        and
+            f.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="sellerFoodInfoTotal" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            seller s
+                inner join
+            food f
+            on
+                s.seller_id = f.seller_id
+        where
+            s.seller_id = #{sellerId}
+          and
+            s.is_delete = 0
+          and
+            f.is_delete = 0
+    </select>
+
+    <select id="sellerSenderInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerSenderInfoVO">
+        select
+            s.seller_id as sellerId,
+            s.window_name as windowName,
+            se.sender_name as senderName,
+            se.sender_telephone as senderTelephone
+        from
+            seller s
+        inner join
+            sender se
+        on
+            s.seller_id = se.seller_id
+        where
+            s.is_delete = 0
+        and
+            s.seller_id = #{sellerId}
+    </select>
+</mapper>

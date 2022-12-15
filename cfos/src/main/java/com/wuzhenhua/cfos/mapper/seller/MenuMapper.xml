@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.seller.MenuMapper">
+    <insert id="foodAdd">
+        insert into food(food_id, food_name, food_price, description, is_recommend, seller_id)
+        values(#{foodInfoDTO.foodId}, #{foodInfoDTO.foodName}, #{foodInfoDTO.foodPrice}, #{foodInfoDTO.describe}, #{foodInfoDTO.isRecommend}, #{foodInfoDTO.sellerId})
+    </insert>
+
+    <select id="menuInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.MenuVO">
+        select
+            f.food_id as foodId,
+            f.food_name as foodName,
+            f.food_price as foodPrice,
+            f.description,
+            f.today_sell as todaySell
+        from
+            food f
+        where
+            f.seller_id = #{sellerId}
+        and
+            f.is_delete = 0
+        <if test="foodName != null and foodName != ''">
+            and f.food_name like concat('%' + #{foodName} + '%')
+        </if>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="menuInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        food f
+        where
+        f.seller_id = #{sellerId}
+        and
+        f.is_delete = 0
+        <if test="foodName != null and foodName != ''">
+            and f.food_name like concat('%' + #{foodName} + '%')
+        </if>
+    </select>
+
+    <select id="queryFoodByFoodName" resultType="java.lang.Integer">
+        select
+            count(food_name)
+        from
+            food
+        where
+            seller_id = #{sellerId}
+        and
+            food_name = #{foodName}
+    </select>
+</mapper>
