@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
                 return Response.successResponse(userMapper.studentRegister(registerDTO), ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0003.getCode(), ResponseCodeEnum.USER_ERROR_A0003.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0003.getCode(), ResponseCodeEnum.USER_ERROR_B0003.getDescription());
             }
         }
         else if("2".equals(registerDTO.getRoleId())){
@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
                 return Response.successResponse(userMapper.sellerRegister(registerDTO), ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0003.getCode(), ResponseCodeEnum.USER_ERROR_A0003.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0003.getCode(), ResponseCodeEnum.USER_ERROR_B0003.getDescription());
             }
         }
-        return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0004.getCode(), ResponseCodeEnum.USER_ERROR_A0004.getDescription());
+        return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0004.getCode(), ResponseCodeEnum.USER_ERROR_B0004.getDescription());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
                 return Response.successResponse(userBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0001.getCode(), ResponseCodeEnum.USER_ERROR_A0001.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0001.getCode(), ResponseCodeEnum.USER_ERROR_B0001.getDescription());
             }
         }
         userBaseInfoVO = userMapper.studentLogin(userDTO);
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
                 return Response.successResponse(userBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0001.getCode(), ResponseCodeEnum.USER_ERROR_A0001.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0001.getCode(), ResponseCodeEnum.USER_ERROR_B0001.getDescription());
             }
         }
         userBaseInfoVO = userMapper.sellerLogin(userDTO);
@@ -79,9 +79,9 @@ public class UserServiceImpl implements UserService {
                 return Response.successResponse(userBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0001.getCode(), ResponseCodeEnum.USER_ERROR_A0001.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0001.getCode(), ResponseCodeEnum.USER_ERROR_B0001.getDescription());
             }
         }
-        return Response.errorResponse(ResponseCodeEnum.USER_ERROR_A0002.getCode(), ResponseCodeEnum.USER_ERROR_A0002.getDescription());
+        return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0002.getCode(), ResponseCodeEnum.USER_ERROR_B0002.getDescription());
     }
 }

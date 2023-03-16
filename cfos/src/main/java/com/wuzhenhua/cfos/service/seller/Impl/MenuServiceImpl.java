@@ -33,7 +33,7 @@ public class MenuServiceImpl implements MenuService {
         Integer pageNum = (queryMenuInfoDTO.getPageNum() - 1) * queryMenuInfoDTO.getPageSize();
         Integer pageSize = queryMenuInfoDTO.getPageSize();
         String sellerId = TokenUtils.getUserId(token);
-        List<MenuVO> menuInfo = menuMapper.menuInfo(pageNum, pageSize, queryMenuInfoDTO.getFoodName(), sellerId);
+        List<MenuVO> menuInfo = menuMapper.menuInfo(pageNum, pageSize, queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
         Integer total = menuMapper.menuInfoTotal(queryMenuInfoDTO.getFoodName(), sellerId);
         Map<String, Object> res = new HashMap<>(20);
         res.put("menuInfo", menuInfo);
@@ -51,15 +51,20 @@ public class MenuServiceImpl implements MenuService {
                 return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
-                return Response.successResponse(ResponseCodeEnum.FOOD_ERROR_B0002.getCode(), ResponseCodeEnum.FOOD_ERROR_B0002.getDescription());
+                return Response.successResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
             }
         }
-        return Response.successResponse(ResponseCodeEnum.FOOD_ERROR_B0001.getCode(), ResponseCodeEnum.FOOD_ERROR_B0001.getDescription());
+        return Response.successResponse(ResponseCodeEnum.FOOD_ERROR_C0001.getCode(), ResponseCodeEnum.FOOD_ERROR_C0001.getDescription());
     }
 
     @Override
     public Response foodDelete(String foodId) {
-        return null;
+        if(menuMapper.foodDelete(foodId)){
+            return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        }
+        else {
+            return Response.successResponse(ResponseCodeEnum.DELETE_ERROR.getCode(), ResponseCodeEnum.DELETE_ERROR.getDescription());
+        }
     }
 
     @Override
@@ -69,6 +74,13 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Response foodUpdate(FoodInfoDTO foodInfoDTO, String token) {
-        return null;
+        String sellerId = TokenUtils.getUserId(token);
+        foodInfoDTO.setSellerId(sellerId);
+        if(menuMapper.foodUpdate(foodInfoDTO)){
+            return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        }
+        else {
+            return Response.successResponse(ResponseCodeEnum.UPDATE_ERROR.getCode(), ResponseCodeEnum.UPDATE_ERROR.getDescription());
+        }
     }
 }

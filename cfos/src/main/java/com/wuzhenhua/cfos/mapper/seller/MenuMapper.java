@@ -25,7 +25,7 @@ public interface MenuMapper {
      * @param sellerId sellerId
      * @return List<MenuVO>
      */
-    List<MenuVO> menuInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("sellerId") String sellerId);
+    List<MenuVO> menuInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
 
     /**
      * 查找菜单信息列表条数
@@ -52,4 +52,20 @@ public interface MenuMapper {
      * @return boolean
      */
     boolean foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+
+    /**
+     * 修改菜品
+     *
+     * @param foodInfoDTO 菜品属性
+     * @return boolean
+     */
+    boolean foodUpdate(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+
+    /**
+     * 删除菜品
+     *
+     * @param foodId 菜品Id
+     * @return boolean
+     */
+    boolean foodDelete(@Param("foodId") String foodId);
 }

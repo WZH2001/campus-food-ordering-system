@@ -17,4 +17,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class QueryMenuInfoDTO extends PageUtil {
     private String foodName;
+    private String foodPrice;
 }

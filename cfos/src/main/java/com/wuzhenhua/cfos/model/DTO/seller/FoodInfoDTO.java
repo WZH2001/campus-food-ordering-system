@@ -18,7 +18,7 @@ public class FoodInfoDTO {
     private String foodId;
     private String foodName;
     private String foodPrice;
-    private String describe;
+    private String description;
     private Integer isRecommend;
     private String sellerId;
 }

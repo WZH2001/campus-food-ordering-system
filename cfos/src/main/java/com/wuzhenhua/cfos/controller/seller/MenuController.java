@@ -1,12 +1,11 @@
 package com.wuzhenhua.cfos.controller.seller;
 
-import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.service.seller.MenuService;
+import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,7 @@ public class MenuController {
     }
 
     @ApiOperation("添加菜品")
-    @PostMapping("/foodAdd")
+    @PostMapping ("/foodAdd")
     public Response foodAdd(@RequestBody FoodInfoDTO foodInfoDTO, @RequestHeader String token){
         return menuService.foodAdd(foodInfoDTO, token);
     }
@@ -52,7 +51,7 @@ public class MenuController {
 
     @ApiOperation("修改菜品")
     @PostMapping("/foodUpdate")
-    public Response foodUpdate(@RequestBody FoodInfoDTO foodInfoDTO, @RequestHeader String token){
+    public Response foodUpdate(@RequestParam FoodInfoDTO foodInfoDTO, @RequestHeader String token){
         return menuService.foodUpdate(foodInfoDTO, token);
     }
 }
