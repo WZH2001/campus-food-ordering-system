@@ -51,7 +51,7 @@ public class MenuController {
 
     @ApiOperation("修改菜品")
     @PostMapping("/foodUpdate")
-    public Response foodUpdate(@RequestParam FoodInfoDTO foodInfoDTO, @RequestHeader String token){
-        return menuService.foodUpdate(foodInfoDTO, token);
+    public Response foodUpdate(@RequestBody FoodInfoDTO foodInfoDTO){
+        return menuService.foodUpdate(foodInfoDTO);
     }
 }

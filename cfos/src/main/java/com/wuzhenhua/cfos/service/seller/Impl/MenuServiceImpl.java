@@ -34,7 +34,7 @@ public class MenuServiceImpl implements MenuService {
         Integer pageSize = queryMenuInfoDTO.getPageSize();
         String sellerId = TokenUtils.getUserId(token);
         List<MenuVO> menuInfo = menuMapper.menuInfo(pageNum, pageSize, queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
-        Integer total = menuMapper.menuInfoTotal(queryMenuInfoDTO.getFoodName(), sellerId);
+        Integer total = menuMapper.menuInfoTotal(queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
         Map<String, Object> res = new HashMap<>(20);
         res.put("menuInfo", menuInfo);
         res.put("total", total);
@@ -73,9 +73,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Response foodUpdate(FoodInfoDTO foodInfoDTO, String token) {
-        String sellerId = TokenUtils.getUserId(token);
-        foodInfoDTO.setSellerId(sellerId);
+    public Response foodUpdate(FoodInfoDTO foodInfoDTO) {
         if(menuMapper.foodUpdate(foodInfoDTO)){
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }

@@ -22,6 +22,7 @@ public interface MenuMapper {
      * @param  pageNum pageNum
      * @param  pageSize pageSize
      * @param  foodName foodName
+     * @param  foodPrice foodPrice
      * @param sellerId sellerId
      * @return List<MenuVO>
      */
@@ -32,9 +33,10 @@ public interface MenuMapper {
      *
      * @param foodName foodName
      * @param sellerId sellerId
+     * @param foodPrice foodPrice
      * @return Integer
      */
-    Integer menuInfoTotal(@Param("foodName") String foodName, @Param("sellerId") String sellerId);
+    Integer menuInfoTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
 
     /**
      * 查找菜品是否存在

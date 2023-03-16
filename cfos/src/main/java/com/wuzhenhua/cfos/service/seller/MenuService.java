@@ -52,8 +52,7 @@ public interface MenuService {
      * 修改菜品
      *
      * @param foodInfoDTO 修改信息
-     * @param token token
      * @return Response
      */
-    Response foodUpdate(FoodInfoDTO foodInfoDTO, String token);
+    Response foodUpdate(FoodInfoDTO foodInfoDTO);
 }

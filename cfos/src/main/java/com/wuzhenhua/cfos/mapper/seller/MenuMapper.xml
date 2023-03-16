@@ -33,10 +33,10 @@
         and
             f.is_delete = 0
         <if test="foodName != null and foodName != ''">
-            and f.food_name like concat('%' + #{foodName} + '%')
+            AND food_name Like concat('%',#{foodName},'%')
         </if>
         <if test="foodPrice != null and foodPrice != ''">
-            and f.food_price = #{foodPrice}
+            and food_price = #{foodPrice}
         </if>
         limit #{pageNum}, #{pageSize}
     </select>
@@ -51,7 +51,10 @@
         and
         f.is_delete = 0
         <if test="foodName != null and foodName != ''">
-            and f.food_name like concat('%' + #{foodName} + '%')
+            and food_name like concat('%' + #{foodName} + '%')
+        </if>
+        <if test="foodPrice != null and foodPrice != ''">
+            and food_price = #{foodPrice}
         </if>
     </select>
 
