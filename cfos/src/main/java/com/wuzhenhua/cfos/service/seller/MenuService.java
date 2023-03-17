@@ -1,8 +1,10 @@
 package com.wuzhenhua.cfos.service.seller;
 
-import com.wuzhenhua.cfos.utils.Response;
+import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
+import com.wuzhenhua.cfos.utils.PageUtil;
+import com.wuzhenhua.cfos.utils.Response;
 
 import java.util.List;
 
@@ -17,11 +19,20 @@ public interface MenuService {
     /**
      * 查找菜单信息列表
      *
+     * @param pageInfo 分页信息
+     * @param token token
+     * @return Response
+     */
+    Response menuInfo(PageUtil pageInfo, String token);
+
+    /**
+     * 模糊查找菜单信息列表
+     *
      * @param queryMenuInfoDTO 查询参数及分页信息
      * @param token token
      * @return Response
      */
-    Response menuInfo(QueryMenuInfoDTO queryMenuInfoDTO, String token);
+    Response menuInfoFuzzy(QueryMenuInfoDTO queryMenuInfoDTO, String token);
 
     /**
      * 添加菜品
@@ -51,8 +62,8 @@ public interface MenuService {
     /**
      * 修改菜品
      *
-     * @param foodInfoDTO 修改信息
+     * @param foodEditInfoDTO 修改信息
      * @return Response
      */
-    Response foodUpdate(FoodInfoDTO foodInfoDTO);
+    Response foodUpdate(FoodEditInfoDTO foodEditInfoDTO);
 }

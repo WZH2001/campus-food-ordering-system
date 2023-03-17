@@ -31,6 +31,13 @@ public class FoodManageServiceImpl implements FoodManageService {
         Integer pageNum = (pageInfo.getPageNum() - 1) * pageInfo.getPageSize();
         Integer pageSize = pageInfo.getPageSize();
         List<FoodBaseInfoVO> menuBaseInfo =  foodManageMapper.menuBaseInfo(pageNum, pageSize);
+        for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfo) {
+            if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
+                foodBaseInfoVO.setIsRecommend("已推荐");
+            } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
+                foodBaseInfoVO.setIsRecommend("未推荐");
+            }
+        }
         Integer total = foodManageMapper.menuBaseInfoTotal();
         Map<String, Object> res = new HashMap<>(20);
         res.put("menuBaseInfo", menuBaseInfo);
@@ -43,6 +50,13 @@ public class FoodManageServiceImpl implements FoodManageService {
         Integer pageNum = (menuBaseInfoDTO.getPageNum() - 1) * menuBaseInfoDTO.getPageSize();
         Integer pageSize = menuBaseInfoDTO.getPageSize();
         List<FoodBaseInfoVO> menuBaseInfoFuzzy =  foodManageMapper.menuBaseInfoFuzzy(pageNum, pageSize, menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+        for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfoFuzzy) {
+            if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
+                foodBaseInfoVO.setIsRecommend("已推荐");
+            } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
+                foodBaseInfoVO.setIsRecommend("未推荐");
+            }
+        }
         Integer total = foodManageMapper.menuBaseInfoFuzzyTotal(menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
         Map<String, Object> res = new HashMap<>(20);
         res.put("menuBaseInfoFuzzy", menuBaseInfoFuzzy);

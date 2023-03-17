@@ -1,5 +1,6 @@
 package com.wuzhenhua.cfos.mapper.seller;
 
+import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.VO.seller.MenuVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,12 +22,30 @@ public interface MenuMapper {
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
+     * @param sellerId sellerId
+     * @return List<MenuVO>
+     */
+    List<MenuVO> menuInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
+
+    /**
+     * 查找菜单信息列表条数
+     *
+     * @param sellerId sellerId
+     * @return Integer
+     */
+    Integer menuInfoTotal(@Param("sellerId") String sellerId);
+
+    /**
+     * 查找菜单信息列表
+     *
+     * @param  pageNum pageNum
+     * @param  pageSize pageSize
      * @param  foodName foodName
      * @param  foodPrice foodPrice
      * @param sellerId sellerId
      * @return List<MenuVO>
      */
-    List<MenuVO> menuInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
+    List<MenuVO> menuInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
 
     /**
      * 查找菜单信息列表条数
@@ -36,7 +55,7 @@ public interface MenuMapper {
      * @param foodPrice foodPrice
      * @return Integer
      */
-    Integer menuInfoTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
+    Integer menuInfoFuzzytal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
 
     /**
      * 查找菜品是否存在
@@ -58,10 +77,10 @@ public interface MenuMapper {
     /**
      * 修改菜品
      *
-     * @param foodInfoDTO 菜品属性
+     * @param foodEditInfoDTO 菜品属性
      * @return boolean
      */
-    boolean foodUpdate(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+    boolean foodUpdate(@Param("foodEditInfoDTO") FoodEditInfoDTO foodEditInfoDTO);
 
     /**
      * 删除菜品

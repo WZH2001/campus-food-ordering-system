@@ -19,6 +19,6 @@ public class MenuVO {
     private String foodName;
     private String foodPrice;
     private String description;
-    private Integer isRecommend;
+    private String isRecommend;
     private Integer todaySell;
 }

@@ -9,9 +9,9 @@
     </insert>
 
     <update id="foodUpdate">
-        update food set food_name = #{foodInfoDTO.foodName}, food_price = #{foodInfoDTO.foodPrice},
-                        description = #{foodInfoDTO.description}, is_recommend = #{foodInfoDTO.isRecommend}
-            where food_id = #{foodInfoDTO.foodId}
+        update food set food_name = #{foodEditInfoDTO.foodsEditFoodName}, food_price = #{foodEditInfoDTO.foodsEditFoodPrice},
+                        description = #{foodEditInfoDTO.foodsEditFoodDescription}, is_recommend = #{foodEditInfoDTO.foodsEditFoodIsRecommend}
+            where food_id = #{foodEditInfoDTO.foodId}
     </update>
 
     <delete id="foodDelete">
@@ -32,6 +32,34 @@
             f.seller_id = #{sellerId}
         and
             f.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="menuInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        food f
+        where
+        f.seller_id = #{sellerId}
+        and
+        f.is_delete = 0
+    </select>
+
+    <select id="menuInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.seller.MenuVO">
+        select
+        f.food_id as foodId,
+        f.food_name as foodName,
+        f.food_price as foodPrice,
+        f.description,
+        f.is_recommend as isRecommend,
+        f.today_sell as todaySell
+        from
+        food f
+        where
+        f.seller_id = #{sellerId}
+        and
+        f.is_delete = 0
         <if test="foodName != null and foodName != ''">
             AND food_name Like concat('%',#{foodName},'%')
         </if>
@@ -41,7 +69,7 @@
         limit #{pageNum}, #{pageSize}
     </select>
 
-    <select id="menuInfoTotal" resultType="java.lang.Integer">
+    <select id="menuInfoFuzzytal" resultType="java.lang.Integer">
         select
         count(*)
         from

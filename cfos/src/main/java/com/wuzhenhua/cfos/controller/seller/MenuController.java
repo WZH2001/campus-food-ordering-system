@@ -1,8 +1,10 @@
 package com.wuzhenhua.cfos.controller.seller;
 
+import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.service.seller.MenuService;
+import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,8 +29,14 @@ public class MenuController {
 
     @ApiOperation("查询菜品信息")
     @GetMapping("/menuInfo")
-    public Response menuInfo(QueryMenuInfoDTO queryMenuInfoDTO, @RequestHeader String token){
-        return menuService.menuInfo(queryMenuInfoDTO, token);
+    public Response menuInfo(PageUtil pageInfo, @RequestHeader String token){
+        return menuService.menuInfo(pageInfo, token);
+    }
+
+    @ApiOperation("模糊查询菜品信息")
+    @GetMapping("/menuInfoFuzzy")
+    public Response menuInfoFuzzy(QueryMenuInfoDTO queryMenuInfoDTO, @RequestHeader String token){
+        return menuService.menuInfoFuzzy(queryMenuInfoDTO, token);
     }
 
     @ApiOperation("添加菜品")
@@ -51,7 +59,7 @@ public class MenuController {
 
     @ApiOperation("修改菜品")
     @PostMapping("/foodUpdate")
-    public Response foodUpdate(@RequestBody FoodInfoDTO foodInfoDTO){
-        return menuService.foodUpdate(foodInfoDTO);
+    public Response foodUpdate(@RequestBody FoodEditInfoDTO foodEditInfoDTO){
+        return menuService.foodUpdate(foodEditInfoDTO);
     }
 }

@@ -1,13 +1,15 @@
 package com.wuzhenhua.cfos.service.seller.Impl;
 
-import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.utils.TokenUtils;
 import com.wuzhenhua.cfos.mapper.seller.MenuMapper;
+import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.model.VO.seller.MenuVO;
 import com.wuzhenhua.cfos.service.seller.MenuService;
+import com.wuzhenhua.cfos.utils.PageUtil;
+import com.wuzhenhua.cfos.utils.Response;
+import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +31,41 @@ public class MenuServiceImpl implements MenuService {
     MenuMapper menuMapper;
 
     @Override
-    public Response menuInfo(QueryMenuInfoDTO queryMenuInfoDTO, String token) {
+    public Response menuInfo(PageUtil pageInfo, String token) {
+        Integer pageNum = (pageInfo.getPageNum() - 1) * pageInfo.getPageSize();
+        Integer pageSize = pageInfo.getPageSize();
+        String sellerId = TokenUtils.getUserId(token);
+        List<MenuVO> menuInfo = menuMapper.menuInfo(pageNum, pageSize, sellerId);
+        for (MenuVO menuVO : menuInfo) {
+            if ("1".equals(menuVO.getIsRecommend())) {
+                menuVO.setIsRecommend("已推荐");
+            } else if ("0".equals(menuVO.getIsRecommend())) {
+                menuVO.setIsRecommend("未推荐");
+            }
+        }
+        Integer total = menuMapper.menuInfoTotal(sellerId);
+        Map<String, Object> res = new HashMap<>(20);
+        res.put("menuInfo", menuInfo);
+        res.put("total", total);
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response menuInfoFuzzy(QueryMenuInfoDTO queryMenuInfoDTO, String token) {
         Integer pageNum = (queryMenuInfoDTO.getPageNum() - 1) * queryMenuInfoDTO.getPageSize();
         Integer pageSize = queryMenuInfoDTO.getPageSize();
         String sellerId = TokenUtils.getUserId(token);
-        List<MenuVO> menuInfo = menuMapper.menuInfo(pageNum, pageSize, queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
-        Integer total = menuMapper.menuInfoTotal(queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
+        List<MenuVO> menuInfoFuzzy = menuMapper.menuInfoFuzzy(pageNum, pageSize, queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
+        for (MenuVO menuVO : menuInfoFuzzy) {
+            if ("1".equals(menuVO.getIsRecommend())) {
+                menuVO.setIsRecommend("已推荐");
+            } else if ("0".equals(menuVO.getIsRecommend())) {
+                menuVO.setIsRecommend("未推荐");
+            }
+        }
+        Integer total = menuMapper.menuInfoFuzzytal(queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
         Map<String, Object> res = new HashMap<>(20);
-        res.put("menuInfo", menuInfo);
+        res.put("menuInfoFuzzy", menuInfoFuzzy);
         res.put("total", total);
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
@@ -47,6 +76,9 @@ public class MenuServiceImpl implements MenuService {
         if(menuMapper.queryFoodByFoodName(foodInfoDTO.getFoodName(), sellerId) == 0){
             foodInfoDTO.setFoodId(UUID.randomUUID().toString().replace("-", ""));
             foodInfoDTO.setSellerId(sellerId);
+            if("".equals(foodInfoDTO.getDescription()) || foodInfoDTO.getDescription() == null){
+                foodInfoDTO.setDescription("无");
+            }
             if(menuMapper.foodAdd(foodInfoDTO)){
                 return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
@@ -73,8 +105,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Response foodUpdate(FoodInfoDTO foodInfoDTO) {
-        if(menuMapper.foodUpdate(foodInfoDTO)){
+    public Response foodUpdate(FoodEditInfoDTO foodEditInfoDTO) {
+        if("".equals(foodEditInfoDTO.getFoodsEditFoodDescription()) || foodEditInfoDTO.getFoodsEditFoodDescription() == null){
+            foodEditInfoDTO.setFoodsEditFoodDescription("空");
+        }
+        if(menuMapper.foodUpdate(foodEditInfoDTO)){
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {
