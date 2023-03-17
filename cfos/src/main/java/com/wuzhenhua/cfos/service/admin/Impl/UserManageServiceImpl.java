@@ -28,11 +28,23 @@ public class UserManageServiceImpl implements UserManageService {
     private UserManageMapper userManageMapper;
 
     @Override
-    public Response studentBaseInfo(StudentBaseInfoDTO studentBaseInfo) {
+    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfo) {
         Integer pageNum = (studentBaseInfo.getPageNum() - 1) * studentBaseInfo.getPageSize();
         Integer pageSize = studentBaseInfo.getPageSize();
-        List<StudentBaseInfoVO> studentBaseInfoVO =  userManageMapper.studentBaseInfo(pageNum, pageSize, studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
-        Integer total = userManageMapper.studentBaseInfoTotal(studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+        List<StudentBaseInfoVO> studentBaseInfoFuzzy =  userManageMapper.studentBaseInfoFuzzy(pageNum, pageSize, studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+        Integer total = userManageMapper.studentBaseInfoFuzzyTotal(studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+        Map<String, Object> res = new HashMap<>(20);
+        res.put("studentBaseInfoFuzzy", studentBaseInfoFuzzy);
+        res.put("total", total);
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response studentBaseInfo(PageUtil pageInfo) {
+        Integer pageNum = (pageInfo.getPageNum() - 1) * pageInfo.getPageSize();
+        Integer pageSize = pageInfo.getPageSize();
+        List<StudentBaseInfoVO> studentBaseInfoVO =  userManageMapper.studentBaseInfo(pageNum, pageSize);
+        Integer total = userManageMapper.studentBaseInfoTotal();
         Map<String, Object> res = new HashMap<>(20);
         res.put("studentBaseInfo", studentBaseInfoVO);
         res.put("total", total);
@@ -64,13 +76,25 @@ public class UserManageServiceImpl implements UserManageService {
     }
 
     @Override
-    public Response sellerBaseInfo(SellerBaseInfoDTO sellerBaseInfoDTO) {
-        Integer pageNum = (sellerBaseInfoDTO.getPageNum() - 1) * sellerBaseInfoDTO.getPageSize();
-        Integer pageSize = sellerBaseInfoDTO.getPageSize();
-        List<SellerBaseInfoVO> sellerBaseInfoVO =  userManageMapper.sellerBaseInfo(pageNum, pageSize, sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
-        Integer total = userManageMapper.sellerBaseInfoTotal(sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+    public Response sellerBaseInfo(PageUtil pageUtil) {
+        Integer pageNum = (pageUtil.getPageNum() - 1) * pageUtil.getPageSize();
+        Integer pageSize = pageUtil.getPageSize();
+        List<SellerBaseInfoVO> sellerBaseInfoVO =  userManageMapper.sellerBaseInfo(pageNum, pageSize);
+        Integer total = userManageMapper.sellerBaseInfoTotal();
         Map<String, Object> res = new HashMap<>(20);
         res.put("sellerBaseInfo", sellerBaseInfoVO);
+        res.put("total", total);
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO) {
+        Integer pageNum = (sellerBaseInfoDTO.getPageNum() - 1) * sellerBaseInfoDTO.getPageSize();
+        Integer pageSize = sellerBaseInfoDTO.getPageSize();
+        List<SellerBaseInfoVO> sellerBaseInfoFuzzy =  userManageMapper.sellerBaseInfoFuzzy(pageNum, pageSize, sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+        Integer total = userManageMapper.sellerBaseInfoFuzzyTotal(sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+        Map<String, Object> res = new HashMap<>(20);
+        res.put("sellerBaseInfoFuzzy", sellerBaseInfoFuzzy);
         res.put("total", total);
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }

@@ -19,20 +19,36 @@ public interface UserManageMapper {
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
+     * @return List<StudentBaseInfoVO>
+     */
+    List<StudentBaseInfoVO> studentBaseInfo(@Param("pageNum")Integer pageNum, @Param("pageSize")Integer pageSize);
+
+    /**
+     * 查找学生信息列表条数
+     *
+     * @return Integer
+     */
+    Integer studentBaseInfoTotal();
+
+    /**
+     * 模糊查找学生信息列表
+     *
+     * @param  pageNum pageNum
+     * @param  pageSize pageSize
      * @param  username username
      * @param  address address
      * @return List<StudentBaseInfoVO>
      */
-    List<StudentBaseInfoVO> studentBaseInfo(@Param("pageNum")Integer pageNum, @Param("pageSize")Integer pageSize, @Param("username")String username, @Param("address")String address);
+    List<StudentBaseInfoVO> studentBaseInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("username") String username, @Param("address") String address);
 
     /**
-     * 查找学生信息列表条数
+     * 模糊查找学生信息列表条数
      *
      * @param username username
      * @param address address
      * @return Integer
      */
-    Integer studentBaseInfoTotal(@Param("username")String username, @Param("address")String address);
+    Integer studentBaseInfoFuzzyTotal(@Param("username") String username, @Param("address") String address);
 
     /**
      * 查找学生订餐信息
@@ -75,22 +91,38 @@ public interface UserManageMapper {
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
+     * @return List<StudentBaseInfoVO>
+     */
+    List<SellerBaseInfoVO> sellerBaseInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查找学生信息列表条数
+     *
+     * @return Integer
+     */
+    Integer sellerBaseInfoTotal();
+
+    /**
+     * 模糊查找商家信息列表
+     *
+     * @param  pageNum pageNum
+     * @param  pageSize pageSize
      * @param  windowName windowName
      * @param  username username
      * @param  address address
      * @return List<StudentBaseInfoVO>
      */
-    List<SellerBaseInfoVO> sellerBaseInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("username") String username, @Param("address") String address, @Param("windowName") String windowName);
+    List<SellerBaseInfoVO> sellerBaseInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("username") String username, @Param("address") String address, @Param("windowName") String windowName);
 
     /**
-     * 查找学生信息列表条数
+     * 模糊查找学生信息列表条数
      *
      * @param  windowName windowName
      * @param username username
      * @param address address
      * @return Integer
      */
-    Integer sellerBaseInfoTotal(@Param("username") String username, @Param("address") String address, @Param("windowName") String windowName);
+    Integer sellerBaseInfoFuzzyTotal(@Param("username") String username, @Param("address") String address, @Param("windowName") String windowName);
 
     /**
      * 查找商家菜单信息

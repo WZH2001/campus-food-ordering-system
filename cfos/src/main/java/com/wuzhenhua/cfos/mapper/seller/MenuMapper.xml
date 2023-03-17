@@ -51,7 +51,7 @@
         and
         f.is_delete = 0
         <if test="foodName != null and foodName != ''">
-            and food_name like concat('%' + #{foodName} + '%')
+            and food_name like concat('%', #{foodName}, '%')
         </if>
         <if test="foodPrice != null and foodPrice != ''">
             and food_price = #{foodPrice}

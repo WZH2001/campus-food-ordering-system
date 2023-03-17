@@ -14,16 +14,39 @@
             student s
         where
             s.is_delete = 0
-            <if test="username != null and username !=''">
-                AND student_username Like concat('%',#{username},'%')
-            </if>
-            <if test="address != null and address !=''">
-                AND student_address Like concat('%',#{address},'%')
-            </if>
         limit #{pageNum}, #{pageSize}
     </select>
 
     <select id="studentBaseInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        student s
+        where
+        s.is_delete = 0
+    </select>
+
+    <select id="studentBaseInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentBaseInfoVO">
+        select
+        s.student_id as studentId,
+        s.student_username as username,
+        s.student_name as name,
+        s.student_telephone as telephone,
+        s.student_address as address
+        from
+        student s
+        where
+        s.is_delete = 0
+        <if test="username != null and username !=''">
+            AND student_username Like concat('%',#{username},'%')
+        </if>
+        <if test="address != null and address !=''">
+            AND student_address Like concat('%',#{address},'%')
+        </if>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="studentBaseInfoFuzzyTotal" resultType="java.lang.Integer">
         select
         count(*)
         from
@@ -174,6 +197,31 @@
             seller s
        where
             s.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="sellerBaseInfoTotal" resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        seller s
+        where
+        s.is_delete = 0
+    </select>
+
+    <select id="sellerBaseInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerBaseInfoVO">
+        select
+        s.seller_id as sellerId,
+        s.seller_username as username,
+        s.principal_name as principalName,
+        s.principal_telephone as principalTelephone,
+        s.window_name as windowName,
+        s.window_address as windowAddress,
+        s.work_time as workTime
+        from
+        seller s
+        where
+        s.is_delete = 0
         <if test="username != null and username !=''">
             AND seller_username Like concat('%',#{username},'%')
         </if>
@@ -186,7 +234,7 @@
         limit #{pageNum}, #{pageSize}
     </select>
 
-    <select id="sellerBaseInfoTotal" resultType="java.lang.Integer">
+    <select id="sellerBaseInfoFuzzyTotal" resultType="java.lang.Integer">
         select
         count(*)
         from
@@ -210,7 +258,8 @@
             s.window_name as windowName,
             f.food_name as foodName,
             f.food_price as foodPrice,
-            f.description as foodDescription
+            f.description as foodDescription,
+            f.is_recommend as isRecommend
         from
             seller s
         inner join

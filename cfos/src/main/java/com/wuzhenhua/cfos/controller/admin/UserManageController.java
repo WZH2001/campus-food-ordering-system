@@ -24,10 +24,16 @@ public class UserManageController {
     @Autowired
     private UserManageService userManageService;
 
+    @ApiOperation("模糊查询学生基本信息")
+    @GetMapping("/studentBaseInfoFuzzy")
+    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfoDTO){
+        return userManageService.studentBaseInfoFuzzy(studentBaseInfoDTO);
+    }
+
     @ApiOperation("查询学生基本信息")
     @GetMapping("/studentBaseInfo")
-    public Response studentBaseInfo(StudentBaseInfoDTO studentBaseInfoDTO){
-        return userManageService.studentBaseInfo(studentBaseInfoDTO);
+    public Response studentBaseInfo(PageUtil pageInfo){
+        return userManageService.studentBaseInfo(pageInfo);
     }
 
     @ApiOperation("查询学生订餐信息")
@@ -44,8 +50,14 @@ public class UserManageController {
 
     @ApiOperation("查询商家基本信息")
     @GetMapping("/sellerBaseInfo")
-    public Response sellerBaseInfo(SellerBaseInfoDTO sellerBaseInfoDTO){
-        return userManageService.sellerBaseInfo(sellerBaseInfoDTO);
+    public Response sellerBaseInfo(PageUtil pageInfo){
+        return userManageService.sellerBaseInfo(pageInfo);
+    }
+
+    @ApiOperation("模糊查询商家基本信息")
+    @GetMapping("/sellerBaseInfoFuzzy")
+    public Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO){
+        return userManageService.sellerBaseInfoFuzzy(sellerBaseInfoDTO);
     }
 
     @ApiOperation("查询商家菜单信息")

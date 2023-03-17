@@ -5,18 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Author wuzhenhua
- * @Title SellerFoodInfoVO
- * @ProjectName: campus-food-ordering-system
- * @Description: 商家菜品信息返回参数
- * @Date 2022/12/14 14:18
+ * @program: campus-food-ordering-system
+ * @description: 菜品基本信息返回参数
+ * @author: wuzhenhua
+ * @create: 2023-03-17 12:31
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SellerFoodInfoVO extends SellerBaseInfoVO{
+public class FoodBaseInfoVO {
     private String foodName;
     private String foodPrice;
     private String foodDescription;
     private String isRecommend;
+    private String windowName;
+    private Integer todaySell;
 }

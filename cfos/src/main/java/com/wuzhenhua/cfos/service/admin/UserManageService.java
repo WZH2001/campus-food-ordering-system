@@ -16,10 +16,18 @@ public interface UserManageService {
     /**
      * 查找学生信息列表
      *
-     * @param studentBaseInfoDTO 查询信息及分页信息
+     * @param pageInfo 分页信息
      * @return Response
      */
-    Response studentBaseInfo(StudentBaseInfoDTO studentBaseInfoDTO);
+    Response studentBaseInfo(PageUtil pageInfo);
+
+    /**
+     * 模糊查找学生信息列表
+     *
+     * @param studentBaseInfoDTO 模糊查询信息及分页信息
+     * @return Response
+     */
+    Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfoDTO);
 
     /**
      * 查找学生订餐信息
@@ -42,10 +50,18 @@ public interface UserManageService {
     /**
      * 查找商家信息
      *
+     * @param pageUtil 分页信息
+     * @return Response
+     */
+    Response sellerBaseInfo(PageUtil pageUtil);
+
+    /**
+     * 模糊查找商家信息
+     *
      * @param sellerBaseInfoDTO 查询信息及分页信息
      * @return Response
      */
-    Response sellerBaseInfo(SellerBaseInfoDTO sellerBaseInfoDTO);
+    Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO);
 
     /**
      * 查找商家菜单信息
