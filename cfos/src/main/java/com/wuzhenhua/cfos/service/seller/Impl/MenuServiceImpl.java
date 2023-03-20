@@ -79,7 +79,7 @@ public class MenuServiceImpl implements MenuService {
             if("".equals(foodInfoDTO.getDescription()) || foodInfoDTO.getDescription() == null){
                 foodInfoDTO.setDescription("无");
             }
-            if(menuMapper.foodAdd(foodInfoDTO)){
+            if(menuMapper.foodAdd(foodInfoDTO) != 0){
                 return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
             }
             else {
@@ -91,7 +91,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Response foodDelete(String foodId) {
-        if(menuMapper.foodDelete(foodId)){
+        if(menuMapper.foodDelete(foodId) != 0){
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {
@@ -109,7 +109,7 @@ public class MenuServiceImpl implements MenuService {
         if("".equals(foodEditInfoDTO.getFoodsEditFoodDescription()) || foodEditInfoDTO.getFoodsEditFoodDescription() == null){
             foodEditInfoDTO.setFoodsEditFoodDescription("空");
         }
-        if(menuMapper.foodUpdate(foodEditInfoDTO)){
+        if(menuMapper.foodUpdate(foodEditInfoDTO) != 0){
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {

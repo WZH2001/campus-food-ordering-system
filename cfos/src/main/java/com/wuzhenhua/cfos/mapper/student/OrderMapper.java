@@ -1,5 +1,6 @@
 package com.wuzhenhua.cfos.mapper.student;
 
+import com.wuzhenhua.cfos.model.DTO.student.OrderInfoDTO;
 import com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +30,51 @@ public interface OrderMapper {
      * @return Integer
      */
     Integer allMenuInfoTotal();
+
+    /**
+     * 模糊查询菜单信息
+     *
+     * @param pageNum pageNum
+     * @param pageSize pageSize
+     * @param foodName foodName
+     * @param foodPrice foodPrice
+     * @param windowName windowName
+     * @return List<AllMenuInfoVO>
+     */
+    List<AllMenuInfoVO> menuInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName);
+
+    /**
+     * 模糊查询菜单信息条数
+     *
+     * @param foodName foodName
+     * @param foodPrice foodPrice
+     * @param windowName windowName
+     * @return Integer
+     */
+    Integer menuInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName);
+
+    /**
+     * 在学校吃订餐
+     *
+     * @param orderInfoList orderInfoList
+     * @return Integer
+     */
+    Integer eatAtCanteenOrder(@Param("orderInfoList") List<OrderInfoDTO> orderInfoList);
+
+    /**
+     * 跟新菜单表中菜品的今日销售量
+     *
+     * @param number number
+     * @param foodId foodId
+     * @return Integer
+     */
+    Integer updateTodaySellFromFood(@Param("number") Integer number, @Param("foodId") String foodId);
+
+    /**
+     * 在学校吃订餐
+     *
+     * @param orderInfoList orderInfoList
+     * @return Integer
+     */
+    Integer deliveryOrder(@Param("orderInfoList") List<OrderInfoDTO> orderInfoList);
 }

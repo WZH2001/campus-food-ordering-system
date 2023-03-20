@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.student.MyOrderMapper">
+    <select id="getFoodIdsAndNumber" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO">
+        select count(food_id) as foodNumber, food_id as foodId from forder
+                where student_id = #{studentId} group by food_id limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="myOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO">
+        select fo.food_id as foodId, count(fo.food_id) as foodNumber,
+               f.food_name as foodName, f.food_price as foodPrice,
+               s.window_name as windowName, s.window_address as windowAddress, s.principal_telephone as principalTelephone
+        from food f
+        inner join seller s
+        on s.seller_id = f.seller_id
+        inner join forder fo
+        on fo.food_id = f.food_id
+        where f.food_id in
+        (
+            select food_id from forder
+            where student_id = #{studentId} group by food_id
+        )
+        group by f.food_id
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="myOrderInfoTotal" resultType="java.lang.Integer">
+        select count(distinct food_id) from forder
+        where student_id = #{studentId}
+    </select>
+</mapper>

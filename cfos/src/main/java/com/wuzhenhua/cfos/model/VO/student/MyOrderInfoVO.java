@@ -1,21 +1,24 @@
-package com.wuzhenhua.cfos.model.DTO.student;
+package com.wuzhenhua.cfos.model.VO.student;
 
-import com.wuzhenhua.cfos.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * @program: campus-food-ordering-system
- * @description: 查询所有菜单信息请求参数
+ * @description: 我的订单信息返回参数
  * @author: wuzhenhua
- * @create: 2022-12-15 20:03
+ * @create: 2023-03-19 18:04
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AllMenuInfoDTO extends PageUtil {
+public class MyOrderInfoVO {
+    private String foodId;
     private String foodName;
     private String foodPrice;
     private String windowName;
+    private String principalTelephone;
+    private String windowAddress;
+    private Integer foodNumber;
 }

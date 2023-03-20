@@ -72,7 +72,7 @@ public interface MenuMapper {
      * @param foodInfoDTO 菜品属性
      * @return boolean
      */
-    boolean foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+    Integer foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
 
     /**
      * 修改菜品
@@ -80,7 +80,7 @@ public interface MenuMapper {
      * @param foodEditInfoDTO 菜品属性
      * @return boolean
      */
-    boolean foodUpdate(@Param("foodEditInfoDTO") FoodEditInfoDTO foodEditInfoDTO);
+    Integer foodUpdate(@Param("foodEditInfoDTO") FoodEditInfoDTO foodEditInfoDTO);
 
     /**
      * 删除菜品
@@ -88,5 +88,5 @@ public interface MenuMapper {
      * @param foodId 菜品Id
      * @return boolean
      */
-    boolean foodDelete(@Param("foodId") String foodId);
+    Integer foodDelete(@Param("foodId") String foodId);
 }

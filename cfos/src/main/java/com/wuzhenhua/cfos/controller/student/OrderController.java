@@ -1,14 +1,15 @@
 package com.wuzhenhua.cfos.controller.student;
 
+import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
 import com.wuzhenhua.cfos.service.student.OrderService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @program: campus-food-ordering-system
@@ -27,5 +28,23 @@ public class OrderController {
     @GetMapping("/allMenuInfo")
     public Response allMenuInfo(PageUtil pageInfo){
        return orderService.allMenuInfo(pageInfo);
+    }
+
+    @ApiOperation("模糊查询菜品")
+    @GetMapping("/menuInfoFuzzy")
+    public Response menuInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO){
+        return orderService.menuInfoFuzzy(allMenuInfoDTO);
+    }
+
+    @ApiOperation("在学校吃订餐")
+    @PostMapping("/eatAtCanteenOrder")
+    public Response eatAtCanteenOrder(@RequestBody Map<String,Object> params, @RequestHeader String token){
+        return orderService.eatAtCanteenOrder(params.get("foodId").toString(), params.get("getTime").toString(), (Integer) params.get("number"), token);
+    }
+
+    @ApiOperation("食堂配送订餐")
+    @PostMapping("/deliveryOrder")
+    public Response deliveryOrder(@RequestBody Map<String,Object> params, @RequestHeader String token){
+        return orderService.deliveryOrder(params.get("foodId").toString(), params.get("sendTime").toString(), (Integer) params.get("number"), token);
     }
 }

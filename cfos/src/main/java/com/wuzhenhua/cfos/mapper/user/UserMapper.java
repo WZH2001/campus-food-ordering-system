@@ -21,15 +21,15 @@ public interface UserMapper {
      * @param register 学生信息
      * @return Boolean 是否成功
      */
-    Boolean studentRegister(@Param("register") UserRegisterDTO register);
+    Integer studentRegister(@Param("register") UserRegisterDTO register);
+
     /**
      * 商家注册
      *
      * @param register 商家信息
      * @return Boolean 是否成功
      */
-
-    Boolean sellerRegister(@Param("register") UserRegisterDTO register);
+    Integer sellerRegister(@Param("register") UserRegisterDTO register);
 
     /**
      * 管理员登录

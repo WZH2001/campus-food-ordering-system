@@ -18,9 +18,10 @@ public class AllMenuInfoVO {
     private String principalTelephone;
     private String windowName;
     private String windowAddress;
-    private String workTime;
     private String foodId;
     private String foodName;
     private String foodPrice;
     private String description;
+    private String todaySell;
+    private String isRecommend;
 }

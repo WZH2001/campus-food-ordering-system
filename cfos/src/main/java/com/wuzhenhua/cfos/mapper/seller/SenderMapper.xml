@@ -3,16 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.seller.SenderMapper">
+    <insert id="senderAdd">
+        insert into sender(sender_id,sender_name,sender_telephone,work_date,is_delete,seller_id)
+        values(#{senderInfoDTO.senderId},#{senderInfoDTO.senderName},#{senderInfoDTO.telephone},#{senderInfoDTO.workDate},0,#{senderInfoDTO.sellerId})
+    </insert>
+
+    <update id="senderUpdate">
+        update sender set sender_name = #{senderInfoDTO.senderEditSenderName},
+                          sender_telephone = #{senderInfoDTO.senderEditSenderTelephone}
+        where sender_id = #{senderInfoDTO.senderId}
+    </update>
+
+    <update id="senderDelete">
+        update sender set is_delete = 1 where sender_id = #{senderId}
+    </update>
 
     <select id="senderInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.SenderVO">
-        select sender_id as sellerId, sender_name as sellerName, sender_telephone as sellerTelephone
+        select sender_id as senderId,
+               sender_name as senderName,
+               sender_telephone as telephone,
+               work_date as workDate
         from sender
         where seller_id = #{sellerId}
+        and is_delete = 0
+        limit #{pageNum}, #{pageSize}
     </select>
 
     <select id="senderInfoTotal" resultType="java.lang.Integer">
         select count(*)
         from sender
         where seller_id = #{sellerId}
+        and is_delete = 0
     </select>
 </mapper>

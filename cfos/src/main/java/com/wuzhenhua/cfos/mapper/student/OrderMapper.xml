@@ -3,12 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.OrderMapper">
+    <insert id="eatAtCanteenOrder">
+        insert into forder(order_id, order_time, take_time, is_send, food_id, student_id) values
+        <foreach collection="orderInfoList" item="orderInfo" separator=",">
+            (#{orderInfo.orderId},
+            #{orderInfo.orderTime},
+            #{orderInfo.takeTime},
+            #{orderInfo.isSend},
+            #{orderInfo.foodId},
+            #{orderInfo.studentId})
+        </foreach>
+    </insert>
+
+    <insert id="deliveryOrder">
+        insert into forder(order_id, order_time, send_time, is_send, food_id, student_id) values
+        <foreach collection="orderInfoList" item="orderInfo" separator=",">
+            (#{orderInfo.orderId},
+            #{orderInfo.orderTime},
+            #{orderInfo.sendTime},
+            #{orderInfo.isSend},
+            #{orderInfo.foodId},
+            #{orderInfo.studentId})
+        </foreach>
+    </insert>
+
+    <update id="updateTodaySellFromFood">
+        update food set today_sell = today_sell + #{number} where food_id = #{foodId}
+    </update>
 
     <select id="allMenuInfo" resultType="com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO">
         select s.seller_id as sellerId, s.principal_telephone as principalTelephone,
                s.window_name as windowName, s.window_address as windowAddress,
-               s.work_time as workTime, f.food_id as foodId, f.food_name as foodName,
-               f.food_price as foodPrice, f.description
+                f.food_id as foodId, f.food_name as foodName,
+               f.food_price as foodPrice, f.description, f.today_sell as todaySell,f.is_recommend as isRecommend
         from food f
         inner join seller s
         on f.seller_id = s.seller_id
@@ -24,5 +51,45 @@
                             on f.seller_id = s.seller_id
         where s.is_delete = 0
           and f.is_delete = 0
+    </select>
+
+    <select id="menuInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO">
+        select s.seller_id as sellerId, s.principal_telephone as principalTelephone,
+               s.window_name as windowName, s.window_address as windowAddress,
+               f.food_id as foodId, f.food_name as foodName,
+               f.food_price as foodPrice, f.description, f.today_sell as todaySell,f.is_recommend as isRecommend
+        from food f
+                 inner join seller s
+                            on f.seller_id = s.seller_id
+        where s.is_delete = 0
+          and f.is_delete = 0
+          <if test="foodName != null and foodName != ''">
+              and food_name like concat('%', #{foodName}, '%')
+          </if>
+        <if test="foodPrice != null and foodPrice != ''">
+            and food_price = #{foodPrice}
+        </if>
+        <if test="windowName != null and windowName != ''">
+            and window_name like concat('%', #{windowName}, '%')
+        </if>
+            limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="menuInfoFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from food f
+                 inner join seller s
+                            on f.seller_id = s.seller_id
+        where s.is_delete = 0
+          and f.is_delete = 0
+        <if test="foodName != null and foodName != ''">
+            and food_name like concat('%', #{foodName}, '%')
+        </if>
+        <if test="foodPrice != null and foodPrice != ''">
+            and food_price = #{foodPrice}
+        </if>
+        <if test="windowName != null and windowName != ''">
+            and window_name like concat('%', #{windowName}, '%')
+        </if>
     </select>
 </mapper>

@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.seller.MenuMapper">
     <insert id="foodAdd">
-        insert into food(food_id, food_name, food_price, description, is_recommend, seller_id, is_delete)
-        values(#{foodInfoDTO.foodId}, #{foodInfoDTO.foodName}, #{foodInfoDTO.foodPrice}, #{foodInfoDTO.description}, #{foodInfoDTO.isRecommend}, #{foodInfoDTO.sellerId}, 0)
+        insert into food(food_id, food_name, food_price, description, is_recommend, today_sell, seller_id, is_delete)
+        values(#{foodInfoDTO.foodId}, #{foodInfoDTO.foodName}, #{foodInfoDTO.foodPrice}, #{foodInfoDTO.description}, #{foodInfoDTO.isRecommend}, 0, #{foodInfoDTO.sellerId}, 0)
     </insert>
 
     <update id="foodUpdate">
@@ -14,9 +14,9 @@
             where food_id = #{foodEditInfoDTO.foodId}
     </update>
 
-    <delete id="foodDelete">
-        delete from food where food_id = #{foodId}
-    </delete>
+    <update id="foodDelete">
+        update food set is_delete = 1 where food_id = #{foodId}
+    </update>
 
     <select id="menuInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.MenuVO">
         select
