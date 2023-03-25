@@ -1,49 +1,48 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.mapper.student.OrderMapper;
+import com.wuzhenhua.cfos.mapper.student.CollectMapper;
 import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
-import com.wuzhenhua.cfos.model.DTO.student.OrderInfoDTO;
+import com.wuzhenhua.cfos.model.DTO.student.BatchCollectDTO;
 import com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO;
-import com.wuzhenhua.cfos.service.student.OrderService;
+import com.wuzhenhua.cfos.service.student.CollectService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * @program: campus-food-ordering-system
- * @description: 学生点餐
+ * @description: 学生收藏
  * @author: wuzhenhua
- * @create: 2022-12-15 19:09
+ * @create: 2023-03-25 01:19
  */
 @Service
-public class OrderServiceImpl implements OrderService {
+public class CollectServiceImpl implements CollectService {
     @Autowired
-    OrderMapper orderMapper;
+    private CollectMapper collectMapper;
 
     @Override
-    public Response allMenuInfo(PageUtil pageInfo) {
-        List<AllMenuInfoVO> allMenuInfo;
+    public Response notCollectFoodInfo(PageUtil pageInfo, String token) {
+        String studentId = TokenUtils.getUserId(token);
+        List<AllMenuInfoVO> notCollectFoodInfo;
         Integer total;
         HashMap<String , Object> res = new HashMap<>(20);
         try {
-            allMenuInfo = orderMapper.allMenuInfo(pageInfo.getPageNum(), pageInfo.getPageSize());
-            for (AllMenuInfoVO allMenuInfoVO : allMenuInfo) {
+            notCollectFoodInfo = collectMapper.notCollectFoodInfo(pageInfo.getPageNum(), pageInfo.getPageSize(), studentId);
+            for (AllMenuInfoVO allMenuInfoVO : notCollectFoodInfo) {
                 if ("1".equals(allMenuInfoVO.getIsRecommend())) {
                     allMenuInfoVO.setIsRecommend("已推荐");
                 } else if ("0".equals(allMenuInfoVO.getIsRecommend())) {
                     allMenuInfoVO.setIsRecommend("未推荐");
                 }
             }
-            total = orderMapper.allMenuInfoTotal();
-            res.put("allMenuInfo", allMenuInfo);
+            total = collectMapper.notCollectFoodInfoTotal(studentId);
+            res.put("notCollectFoodInfo", notCollectFoodInfo);
             res.put("total", total);
         } catch (Exception e){
             e.printStackTrace();
@@ -53,23 +52,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Response menuInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO) {
-        List<AllMenuInfoVO> menuInfoFuzzy;
+    public Response notCollectFoodInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token) {
+        String studentId = TokenUtils.getUserId(token);
+        List<AllMenuInfoVO> notCollectFoodInfoFuzzy;
         Integer total;
         HashMap<String , Object> res = new HashMap<>(20);
         try {
-            menuInfoFuzzy = orderMapper.menuInfoFuzzy(allMenuInfoDTO.getPageNum(), allMenuInfoDTO.getPageSize(), allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName());
-            for (AllMenuInfoVO allMenuInfoVO : menuInfoFuzzy) {
+            notCollectFoodInfoFuzzy = collectMapper.notCollectFoodInfoFuzzy(allMenuInfoDTO.getPageNum(), allMenuInfoDTO.getPageSize(), allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName(), studentId);
+            for (AllMenuInfoVO allMenuInfoVO : notCollectFoodInfoFuzzy) {
                 if ("1".equals(allMenuInfoVO.getIsRecommend())) {
                     allMenuInfoVO.setIsRecommend("已推荐");
                 } else if ("0".equals(allMenuInfoVO.getIsRecommend())) {
                     allMenuInfoVO.setIsRecommend("未推荐");
                 }
             }
-            total = orderMapper.menuInfoFuzzyTotal(allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName());
-            res.put("menuInfoFuzzy", menuInfoFuzzy);
+            total = collectMapper.notCollectFoodInfoFuzzyTotal(allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName(), studentId);
+            res.put("notCollectFoodInfoFuzzy", notCollectFoodInfoFuzzy);
             res.put("total", total);
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
@@ -77,40 +77,39 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Response eatAtCanteenOrder(String foodId, String takeTime, Integer number, String token) {
-        String orderId = UUID.randomUUID().toString().replace("-", "");
-        String studentId = TokenUtils.getUserId(token);
+    public Response singleCollect(String foodId, String token) {
+        String collectId = UUID.randomUUID().toString().replace("-", "");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String orderTime = sdf.format(new Date());
-        OrderInfoDTO orderInfoDTO = new OrderInfoDTO(studentId, foodId, orderId, null, orderTime, takeTime, null, 0, number);
+        String collectTime = sdf.format(new Date());
+        String studentId = TokenUtils.getUserId(token);
         try {
-            if(orderMapper.eatAtCanteenOrder(orderInfoDTO) != 0 && orderMapper.updateTodaySellFromFood(number, foodId) == 0){
+            if(collectMapper.singleCollect(collectId, collectTime, studentId, foodId) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
             }
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Response deliveryOrder(String foodId, String sendTime, Integer number, String token) {
-        String orderId = UUID.randomUUID().toString().replace("-", "");
+    public Response batchCollect(List<String> foodIds, String token) {
         String studentId = TokenUtils.getUserId(token);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String orderTime = sdf.format(new Date());
-        OrderInfoDTO orderInfoDTO = new OrderInfoDTO(studentId, foodId, orderId, sendTime, orderTime, null, sendTime, 1, number);
-        try {
-            if(orderMapper.deliveryOrder(orderInfoDTO) != 0 && orderMapper.updateTodaySellFromFood(number, foodId) == 0){
+        String collectTime = sdf.format(new Date());
+        List<BatchCollectDTO> batchCollectDTOList = new ArrayList<>();
+        for(int i = 0; i < foodIds.size(); i++){
+            String collectId = UUID.randomUUID().toString().replace("-", "");
+            BatchCollectDTO batchCollectDTO = new BatchCollectDTO(collectId, collectTime, studentId, foodIds.get(i));
+            batchCollectDTOList.add(i, batchCollectDTO);
+        }
+        try{
+            if(collectMapper.batchCollect(batchCollectDTOList) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
             }
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());

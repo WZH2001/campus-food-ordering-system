@@ -1,5 +1,6 @@
 package com.wuzhenhua.cfos.mapper.student;
 
+import com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO;
 import com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,5 +31,14 @@ public interface MyOrderMapper {
      * @param studentId studentId
      * @return Integer
      */
-    Integer myOrderInfoTotal(String studentId);
+    Integer myOrderInfoTotal(@Param("studentId") String studentId);
+
+    /**
+     * 查询我的订单详情信息
+     *
+     * @param orderId orderId
+     * @param senderId senderId
+     * @return MyOrderInfoDetailsVO
+     */
+    MyOrderInfoDetailsVO myOrderInfoDetails(@Param("orderId") String orderId, @Param("senderId") String senderId);
 }

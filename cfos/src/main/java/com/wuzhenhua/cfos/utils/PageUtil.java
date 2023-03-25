@@ -17,4 +17,12 @@ import lombok.NoArgsConstructor;
 public class PageUtil {
     private Integer pageNum = 1;
     private Integer pageSize = 10;
+
+    public Integer getPageNum(){
+        return (pageNum - 1) * pageSize;
+    }
+
+    public Integer getPageSize(){
+        return pageSize;
+    }
 }

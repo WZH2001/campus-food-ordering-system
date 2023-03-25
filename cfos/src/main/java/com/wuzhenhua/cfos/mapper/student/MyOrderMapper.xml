@@ -3,15 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.MyOrderMapper">
-    <select id="getFoodIdsAndNumber" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO">
-        select count(food_id) as foodNumber, food_id as foodId from forder
-                where student_id = #{studentId} group by food_id limit #{pageNum}, #{pageSize}
-    </select>
+
+    <sql id="orderInfo">
+        fo.order_id as orderId, fo.food_id as foodId, fo.sender_id as senderId,
+        fo.order_number as foodNumber, f.food_name as foodName,
+        f.food_price as foodPrice, s.window_name as windowName,
+        s.window_address as windowAddress, s.principal_telephone as principalTelephone
+    </sql>
 
     <select id="myOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO">
-        select fo.food_id as foodId, count(fo.food_id) as foodNumber,
-               f.food_name as foodName, f.food_price as foodPrice,
-               s.window_name as windowName, s.window_address as windowAddress, s.principal_telephone as principalTelephone
+        select
+        <include refid="orderInfo"></include>
         from food f
         inner join seller s
         on s.seller_id = f.seller_id
@@ -20,14 +22,27 @@
         where f.food_id in
         (
             select food_id from forder
-            where student_id = #{studentId} group by food_id
+            where student_id = #{studentId}
         )
-        group by f.food_id
         limit #{pageNum}, #{pageSize}
     </select>
 
     <select id="myOrderInfoTotal" resultType="java.lang.Integer">
-        select count(distinct food_id) from forder
+        select count(order_id) from forder
         where student_id = #{studentId}
+    </select>
+
+    <select id="myOrderInfoDetails" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO">
+        select
+            fo.order_time as orderTime, fo.take_time as takeTime,
+            fo.send_time as sendTime, se.sender_name as senderName,
+            se.sender_telephone as senderTelephone
+        from forder fo
+        left join sender se
+        on fo.sender_id = se.sender_id
+        where fo.order_id = #{orderId}
+        <if test="senderId != null and senderId != ''">
+            and fo.sender_id = #{senderId}
+        </if>
     </select>
 </mapper>

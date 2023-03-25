@@ -4,27 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.OrderMapper">
     <insert id="eatAtCanteenOrder">
-        insert into forder(order_id, order_time, take_time, is_send, food_id, student_id) values
-        <foreach collection="orderInfoList" item="orderInfo" separator=",">
+        insert into forder(order_id, order_time, take_time, is_send, food_id, student_id, order_number) values
             (#{orderInfo.orderId},
             #{orderInfo.orderTime},
             #{orderInfo.takeTime},
             #{orderInfo.isSend},
             #{orderInfo.foodId},
-            #{orderInfo.studentId})
-        </foreach>
+            #{orderInfo.studentId},
+            #{orderInfo.number})
     </insert>
 
     <insert id="deliveryOrder">
-        insert into forder(order_id, order_time, send_time, is_send, food_id, student_id) values
-        <foreach collection="orderInfoList" item="orderInfo" separator=",">
+        insert into forder(order_id, order_time, send_time, is_send, food_id, student_id, order_number) values
             (#{orderInfo.orderId},
             #{orderInfo.orderTime},
             #{orderInfo.sendTime},
             #{orderInfo.isSend},
             #{orderInfo.foodId},
-            #{orderInfo.studentId})
-        </foreach>
+            #{orderInfo.studentId},
+            #{orderInfo.number})
     </insert>
 
     <update id="updateTodaySellFromFood">

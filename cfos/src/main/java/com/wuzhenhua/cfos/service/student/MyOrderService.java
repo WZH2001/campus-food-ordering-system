@@ -18,4 +18,13 @@ public interface MyOrderService {
      * @return Response
      */
     Response myOrderInfo(PageUtil pageInfo, String token);
+
+    /**
+     * 查询我的订单详情信息
+     *
+     * @param orderId orderId
+     * @param senderId senderId
+     * @return Response
+     */
+    Response myOrderInfoDetails(String orderId, String senderId);
 }

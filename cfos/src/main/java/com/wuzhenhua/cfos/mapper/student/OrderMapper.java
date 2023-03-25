@@ -56,10 +56,10 @@ public interface OrderMapper {
     /**
      * 在学校吃订餐
      *
-     * @param orderInfoList orderInfoList
+     * @param orderInfo orderInfo
      * @return Integer
      */
-    Integer eatAtCanteenOrder(@Param("orderInfoList") List<OrderInfoDTO> orderInfoList);
+    Integer eatAtCanteenOrder(@Param("orderInfo") OrderInfoDTO orderInfo);
 
     /**
      * 跟新菜单表中菜品的今日销售量
@@ -73,8 +73,8 @@ public interface OrderMapper {
     /**
      * 在学校吃订餐
      *
-     * @param orderInfoList orderInfoList
+     * @param orderInfo orderInfo
      * @return Integer
      */
-    Integer deliveryOrder(@Param("orderInfoList") List<OrderInfoDTO> orderInfoList);
+    Integer deliveryOrder(@Param("orderInfo") OrderInfoDTO orderInfo);
 }
