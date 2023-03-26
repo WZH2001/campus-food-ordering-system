@@ -1,6 +1,7 @@
 package com.wuzhenhua.cfos.service.student;
 
 import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
+import com.wuzhenhua.cfos.model.DTO.student.MultipleOrderDTO;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 
@@ -48,4 +49,22 @@ public interface OrderService {
      * @return Response
      */
     Response deliveryOrder(String foodId, String sendTime, Integer number, String token);
+
+    /**
+     * 自取餐多个订单
+     *
+     * @param multipleOrderDTOList multipleOrderDTOList
+     * @param token token
+     * @return Response
+     */
+    Response multipleOrderAtCanteen(MultipleOrderDTO multipleOrderDTOList, String token);
+
+    /**
+     * 食堂配送多个订单
+     *
+     * @param multipleOrderDTOList multipleOrderDTOList
+     * @param token token
+     * @return Response
+     */
+    Response multipleDeliveryOrder(MultipleOrderDTO multipleOrderDTOList, String token);
 }

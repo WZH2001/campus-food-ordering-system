@@ -4,6 +4,8 @@ import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 
+import java.util.List;
+
 /**
  * @program: campus-food-ordering-system
  * @description: 我的收藏
@@ -28,4 +30,20 @@ public interface MyCollectionService {
      * @return Response
      */
     Response collectionInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token);
+
+    /**
+     * 取消单个收藏
+     *
+     * @param collectId collectId
+     * @return Response
+     */
+    Response cancelSingleCollection(String collectId);
+
+    /**
+     * 批量取消收藏
+     *
+     * @param collectIds collectIds
+     * @return Response
+     */
+    Response batchCancelCollection(List<String> collectIds);
 }

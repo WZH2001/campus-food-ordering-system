@@ -36,6 +36,7 @@ public class MyCollectionServiceImpl implements MyCollectionService {
             total = myCollectionMapper.myCollectionTotal(studentId);
             res.put("collectionFoodVOList", collectionFoodVOList);
             res.put("total", total);
+            res.put("currentNum", collectionFoodVOList.size());
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
@@ -54,10 +55,37 @@ public class MyCollectionServiceImpl implements MyCollectionService {
             total = myCollectionMapper.collectionInfoFuzzyTotal(allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName(), studentId);
             res.put("collectionInfoFuzzy", collectionInfoFuzzy);
             res.put("total", total);
+            res.put("currentNum", collectionInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response cancelSingleCollection(String collectId) {
+        try {
+            if(myCollectionMapper.cancelSingleCollection(collectId) == 0){
+                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response batchCancelCollection(List<String> collectIds) {
+        try {
+            if(myCollectionMapper.batchCancelCollection(collectIds) == 0){
+                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

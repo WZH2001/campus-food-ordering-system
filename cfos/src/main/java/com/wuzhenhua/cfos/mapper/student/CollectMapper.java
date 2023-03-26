@@ -42,7 +42,7 @@ public interface CollectMapper {
      * @param foodPrice foodPrice
      * @param windowName windowName
      * @param studentId studentId
-     * @return Response
+     * @return List<AllMenuInfoVO>
      */
     List<AllMenuInfoVO> notCollectFoodInfoFuzzy(Integer pageNum, Integer pageSize, String foodName, String foodPrice, String windowName, String studentId);
 
@@ -64,7 +64,7 @@ public interface CollectMapper {
      * @param studentId studentId
      * @param collectionId collectionId
      * @param collectTime collectTime
-     * @return Response
+     * @return Integer
      */
     Integer singleCollect(@Param("collectId") String collectionId, @Param("collectTime") String collectTime, @Param("studentId") String studentId, @Param("foodId") String foodId);
 

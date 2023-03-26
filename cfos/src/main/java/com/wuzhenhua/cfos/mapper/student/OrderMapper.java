@@ -77,4 +77,28 @@ public interface OrderMapper {
      * @return Integer
      */
     Integer deliveryOrder(@Param("orderInfo") OrderInfoDTO orderInfo);
+
+    /**
+     * 自取餐多个订单
+     *
+     * @param orderInfos orderInfos
+     * @return Integer
+     */
+    Integer multipleOrderAtCanteen(@Param("orderInfos") List<OrderInfoDTO> orderInfos);
+
+    /**
+     * 跟新菜单表中菜品的今日销售量
+     *
+     * @param foodIds foodIds
+     * @return Integer
+     */
+    Integer multipleUpdateTodaySellFromFood(@Param("foodIds") List<String> foodIds);
+
+    /**
+     * 食堂配送多个订单
+     *
+     * @param orderInfos orderInfos
+     * @return Integer
+     */
+    Integer multipleDeliveryOrder(@Param("orderInfos") List<OrderInfoDTO> orderInfos);
 }

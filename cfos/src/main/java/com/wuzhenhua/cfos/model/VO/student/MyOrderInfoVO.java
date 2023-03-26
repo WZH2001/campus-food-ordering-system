@@ -17,6 +17,7 @@ public class MyOrderInfoVO {
     private String orderId;
     private String foodId;
     private String senderId;
+    private String isCollected;
     private String foodName;
     private String foodPrice;
     private String windowName;

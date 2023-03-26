@@ -3,13 +3,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.MyOrderMapper">
-
     <sql id="orderInfo">
         fo.order_id as orderId, fo.food_id as foodId, fo.sender_id as senderId,
         fo.order_number as foodNumber, f.food_name as foodName,
         f.food_price as foodPrice, s.window_name as windowName,
         s.window_address as windowAddress, s.principal_telephone as principalTelephone
     </sql>
+
+    <update id="orderUpdate">
+        update forder set order_number = #{foodNumber} where order_id = #{orderId}
+    </update>
+
+    <update id="todaySellUpdate">
+        update food set today_sell = today_sell + #{differ} where food_id = #{foodId}
+    </update>
+
+    <delete id="cancelSingleOrder">
+        delete from forder where order_id = #{orderId}
+    </delete>
+
+    <delete id="batchCancelOrder">
+        delete from forder where order_id in
+        <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+           #{orderId}
+        </foreach>
+    </delete>
 
     <select id="myOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoVO">
         select
@@ -21,9 +39,11 @@
         on fo.food_id = f.food_id
         where f.food_id in
         (
-            select food_id from forder
-            where student_id = #{studentId}
+        select food_id from forder
+        where student_id = #{studentId}
         )
+        and f.is_delete = 0
+        and s.is_delete = 0
         limit #{pageNum}, #{pageSize}
     </select>
 
@@ -34,9 +54,9 @@
 
     <select id="myOrderInfoDetails" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO">
         select
-            fo.order_time as orderTime, fo.take_time as takeTime,
-            fo.send_time as sendTime, se.sender_name as senderName,
-            se.sender_telephone as senderTelephone
+        fo.order_time as orderTime, fo.take_time as takeTime,
+        fo.send_time as sendTime, se.sender_name as senderName,
+        se.sender_telephone as senderTelephone
         from forder fo
         left join sender se
         on fo.sender_id = se.sender_id
@@ -44,5 +64,9 @@
         <if test="senderId != null and senderId != ''">
             and fo.sender_id = #{senderId}
         </if>
+    </select>
+
+    <select id="isCollected" resultType="java.lang.Integer">
+        select count(*) from collect where student_id = #{studentId} and food_id = #{foodId}
     </select>
 </mapper>

@@ -3,18 +3,34 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.MyCollectionMapper">
+    <sql id="collectionFoodInfo">
+        f.food_id as foodId, f.food_name as foodName, f.description,
+        f.food_price as foodPrice, s.window_name as windowName,
+        s.window_address as windowAddress, s.principal_telephone as principalTelephone,
+        co.collect_id as collectId, co.collect_time as collectTime
+    </sql>
+
+    <delete id="cancelSingleCollection">
+        delete from collect where collect_id = #{collectId}
+    </delete>
+
+    <delete id="batchCancelCollection">
+        delete from collect where collect_id in
+        <foreach collection="collectIds" item="collectId" open="(" separator="," close=")">
+            #{collectId}
+        </foreach>
+    </delete>
 
     <select id="myCollection" resultType="com.wuzhenhua.cfos.model.VO.student.CollectionFoodVO">
-        select f.food_id as foddId, f.food_name as foodName,
-               f.food_price as foodPrice, s.window_name as windowName,
-               s.window_address as windowAddress, s.principal_telephone as principalTelephone,
-               co.collect_id as collectId, co.collect_time as collectTime
+        select <include refid="collectionFoodInfo"></include>
         from collect co
         inner join food f
         on co.food_id = f.food_id
         inner join seller s
         on f.seller_id = s.seller_id
         where co.student_id = #{studentId}
+        and f.is_delete = 0
+        and s.is_delete = 0
         limit #{pageNum}, #{pageSize}
     </select>
 
@@ -26,19 +42,20 @@
                  inner join seller s
                             on f.seller_id = s.seller_id
         where co.student_id = #{studentId}
+          and f.is_delete = 0
+          and s.is_delete = 0
     </select>
 
     <select id="collectionInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.student.CollectionFoodVO">
-        select f.food_id as foddId, f.food_name as foodName,
-               f.food_price as foodPrice, s.window_name as windowName,
-               s.window_address as windowAddress, s.principal_telephone as principalTelephone,
-               co.collect_id as collectId, co.collect_time as collectTime
+        select <include refid="collectionFoodInfo"></include>
         from collect co
                  inner join food f
                             on co.food_id = f.food_id
                  inner join seller s
                             on f.seller_id = s.seller_id
         where co.student_id = #{studentId}
+        and f.is_delete = 0
+        and s.is_delete = 0
         <if test="foodName != null and foodName != ''">
             and f.food_name like concat('%', #{foodName} ,'%')
         </if>
@@ -59,6 +76,8 @@
         inner join seller s
         on f.seller_id = s.seller_id
         where co.student_id = #{studentId}
+        and f.is_delete = 0
+        and s.is_delete = 0
         <if test="foodName != null and foodName != ''">
             and f.food_name like concat('%', #{foodName} ,'%')
         </if>

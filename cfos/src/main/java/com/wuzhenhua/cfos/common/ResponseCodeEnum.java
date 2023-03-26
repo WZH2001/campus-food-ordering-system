@@ -9,9 +9,7 @@ package com.wuzhenhua.cfos.common;
  */
 public enum ResponseCodeEnum {
     SUCCESS("A0000", "成功"),
-    ADD_ERROR("A0001", "添加失败"),
-    UPDATE_ERROR("A0002", "修改失败"),
-    DELETE_ERROR("A0003", "删除失败"),
+    ERROR("A0001", "失败"),
     SERVER_EXCEPTION("A0004", "服务器异常"),
     USER_ERROR_B0001("B0001", "密码错误"),
     USER_ERROR_B0002("B0002", "用户名不存在"),

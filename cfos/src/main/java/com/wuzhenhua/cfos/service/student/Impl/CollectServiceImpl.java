@@ -9,6 +9,7 @@ import com.wuzhenhua.cfos.service.student.CollectService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,7 @@ public class CollectServiceImpl implements CollectService {
             total = collectMapper.notCollectFoodInfoTotal(studentId);
             res.put("notCollectFoodInfo", notCollectFoodInfo);
             res.put("total", total);
+            res.put("currentNum", notCollectFoodInfo.size());
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
@@ -69,6 +71,7 @@ public class CollectServiceImpl implements CollectService {
             total = collectMapper.notCollectFoodInfoFuzzyTotal(allMenuInfoDTO.getFoodName(), allMenuInfoDTO.getFoodPrice(), allMenuInfoDTO.getWindowName(), studentId);
             res.put("notCollectFoodInfoFuzzy", notCollectFoodInfoFuzzy);
             res.put("total", total);
+            res.put("currentNum", notCollectFoodInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
@@ -84,7 +87,7 @@ public class CollectServiceImpl implements CollectService {
         String studentId = TokenUtils.getUserId(token);
         try {
             if(collectMapper.singleCollect(collectId, collectTime, studentId, foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -94,7 +97,7 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public Response batchCollect(List<String> foodIds, String token) {
+    public Response batchCollect(@NotNull List<String> foodIds, String token) {
         String studentId = TokenUtils.getUserId(token);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String collectTime = sdf.format(new Date());
@@ -106,7 +109,7 @@ public class CollectServiceImpl implements CollectService {
         }
         try{
             if(collectMapper.batchCollect(batchCollectDTOList) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
+                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();

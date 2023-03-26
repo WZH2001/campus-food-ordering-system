@@ -6,6 +6,7 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,20 +19,20 @@ import java.util.Map;
  * @author: wuzhenhua
  * @create: 2023-03-25 01:14
  */
-@Api(tags = "学生--收藏")
+@Api(tags = "【学生--收藏】")
 @RestController
 @RequestMapping("/collection")
 public class CollectController {
     @Autowired
     private CollectService collectService;
 
-    @ApiOperation("查询为收藏菜品信息")
+    @ApiOperation("查询未收藏菜品信息")
     @GetMapping("/notCollectFoodInfo")
     public Response notCollectFoodInfo(PageUtil pageInfo, @RequestHeader String token){
         return collectService.notCollectFoodInfo(pageInfo, token);
     }
 
-    @ApiOperation("模糊查询为收藏菜品信息")
+    @ApiOperation("模糊查询未收藏菜品信息")
     @GetMapping("/notCollectFoodInfoFuzzy")
     public Response notCollectFoodInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, @RequestHeader String token){
         return collectService.notCollectFoodInfoFuzzy(allMenuInfoDTO, token);
@@ -39,7 +40,7 @@ public class CollectController {
 
     @ApiOperation("收藏单个菜品")
     @PostMapping("/singleCollect")
-    public Response singleCollect(@RequestBody Map<String,Object> foodId, @RequestHeader String token){
+    public Response singleCollect(@RequestBody @NotNull Map<String,Object> foodId, @RequestHeader String token){
         return collectService.singleCollect(foodId.get("foodId").toString(), token);
     }
 

@@ -55,4 +55,20 @@ public interface MyCollectionMapper {
      * @return Integer
      */
     Integer collectionInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName, @Param("studentId") String studentId);
+
+    /**
+     * 取消单个收藏
+     *
+     * @param collectId collectId
+     * @return Integer
+     */
+    Integer cancelSingleCollection(@Param("collectId") String collectId);
+
+    /**
+     * 批量取消收藏
+     *
+     * @param collectIds collectIds
+     * @return Integer
+     */
+    Integer batchCancelCollection(@Param("collectIds") List<String> collectIds);
 }

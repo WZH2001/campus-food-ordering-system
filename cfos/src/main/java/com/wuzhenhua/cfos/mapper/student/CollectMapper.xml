@@ -3,11 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.student.CollectMapper">
+    <sql id="allMenuInfo">
+        s.seller_id as sellerId, s.window_name as windowName,
+       s.window_address as windowAddress, f.food_id as foodId,
+       f.food_name as foodName, f.food_price as foodPrice,
+       f.today_sell as todaySell, f.is_recommend as isRecommend
+    </sql>
+
     <select id="notCollectFoodInfo" resultType="com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO">
-        select s.seller_id as sellerId, s.window_name as windowName,
-               s.window_address as windowAddress, f.food_id as foodId,
-               f.food_name as foodName, f.food_price as foodPrice,
-               f.today_sell as todaySell, f.is_recommend as isRecommend
+        select <include refid="allMenuInfo"></include>
         from food f
         inner join seller s
         on f.seller_id = s.seller_id
@@ -32,10 +36,7 @@
     </select>
 
     <select id="notCollectFoodInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.student.AllMenuInfoVO">
-        select s.seller_id as sellerId, s.window_name as windowName,
-               s.window_address as windowAddress, f.food_id as foodId,
-               f.food_name as foodName, f.food_price as foodPrice,
-               f.today_sell as todaySell, f.is_recommend as isRecommend
+        select <include refid="allMenuInfo"></include>
         from food f
                  inner join seller s
                             on f.seller_id = s.seller_id

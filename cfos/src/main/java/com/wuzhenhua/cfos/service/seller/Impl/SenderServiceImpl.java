@@ -53,7 +53,7 @@ public class SenderServiceImpl implements SenderService {
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {
-            return Response.successResponse(ResponseCodeEnum.ADD_ERROR.getCode(), ResponseCodeEnum.ADD_ERROR.getDescription());
+            return Response.successResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
         }
     }
 
@@ -63,7 +63,7 @@ public class SenderServiceImpl implements SenderService {
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {
-            return Response.successResponse(ResponseCodeEnum.UPDATE_ERROR.getCode(), ResponseCodeEnum.UPDATE_ERROR.getDescription());
+            return Response.successResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
         }
     }
 
@@ -73,7 +73,7 @@ public class SenderServiceImpl implements SenderService {
             return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
         }
         else {
-            return Response.successResponse(ResponseCodeEnum.DELETE_ERROR.getCode(), ResponseCodeEnum.DELETE_ERROR.getDescription());
+            return Response.successResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
         }
     }
 }
