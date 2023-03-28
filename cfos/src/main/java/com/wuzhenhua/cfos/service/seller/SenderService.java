@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.service.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.SenderEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.SenderInfoDTO;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
@@ -34,10 +33,11 @@ public interface SenderService {
     /**
      * 修改配送员信息
      *
-     * @param senderEditInfoDTO senderEditInfoDTO
+     * @param senderInfoDTO senderInfoDTO
+     * @param token token
      * @return Response
      */
-    Response senderUpdate(SenderEditInfoDTO senderEditInfoDTO);
+    Response senderUpdate(SenderInfoDTO senderInfoDTO, String token);
 
     /**
      * 删除配送员信息

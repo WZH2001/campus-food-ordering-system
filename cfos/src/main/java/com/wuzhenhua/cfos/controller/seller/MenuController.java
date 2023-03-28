@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.controller.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.service.seller.MenuService;
@@ -8,10 +7,12 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author wuzhenhua
@@ -46,20 +47,20 @@ public class MenuController {
     }
 
     @ApiOperation("删除菜品")
-    @GetMapping("/foodDelete")
-    public Response foodDelete(@RequestParam String foodId){
-        return menuService.foodDelete(foodId);
+    @PostMapping("/foodDelete")
+    public Response foodDelete(@RequestBody @NotNull Map<String,String> foodId){
+        return menuService.foodDelete(foodId.get("foodId"));
     }
 
     @ApiOperation("批量删除菜品")
-    @PostMapping("/foodMultipleDelete")
-    public Response foodMultipleDelete(@RequestBody List<Integer> foodIds){
-        return menuService.foodMultipleDelete(foodIds);
+    @PostMapping("/batchDelete")
+    public Response batchDelete(@RequestBody List<String> foodIds){
+        return menuService.batchDelete(foodIds);
     }
 
     @ApiOperation("修改菜品")
     @PostMapping("/foodUpdate")
-    public Response foodUpdate(@RequestBody FoodEditInfoDTO foodEditInfoDTO){
-        return menuService.foodUpdate(foodEditInfoDTO);
+    public Response foodUpdate(@RequestBody FoodInfoDTO foodInfoDTO){
+        return menuService.foodUpdate(foodInfoDTO);
     }
 }

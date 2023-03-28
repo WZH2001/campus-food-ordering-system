@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.seller.SenderMapper">
     <insert id="senderAdd">
-        insert into sender(sender_id,sender_name,sender_telephone,work_date,is_delete,seller_id)
-        values(#{senderInfoDTO.senderId},#{senderInfoDTO.senderName},#{senderInfoDTO.telephone},#{senderInfoDTO.workDate},0,#{senderInfoDTO.sellerId})
+        insert into sender(sender_id,sender_name,sender_telephone,work_date,is_work,is_delete,seller_id)
+        values(#{senderInfoDTO.senderId},#{senderInfoDTO.senderName},#{senderInfoDTO.telephone},#{senderInfoDTO.workDate},0,0,#{senderInfoDTO.sellerId})
     </insert>
 
     <update id="senderUpdate">
-        update sender set sender_name = #{senderInfoDTO.senderEditSenderName},
-                          sender_telephone = #{senderInfoDTO.senderEditSenderTelephone}
+        update sender set sender_name = #{senderInfoDTO.senderName},
+                          sender_telephone = #{senderInfoDTO.telephone}
         where sender_id = #{senderInfoDTO.senderId}
     </update>
 
@@ -22,7 +22,8 @@
         select sender_id as senderId,
                sender_name as senderName,
                sender_telephone as telephone,
-               work_date as workDate
+               work_date as workDate,
+                is_work as isWork
         from sender
         where seller_id = #{sellerId}
         and is_delete = 0
@@ -33,6 +34,12 @@
         select count(*)
         from sender
         where seller_id = #{sellerId}
+        and is_delete = 0
+    </select>
+
+    <select id="isHaveSender" resultType="java.lang.Integer">
+        select count(*) from sender
+        where sender_name = #{senderInfoDTO.senderName} and sender_telephone = #{senderInfoDTO.telephone}
         and is_delete = 0
     </select>
 </mapper>

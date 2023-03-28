@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.mapper.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.SenderEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.SenderInfoDTO;
 import com.wuzhenhua.cfos.model.VO.seller.SenderVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -39,23 +38,31 @@ public interface SenderMapper {
      * 添加配送员
      *
      * @param senderInfoDTO token
-     * @return boolean
+     * @return Integer
      */
     Integer senderAdd(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 
     /**
      * 修改配送员信息
      *
-     * @param senderEditInfoDTO senderEditInfoDTO
-     * @return boolean
+     * @param senderInfoDTO senderInfoDTO
+     * @return Integer
      */
-    Integer senderUpdate(@Param("senderInfoDTO") SenderEditInfoDTO senderEditInfoDTO);
+    Integer senderUpdate(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 
     /**
      * 删除配送员信息
      *
      * @param senderId senderId
-     * @return boolean
+     * @return Integer
      */
     Integer senderDelete(@Param("senderId") String senderId);
+
+    /**
+     * 检查是否存在该配送员
+     *
+     * @param senderInfoDTO senderInfoDTO
+     * @return Integer
+     */
+    Integer isHaveSender(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 }

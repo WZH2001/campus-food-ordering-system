@@ -22,6 +22,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
+    private String roleId;
+
+    public void setRoleId(String roleId){
+        this.roleId = roleId;
+    }
+
+    public String getRoleId(){
+       return roleId;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
@@ -45,6 +54,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         } catch (JWTVerificationException e) {
             return false;
         }
+        this.setRoleId(TokenUtils.getRoleId(token));
         return true;
     }
 }

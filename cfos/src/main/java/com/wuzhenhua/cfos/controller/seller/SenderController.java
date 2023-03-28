@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.controller.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.SenderEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.SenderInfoDTO;
 import com.wuzhenhua.cfos.service.seller.SenderService;
 import com.wuzhenhua.cfos.utils.PageUtil;
@@ -37,8 +36,8 @@ public class SenderController {
 
     @ApiOperation("修改配送员信息")
     @PostMapping("/senderUpdate")
-    public Response senderUpdate(@RequestBody SenderEditInfoDTO senderEditInfoDTO){
-        return sellerService.senderUpdate(senderEditInfoDTO);
+    public Response senderUpdate(@RequestBody SenderInfoDTO senderInfoDTO, @RequestHeader String token){
+        return sellerService.senderUpdate(senderInfoDTO, token);
     }
 
     @ApiOperation("删除配送员信息")

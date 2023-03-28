@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.mapper.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.VO.seller.MenuVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -70,23 +69,31 @@ public interface MenuMapper {
      * 添加菜品
      *
      * @param foodInfoDTO 菜品属性
-     * @return boolean
+     * @return Integer
      */
     Integer foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
 
     /**
      * 修改菜品
      *
-     * @param foodEditInfoDTO 菜品属性
-     * @return boolean
+     * @param foodInfoDTO 菜品属性
+     * @return Integer
      */
-    Integer foodUpdate(@Param("foodEditInfoDTO") FoodEditInfoDTO foodEditInfoDTO);
+    Integer foodUpdate(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
 
     /**
      * 删除菜品
      *
      * @param foodId 菜品Id
-     * @return boolean
+     * @return Integer
      */
     Integer foodDelete(@Param("foodId") String foodId);
+
+    /**
+     * 批量删除菜品
+     *
+     * @param foodIds foodIds
+     * @return Integer
+     */
+    Integer batchDelete(@Param("foodIds") List<String> foodIds);
 }

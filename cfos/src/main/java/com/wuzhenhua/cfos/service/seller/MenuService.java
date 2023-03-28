@@ -1,6 +1,5 @@
 package com.wuzhenhua.cfos.service.seller;
 
-import com.wuzhenhua.cfos.model.DTO.seller.FoodEditInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.FoodInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.seller.QueryMenuInfoDTO;
 import com.wuzhenhua.cfos.utils.PageUtil;
@@ -57,13 +56,13 @@ public interface MenuService {
      * @param foodIds foodIds
      * @return Response
      */
-    Response foodMultipleDelete(List<Integer> foodIds);
+    Response batchDelete(List<String> foodIds);
 
     /**
      * 修改菜品
      *
-     * @param foodEditInfoDTO 修改信息
+     * @param foodInfoDTO foodInfoDTO
      * @return Response
      */
-    Response foodUpdate(FoodEditInfoDTO foodEditInfoDTO);
+    Response foodUpdate(FoodInfoDTO foodInfoDTO);
 }

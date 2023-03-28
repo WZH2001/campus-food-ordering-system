@@ -3,6 +3,8 @@ package com.wuzhenhua.cfos.utils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @Author wuzhenhua
@@ -24,15 +26,18 @@ public class Response {
         this.describe = describe;
     }
 
-    public static Response successResponse(String code, String describe){
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull Response successResponse(String code, String describe){
         return new Response(code, describe);
     }
 
-    public static Response successResponse(Object data, String code, String describe) {
+    @Contract("_, _, _ -> new")
+    public static @NotNull Response successResponse(Object data, String code, String describe) {
         return new Response(data, code, describe);
     }
 
-    public static Response errorResponse(String code, String describe) {
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull Response errorResponse(String code, String describe) {
         return new Response(code, describe);
     }
 }
