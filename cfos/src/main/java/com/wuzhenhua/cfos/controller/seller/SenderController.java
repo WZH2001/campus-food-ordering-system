@@ -6,8 +6,11 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @program: campus-food-ordering-system
@@ -28,6 +31,12 @@ public class SenderController {
         return sellerService.senderInfo(pageInfo, token);
     }
 
+    @ApiOperation("查询所有配送员信息")
+    @GetMapping("/allSenderInfo")
+    public Response allSenderInfo(@RequestHeader String token){
+        return sellerService.allSenderInfo(token);
+    }
+
     @ApiOperation("添加配送员")
     @PostMapping("/senderAdd")
     public Response senderAdd(@RequestBody SenderInfoDTO senderInfoDTO, @RequestHeader String token){
@@ -41,8 +50,8 @@ public class SenderController {
     }
 
     @ApiOperation("删除配送员信息")
-    @GetMapping("/senderDelete")
-    public Response senderDelete(@RequestParam String senderId){
-        return sellerService.senderDelete(senderId);
+    @PostMapping("/senderDelete")
+    public Response senderDelete(@RequestBody @NotNull Map<String, String> senderId){
+        return sellerService.senderDelete(senderId.get("senderId"));
     }
 }

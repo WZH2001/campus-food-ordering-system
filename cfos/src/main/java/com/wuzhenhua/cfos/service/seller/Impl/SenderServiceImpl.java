@@ -34,13 +34,6 @@ public class SenderServiceImpl implements SenderService {
         HashMap<String, Object> res = new HashMap<>(20);
         try {
             senderVO = senderMapper.senderInfo(pageInfo.getPageNum(), pageInfo.getPageSize(), sellerId);
-            for (SenderVO vo : senderVO) {
-                if (Objects.equals(vo.getIsWork(), "0")) {
-                    vo.setIsWork("空闲");
-                } else {
-                    vo.setIsWork("工作中");
-                }
-            }
             total = senderMapper.senderInfoTotal(sellerId);
             res.put("senderInfo", senderVO);
             res.put("total", total);
@@ -102,5 +95,18 @@ public class SenderServiceImpl implements SenderService {
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response allSenderInfo(String token) {
+        String sellerId = TokenUtils.getUserId(token);
+        List<SenderVO> senderVO;
+        try {
+            senderVO = senderMapper.allSenderInfo(sellerId);
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(senderVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

@@ -18,5 +18,5 @@ public class SenderVO {
     private String senderName;
     private String telephone;
     private String workDate;
-    private String isWork;
+    private Integer sendNumber;
 }

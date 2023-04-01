@@ -13,10 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Author wuzhenhua
@@ -133,13 +130,24 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Response foodUpdate(@NotNull FoodInfoDTO foodInfoDTO) {
+    public Response foodUpdate(@NotNull FoodInfoDTO foodInfoDTO, String token) {
+        String sellerId = TokenUtils.getUserId(token);
         if("".equals(foodInfoDTO.getDescription()) || foodInfoDTO.getDescription() == null){
             foodInfoDTO.setDescription("空");
         }
         try {
-            if(menuMapper.foodUpdate(foodInfoDTO) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+            if(!Objects.equals(foodInfoDTO.getFoodName(), foodInfoDTO.getOldFoodName())){
+                if(menuMapper.queryFoodByFoodName(foodInfoDTO.getFoodName(), sellerId) == 0){
+                    if(menuMapper.foodUpdate(foodInfoDTO) == 0){
+                        return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                    }
+                } else {
+                    return Response.errorResponse(ResponseCodeEnum.FOOD_ERROR_C0001.getCode(), ResponseCodeEnum.FOOD_ERROR_C0001.getDescription());
+                }
+            } else {
+                if(menuMapper.foodUpdate(foodInfoDTO) == 0){
+                    return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                }
             }
         } catch (Exception e){
             e.printStackTrace();

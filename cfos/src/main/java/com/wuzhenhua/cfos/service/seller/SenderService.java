@@ -46,4 +46,12 @@ public interface SenderService {
      * @return Response
      */
     Response senderDelete(String senderId);
+
+    /**
+     * 查找所有配送员信息列表
+     *
+     * @param token token
+     * @return Response
+     */
+    Response allSenderInfo(String token);
 }

@@ -21,4 +21,5 @@ public class FoodInfoDTO {
     private String description;
     private Integer isRecommend;
     private String sellerId;
+    private String oldFoodName;
 }

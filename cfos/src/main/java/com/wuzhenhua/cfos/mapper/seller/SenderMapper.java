@@ -65,4 +65,12 @@ public interface SenderMapper {
      * @return Integer
      */
     Integer isHaveSender(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
+
+    /**
+     * 查找所有配送员信息列表
+     *
+     * @param sellerId sellerId
+     * @return List<SenderVO>
+     */
+    List<SenderVO> allSenderInfo(@Param("sellerId") String sellerId);
 }

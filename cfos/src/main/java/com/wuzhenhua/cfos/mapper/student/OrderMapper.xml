@@ -11,25 +11,25 @@
     </sql>
 
     <insert id="eatAtCanteenOrder">
-        insert into forder(order_id, order_time, take_time, is_send, food_id, student_id, order_number) values
+        insert into forder(order_id, order_time, take_time, is_send, food_id, student_id, order_number, is_finish) values
             (#{orderInfo.orderId},
             #{orderInfo.orderTime},
             #{orderInfo.takeTime},
             #{orderInfo.isSend},
             #{orderInfo.foodId},
             #{orderInfo.studentId},
-            #{orderInfo.number})
+            #{orderInfo.number}, 0)
     </insert>
 
     <insert id="deliveryOrder">
-        insert into forder(order_id, order_time, send_time, is_send, food_id, student_id, order_number) values
+        insert into forder(order_id, order_time, send_time, is_send, food_id, student_id, order_number, is_finish) values
             (#{orderInfo.orderId},
             #{orderInfo.orderTime},
             #{orderInfo.sendTime},
             #{orderInfo.isSend},
             #{orderInfo.foodId},
             #{orderInfo.studentId},
-            #{orderInfo.number})
+            #{orderInfo.number}, 0)
     </insert>
 
     <insert id="multipleOrderAtCanteen">
