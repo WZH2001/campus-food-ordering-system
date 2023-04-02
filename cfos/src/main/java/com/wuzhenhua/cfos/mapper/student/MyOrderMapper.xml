@@ -44,12 +44,14 @@
         )
         and f.is_delete = 0
         and s.is_delete = 0
+        and fo.is_finish = 0
         limit #{pageNum}, #{pageSize}
     </select>
 
     <select id="myOrderInfoTotal" resultType="java.lang.Integer">
         select count(order_id) from forder
         where student_id = #{studentId}
+        and is_finish = 0
     </select>
 
     <select id="myOrderInfoDetails" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO">

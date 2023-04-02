@@ -19,4 +19,6 @@ public class MyOrderInfoDetailsVO extends MyOrderInfoVO{
     private String sendTime;
     private String senderName;
     private String sendTelephone;
+    private Integer orderNumber;
+    private String finishTime;
 }

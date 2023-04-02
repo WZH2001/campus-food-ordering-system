@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.student.PreviousOrderMapper">
+    <delete id="deletePreviousOrder">
+        delete from forder where order_id = #{orderId}
+    </delete>
+
+    <delete id="batchDeletePreviousOrder">
+        delete from forder where order_id in
+        <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <select id="previousOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO">
+        select f.food_name as foodName, f.food_price as foodPrice, s.window_name as windowName,
+               s.window_address as windowAddress, s.principal_telephone as principalTelephone,
+               fo.order_time as orderTime, fo.order_id as orderId, fo.take_time as takeTime,
+               fo.send_time as sendTime, fo.finish_time as finishTime, fo.order_number as orderNumber,
+               se.sender_name as senderName
+        from forder fo
+        inner join food f
+        on fo.food_id = f.food_id
+        left join sender se
+        on fo.sender_id = se.sender_id
+        inner join seller s
+        on f.seller_id = s.seller_id
+        inner join student st
+        on fo.student_id = st.student_id
+        where fo.student_id = #{studentId}
+        and fo.is_finish = 1
+        order by fo.finish_time desc
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="previousOrderInfoTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 left join sender se
+                            on fo.sender_id = se.sender_id
+                 inner join seller s
+                            on f.seller_id = s.seller_id
+                 inner join student st
+                            on fo.student_id = st.student_id
+        where fo.student_id = #{studentId}
+          and fo.is_finish = 1
+    </select>
+</mapper>

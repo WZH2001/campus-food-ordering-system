@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,8 +119,10 @@ public class TodayOrderServiceImpl implements TodayOrderService {
 
     @Override
     public Response achieveOrder(String orderId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String finishTime = sdf.format(new Date());
         try {
-            if(todayOrderMapper.achieveOrder(orderId) == 0){
+            if(todayOrderMapper.achieveOrder(orderId, finishTime) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
@@ -131,8 +135,10 @@ public class TodayOrderServiceImpl implements TodayOrderService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response sendOrder(String orderId, String senderId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String finishTime = sdf.format(new Date());
         try {
-            if(todayOrderMapper.sendOrder(senderId, orderId) == 0 || todayOrderMapper.updateSenderInfo(senderId) == 0){
+            if(todayOrderMapper.sendOrder(senderId, orderId, finishTime) == 0 || todayOrderMapper.updateSenderInfo(senderId) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){

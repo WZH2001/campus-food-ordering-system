@@ -90,18 +90,20 @@ public interface TodayOrderMapper {
      * 完成订单
      *
      * @param orderId orderId
+     * @param finishTime finishTime
      * @return Integer
      */
-    Integer achieveOrder(@Param("orderId") String orderId);
+    Integer achieveOrder(@Param("orderId") String orderId, @Param("finishTime") String finishTime);
 
     /**
      * 配送订单
      *
      * @param senderId senderId
      * @param orderId orderId
+     * @param finishTime finishTime
      * @return Integer
      */
-    Integer sendOrder(@Param("senderId") String senderId, @Param("orderId") String orderId);
+    Integer sendOrder(@Param("senderId") String senderId, @Param("orderId") String orderId, @Param("finishTime") String finishTime);
 
     /**
      * 修改配送员信息
