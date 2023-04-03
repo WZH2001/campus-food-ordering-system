@@ -15,7 +15,7 @@
     </update>
 
     <update id="senderDelete">
-        update sender set is_delete = 1 where sender_id = #{senderId}
+        update sender set is_delete = 1, quit_date = #{quitDate} where sender_id = #{senderId}
     </update>
 
     <select id="senderInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.SenderVO">

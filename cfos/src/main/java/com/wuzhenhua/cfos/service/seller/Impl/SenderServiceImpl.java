@@ -9,11 +9,14 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @program: campus-food-ordering-system
@@ -23,8 +26,8 @@ import java.util.*;
  */
 @Service
 public class SenderServiceImpl implements SenderService {
-    @Autowired
-    SenderMapper senderMapper;
+    @Resource
+    private SenderMapper senderMapper;
 
     @Override
     public Response senderInfo(@NotNull PageUtil pageInfo, String token) {
@@ -86,8 +89,10 @@ public class SenderServiceImpl implements SenderService {
 
     @Override
     public Response senderDelete(String senderId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String quitDate = sdf.format(new Date());
         try {
-            if(senderMapper.senderDelete(senderId) == 0){
+            if(senderMapper.senderDelete(senderId, quitDate) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){

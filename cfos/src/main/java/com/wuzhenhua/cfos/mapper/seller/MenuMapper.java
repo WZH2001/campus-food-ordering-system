@@ -54,7 +54,7 @@ public interface MenuMapper {
      * @param foodPrice foodPrice
      * @return Integer
      */
-    Integer menuInfoFuzzytal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
+    Integer menuInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("sellerId") String sellerId);
 
     /**
      * 查找菜品是否存在
@@ -69,17 +69,19 @@ public interface MenuMapper {
      * 添加菜品
      *
      * @param foodInfoDTO 菜品属性
+     * @param createTime createTime
      * @return Integer
      */
-    Integer foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+    Integer foodAdd(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO, @Param("createTime") String createTime);
 
     /**
      * 修改菜品
      *
      * @param foodInfoDTO 菜品属性
+     * @param updateTime updateTime
      * @return Integer
      */
-    Integer foodUpdate(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO);
+    Integer foodUpdate(@Param("foodInfoDTO") FoodInfoDTO foodInfoDTO, @Param("updateTime") String updateTime);
 
     /**
      * 删除菜品

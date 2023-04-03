@@ -1,16 +1,16 @@
 package com.wuzhenhua.cfos.service.user.Impl;
 
 import com.wuzhenhua.cfos.common.ResponseCodeEnum;
-import com.wuzhenhua.cfos.utils.Response;
-import com.wuzhenhua.cfos.utils.TokenUtils;
-import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.mapper.user.UserMapper;
+import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
 import com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO;
 import com.wuzhenhua.cfos.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wuzhenhua.cfos.utils.Response;
+import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 
 /**
@@ -22,7 +22,7 @@ import java.util.UUID;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Override

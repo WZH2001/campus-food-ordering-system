@@ -54,9 +54,10 @@ public interface SenderMapper {
      * 删除配送员信息
      *
      * @param senderId senderId
+     * @param quitDate quitDate
      * @return Integer
      */
-    Integer senderDelete(@Param("senderId") String senderId);
+    Integer senderDelete(@Param("senderId") String senderId, @Param("quitDate") String quitDate);
 
     /**
      * 检查是否存在该配送员

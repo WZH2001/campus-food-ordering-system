@@ -10,9 +10,9 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -24,7 +24,7 @@ import java.util.*;
  */
 @Service
 public class CollectServiceImpl implements CollectService {
-    @Autowired
+    @Resource
     private CollectMapper collectMapper;
 
     @Override

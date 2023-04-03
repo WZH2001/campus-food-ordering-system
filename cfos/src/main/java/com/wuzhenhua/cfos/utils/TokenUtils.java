@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
@@ -22,7 +24,7 @@ public class TokenUtils {
     /**
      * 生成token
      */
-    public static String genToken(UserBaseInfoVO userBaseInfoVO) {
+    public static String genToken(@NotNull UserBaseInfoVO userBaseInfoVO) {
         // 以 password 作为 token 的密钥
         return JWT.create()
                 .withClaim("userId", userBaseInfoVO.getUserId())
@@ -38,7 +40,7 @@ public class TokenUtils {
      *
      * @return token中包含的userId
      */
-    public static String getUserId(String token) {
+    public static @Nullable String getUserId(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("userId").asString();
@@ -52,7 +54,7 @@ public class TokenUtils {
      *
      * @return token中包含的roleId
      */
-    public static String getRoleId(String token) {
+    public static @Nullable String getRoleId(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("roleId").asString();
@@ -66,7 +68,7 @@ public class TokenUtils {
      *
      * @return token中包含的密码
      */
-    public static String getPassword(String token) {
+    public static @Nullable String getPassword(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("password").asString();
@@ -80,7 +82,7 @@ public class TokenUtils {
      *
      * @return user对象
      */
-    public static UserBaseInfoVO getCurrentUser(String token) {
+    public static @Nullable UserBaseInfoVO getCurrentUser(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             UserBaseInfoVO userBaseInfoVO = new UserBaseInfoVO();

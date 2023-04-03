@@ -9,11 +9,11 @@ import com.wuzhenhua.cfos.service.student.MyOrderService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Service
 public class MyOrderServiceImpl implements MyOrderService {
-    @Autowired
+    @Resource
     private MyOrderMapper myOrderMapper;
 
     @Override

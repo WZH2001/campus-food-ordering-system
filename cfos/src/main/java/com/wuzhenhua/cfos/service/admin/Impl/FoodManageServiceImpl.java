@@ -7,9 +7,9 @@ import com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO;
 import com.wuzhenhua.cfos.service.admin.FoodManageService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 public class FoodManageServiceImpl implements FoodManageService {
 
-    @Autowired
+    @Resource
     private FoodManageMapper foodManageMapper;
 
     @Override

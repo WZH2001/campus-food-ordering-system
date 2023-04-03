@@ -7,9 +7,9 @@ import com.wuzhenhua.cfos.service.student.PreviousOrderService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,8 +21,8 @@ import java.util.List;
  */
 @Service
 public class PreviousOrderServiceImpl implements PreviousOrderService {
-    @Autowired
-    PreviousOrderMapper previousOrderMapper;
+    @Resource
+    private PreviousOrderMapper previousOrderMapper;
 
     @Override
     public Response previousOrderInfo(PageUtil pageInfo, String token) {

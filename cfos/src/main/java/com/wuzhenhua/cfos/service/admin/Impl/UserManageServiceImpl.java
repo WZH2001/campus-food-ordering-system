@@ -8,9 +8,9 @@ import com.wuzhenhua.cfos.model.VO.admin.*;
 import com.wuzhenhua.cfos.service.admin.UserManageService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Service
 public class UserManageServiceImpl implements UserManageService {
-    @Autowired
+    @Resource
     private UserManageMapper userManageMapper;
 
     @Override

@@ -13,13 +13,14 @@
     </sql>
 
     <insert id="foodAdd">
-        insert into food(food_id, food_name, food_price, description, is_recommend, today_sell, seller_id, is_delete)
-        values(#{foodInfoDTO.foodId}, #{foodInfoDTO.foodName}, #{foodInfoDTO.foodPrice}, #{foodInfoDTO.description}, #{foodInfoDTO.isRecommend}, 0, #{foodInfoDTO.sellerId}, 0)
+        insert into food(food_id, food_name, food_price, description, create_time, update_time, is_recommend, today_sell, seller_id, is_delete)
+        values(#{foodInfoDTO.foodId}, #{foodInfoDTO.foodName}, #{foodInfoDTO.foodPrice}, #{foodInfoDTO.description}, #{createTime}, #{createTime}, #{foodInfoDTO.isRecommend}, 0, #{foodInfoDTO.sellerId}, 0)
     </insert>
 
     <update id="foodUpdate">
         update food set food_name = #{foodInfoDTO.foodName}, food_price = #{foodInfoDTO.foodPrice},
-                        description = #{foodInfoDTO.description}, is_recommend = #{foodInfoDTO.isRecommend}
+                        description = #{foodInfoDTO.description}, is_recommend = #{foodInfoDTO.isRecommend},
+                        update_time = #{updateTime}
             where food_id = #{foodInfoDTO.foodId}
     </update>
 
@@ -73,7 +74,7 @@
         limit #{pageNum}, #{pageSize}
     </select>
 
-    <select id="menuInfoFuzzytal" resultType="java.lang.Integer">
+    <select id="menuInfoFuzzyTotal" resultType="java.lang.Integer">
         select
         count(*)
         from

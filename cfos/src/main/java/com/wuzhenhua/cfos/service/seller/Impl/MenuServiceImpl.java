@@ -10,9 +10,10 @@ import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -24,8 +25,8 @@ import java.util.*;
  */
 @Service
 public class MenuServiceImpl implements MenuService {
-    @Autowired
-    MenuMapper menuMapper;
+    @Resource
+    private MenuMapper menuMapper;
 
     @Override
     public Response menuInfo(PageUtil pageInfo, String token) {
@@ -68,7 +69,7 @@ public class MenuServiceImpl implements MenuService {
                     menuVO.setIsRecommend("未推荐");
                 }
             }
-            total = menuMapper.menuInfoFuzzytal(queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
+            total = menuMapper.menuInfoFuzzyTotal(queryMenuInfoDTO.getFoodName(), queryMenuInfoDTO.getFoodPrice(), sellerId);
             res.put("menuInfoFuzzy", menuInfoFuzzy);
             res.put("total", total);
             res.put("currentNum", menuInfoFuzzy.size());
@@ -82,6 +83,8 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Response foodAdd(FoodInfoDTO foodInfoDTO, String token) {
         String sellerId = TokenUtils.getUserId(token);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = sdf.format(new Date());
         try{
             if(menuMapper.queryFoodByFoodName(foodInfoDTO.getFoodName(), sellerId) == 0){
                 foodInfoDTO.setFoodId(UUID.randomUUID().toString().replace("-", ""));
@@ -89,7 +92,7 @@ public class MenuServiceImpl implements MenuService {
                 if("".equals(foodInfoDTO.getDescription()) || foodInfoDTO.getDescription() == null){
                     foodInfoDTO.setDescription("无");
                 }
-                if(menuMapper.foodAdd(foodInfoDTO) == 0){
+                if(menuMapper.foodAdd(foodInfoDTO, createTime) == 0){
                     return Response.successResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
                 }
             }
@@ -132,20 +135,22 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Response foodUpdate(@NotNull FoodInfoDTO foodInfoDTO, String token) {
         String sellerId = TokenUtils.getUserId(token);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String updateTime = sdf.format(new Date());
         if("".equals(foodInfoDTO.getDescription()) || foodInfoDTO.getDescription() == null){
             foodInfoDTO.setDescription("空");
         }
         try {
             if(!Objects.equals(foodInfoDTO.getFoodName(), foodInfoDTO.getOldFoodName())){
                 if(menuMapper.queryFoodByFoodName(foodInfoDTO.getFoodName(), sellerId) == 0){
-                    if(menuMapper.foodUpdate(foodInfoDTO) == 0){
+                    if(menuMapper.foodUpdate(foodInfoDTO, updateTime) == 0){
                         return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
                     }
                 } else {
                     return Response.errorResponse(ResponseCodeEnum.FOOD_ERROR_C0001.getCode(), ResponseCodeEnum.FOOD_ERROR_C0001.getDescription());
                 }
             } else {
-                if(menuMapper.foodUpdate(foodInfoDTO) == 0){
+                if(menuMapper.foodUpdate(foodInfoDTO, updateTime) == 0){
                     return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
                 }
             }
