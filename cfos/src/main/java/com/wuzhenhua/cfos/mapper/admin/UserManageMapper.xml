@@ -63,14 +63,15 @@
 
     <select id="studentOrderInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentOrderInfoVO">
         select
-            st.student_id as studentId,
-            st.student_name as name,
             fo.order_time as orderTime,
             fo.take_time as takeTime,
+            fo.send_time as sendTime,
+            fo.finish_time as finishTime,
             f.food_name as foodName,
             f.food_price as foodPrice,
             se.window_name as windowName,
-            se.window_address as windowAddress
+            se.window_address as windowAddress,
+            s.sender_name as senderName
         from
             forder fo
         inner join
@@ -85,6 +86,10 @@
             seller se
         on
             se.seller_id = f.seller_id
+        left join
+            sender s
+        on
+            fo.sender_id = s.sender_id
         where
             st.is_delete = 0
         and
@@ -125,8 +130,6 @@
 
     <select id="studentCollectInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentCollectInfoVO">
         select
-            st.student_id as studentId,
-            st.student_name as name,
             c.collect_time as collectTime,
             f.food_name as foodName,
             f.food_price as foodPrice,
@@ -191,8 +194,7 @@
             s.principal_name as principalName,
             s.principal_telephone as principalTelephone,
             s.window_name as windowName,
-            s.window_address as windowAddress,
-            s.work_time as workTime
+            s.window_address as windowAddress
         from
             seller s
        where
@@ -216,8 +218,7 @@
         s.principal_name as principalName,
         s.principal_telephone as principalTelephone,
         s.window_name as windowName,
-        s.window_address as windowAddress,
-        s.work_time as workTime
+        s.window_address as windowAddress
         from
         seller s
         where
@@ -254,22 +255,16 @@
 
     <select id="sellerFoodInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerFoodInfoVO">
         select
-            s.seller_id as sellerId,
-            s.window_name as windowName,
             f.food_name as foodName,
             f.food_price as foodPrice,
-            f.description as foodDescription,
-            f.is_recommend as isRecommend
+            f.is_recommend as isRecommend,
+            f.create_time as createTime,
+            f.update_time as updateTime,
+            f.today_sell as todaySell
         from
-            seller s
-        inner join
             food f
-        on
-            s.seller_id = f.seller_id
         where
-            s.seller_id = #{sellerId}
-        and
-            s.is_delete = 0
+            f.seller_id = #{sellerId}
         and
             f.is_delete = 0
         limit #{pageNum}, #{pageSize}
@@ -279,34 +274,32 @@
         select
             count(*)
         from
-            seller s
-                inner join
             food f
-            on
-                s.seller_id = f.seller_id
         where
-            s.seller_id = #{sellerId}
-          and
-            s.is_delete = 0
+            f.seller_id = #{sellerId}
           and
             f.is_delete = 0
     </select>
 
     <select id="sellerSenderInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerSenderInfoVO">
         select
-            s.seller_id as sellerId,
-            s.window_name as windowName,
             se.sender_name as senderName,
-            se.sender_telephone as senderTelephone
+            se.sender_telephone as senderTelephone,
+            se.work_date as workDate,
+            se.quit_date as quitDate,
+            se.send_number as sendNumber
         from
-            seller s
-        inner join
             sender se
-        on
-            s.seller_id = se.seller_id
         where
-            s.is_delete = 0
-        and
-            s.seller_id = #{sellerId}
+            se.seller_id = #{sellerId}
+    </select>
+
+    <select id="sellerSenderInfoTotal" resultType="java.lang.Integer">
+        select
+            count(*)
+        from
+            sender se
+        where
+            se.seller_id = #{sellerId}
     </select>
 </mapper>

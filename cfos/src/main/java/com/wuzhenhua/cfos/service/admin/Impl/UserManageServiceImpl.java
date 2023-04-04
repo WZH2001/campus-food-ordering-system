@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Author wuzhenhua
@@ -28,91 +29,173 @@ public class UserManageServiceImpl implements UserManageService {
     private UserManageMapper userManageMapper;
 
     @Override
-    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfo) {
-        Integer pageNum = (studentBaseInfo.getPageNum() - 1) * studentBaseInfo.getPageSize();
-        Integer pageSize = studentBaseInfo.getPageSize();
-        List<StudentBaseInfoVO> studentBaseInfoFuzzy =  userManageMapper.studentBaseInfoFuzzy(pageNum, pageSize, studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
-        Integer total = userManageMapper.studentBaseInfoFuzzyTotal(studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+    public Response studentBaseInfo(PageUtil pageInfo) {
+        List<StudentBaseInfoVO> studentBaseInfoVO;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("studentBaseInfoFuzzy", studentBaseInfoFuzzy);
-        res.put("total", total);
+        try {
+            studentBaseInfoVO = userManageMapper.studentBaseInfo(pageInfo.getPageNum(), pageInfo.getPageSize());
+            total = userManageMapper.studentBaseInfoTotal();
+            res.put("studentBaseInfo", studentBaseInfoVO);
+            res.put("total", total);
+            res.put("currentNum", studentBaseInfoVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
-    public Response studentBaseInfo(PageUtil pageInfo) {
-        Integer pageNum = (pageInfo.getPageNum() - 1) * pageInfo.getPageSize();
-        Integer pageSize = pageInfo.getPageSize();
-        List<StudentBaseInfoVO> studentBaseInfoVO =  userManageMapper.studentBaseInfo(pageNum, pageSize);
-        Integer total = userManageMapper.studentBaseInfoTotal();
+    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfo) {
+        List<StudentBaseInfoVO> studentBaseInfoFuzzy;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("studentBaseInfo", studentBaseInfoVO);
-        res.put("total", total);
+        try {
+            studentBaseInfoFuzzy =  userManageMapper.studentBaseInfoFuzzy(studentBaseInfo.getPageNum(), studentBaseInfo.getPageSize(), studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+            total = userManageMapper.studentBaseInfoFuzzyTotal(studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+            res.put("studentBaseInfoFuzzy", studentBaseInfoFuzzy);
+            res.put("total", total);
+            res.put("currentNum", studentBaseInfoFuzzy.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response studentOrderInfo(String studentId, PageUtil pageUtil) {
-        Integer pageNum = (pageUtil.getPageNum() - 1) * pageUtil.getPageSize();
-        Integer pageSize = pageUtil.getPageSize();
-        List<StudentOrderInfoVO> studentOrderInfoVO = userManageMapper.studentOrderInfo(studentId, pageNum, pageSize);
-        Integer total = userManageMapper.studentOrderInfoTotal(studentId);
+        List<StudentOrderInfoVO> studentOrderInfoVO;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("studentOrderInfo", studentOrderInfoVO);
-        res.put("total", total);
+        try {
+            studentOrderInfoVO = userManageMapper.studentOrderInfo(studentId, pageUtil.getPageNum(), pageUtil.getPageSize());
+            for (StudentOrderInfoVO orderInfoVO : studentOrderInfoVO) {
+                if (orderInfoVO.getTakeTime() == null) {
+                    orderInfoVO.setTakeTime("无");
+                }
+                if (orderInfoVO.getSendTime() == null) {
+                    orderInfoVO.setSendTime("无");
+                    orderInfoVO.setSenderName("无");
+                }
+                if(orderInfoVO.getSenderName() == null){
+                    orderInfoVO.setSenderName("未指定配送员");
+                }
+                if(orderInfoVO.getFinishTime() == null){
+                    orderInfoVO.setFinishTime("未完成");
+                }
+            }
+            total = userManageMapper.studentOrderInfoTotal(studentId);
+            res.put("studentOrderInfo", studentOrderInfoVO);
+            res.put("total", total);
+            res.put("currentNum", studentOrderInfoVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response studentCollectInfo(String studentId, PageUtil pageUtil) {
-        Integer pageNum = (pageUtil.getPageNum() - 1) * pageUtil.getPageSize();
-        Integer pageSize = pageUtil.getPageSize();
-        List<StudentCollectInfoVO> studentCollectInfoVO = userManageMapper.studentCollectInfo(studentId, pageNum, pageSize);
-        Integer total = userManageMapper.studentCollectInfoTotal(studentId);
+        List<StudentCollectInfoVO> studentCollectInfoVO;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("studentCollectInfo", studentCollectInfoVO);
-        res.put("total", total);
+        try {
+            studentCollectInfoVO = userManageMapper.studentCollectInfo(studentId,pageUtil.getPageNum(), pageUtil.getPageSize());
+            total = userManageMapper.studentCollectInfoTotal(studentId);
+            res.put("studentCollectInfo", studentCollectInfoVO);
+            res.put("total", total);
+            res.put("currentNum", studentCollectInfoVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response sellerBaseInfo(PageUtil pageUtil) {
-        Integer pageNum = (pageUtil.getPageNum() - 1) * pageUtil.getPageSize();
-        Integer pageSize = pageUtil.getPageSize();
-        List<SellerBaseInfoVO> sellerBaseInfoVO =  userManageMapper.sellerBaseInfo(pageNum, pageSize);
-        Integer total = userManageMapper.sellerBaseInfoTotal();
+        List<SellerBaseInfoVO> sellerBaseInfoVO;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("sellerBaseInfo", sellerBaseInfoVO);
-        res.put("total", total);
+        try {
+            sellerBaseInfoVO =  userManageMapper.sellerBaseInfo(pageUtil.getPageNum(), pageUtil.getPageSize());
+            total = userManageMapper.sellerBaseInfoTotal();
+            res.put("sellerBaseInfo", sellerBaseInfoVO);
+            res.put("total", total);
+            res.put("currentNum", sellerBaseInfoVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO) {
-        Integer pageNum = (sellerBaseInfoDTO.getPageNum() - 1) * sellerBaseInfoDTO.getPageSize();
-        Integer pageSize = sellerBaseInfoDTO.getPageSize();
-        List<SellerBaseInfoVO> sellerBaseInfoFuzzy =  userManageMapper.sellerBaseInfoFuzzy(pageNum, pageSize, sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
-        Integer total = userManageMapper.sellerBaseInfoFuzzyTotal(sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+        List<SellerBaseInfoVO> sellerBaseInfoFuzzy;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("sellerBaseInfoFuzzy", sellerBaseInfoFuzzy);
-        res.put("total", total);
+        try {
+            sellerBaseInfoFuzzy =  userManageMapper.sellerBaseInfoFuzzy(sellerBaseInfoDTO.getPageNum(), sellerBaseInfoDTO.getPageSize(), sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+            total = userManageMapper.sellerBaseInfoFuzzyTotal(sellerBaseInfoDTO.getUsername(), sellerBaseInfoDTO.getAddress(), sellerBaseInfoDTO.getWindowName());
+            res.put("sellerBaseInfoFuzzy", sellerBaseInfoFuzzy);
+            res.put("total", total);
+            res.put("currentNum", sellerBaseInfoFuzzy.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response sellerFoodInfo(String sellerId, PageUtil pageUtil) {
-        Integer pageNum = (pageUtil.getPageNum() - 1) * pageUtil.getPageSize();
-        Integer pageSize = pageUtil.getPageSize();
-        List<SellerFoodInfoVO> sellerFoodVO = userManageMapper.sellerFoodInfo(sellerId, pageNum, pageSize);
-        Integer total = userManageMapper.sellerFoodInfoTotal(sellerId);
+        List<SellerFoodInfoVO> sellerFoodVO;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("sellerFoodInfo", sellerFoodVO);
-        res.put("total", total);
+        try {
+            sellerFoodVO = userManageMapper.sellerFoodInfo(sellerId, pageUtil.getPageNum(), pageUtil.getPageSize());
+            for(SellerFoodInfoVO sellerFoodInfoVO : sellerFoodVO){
+                if(Objects.equals(sellerFoodInfoVO.getIsRecommend(), "1")) {
+                    sellerFoodInfoVO.setIsRecommend("已推荐");
+                } else if(Objects.equals(sellerFoodInfoVO.getIsRecommend(), "0")){
+                    sellerFoodInfoVO.setIsRecommend("未推荐");
+                }
+            }
+            total = userManageMapper.sellerFoodInfoTotal(sellerId);
+            res.put("sellerFoodInfo", sellerFoodVO);
+            res.put("total", total);
+            res.put("currentNum", sellerFoodVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
-    public Response sellerSenderInfo(String sellerId) {
-        return  Response.successResponse(userManageMapper.sellerSenderInfo(sellerId), ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    public Response sellerSenderInfo(String sellerId, PageUtil pageInfo) {
+        List<SellerSenderInfoVO> sellerSenderVO;
+        Integer total;
+        Map<String, Object> res = new HashMap<>(20);
+        try {
+            sellerSenderVO = userManageMapper.sellerSenderInfo(sellerId, pageInfo.getPageNum(), pageInfo.getPageSize());
+            for(SellerSenderInfoVO sellerSenderInfoVO : sellerSenderVO){
+                if(Objects.equals(sellerSenderInfoVO.getQuitDate(), null)) {
+                    sellerSenderInfoVO.setQuitDate("无");
+                }
+            }
+            total = userManageMapper.sellerSenderInfoTotal(sellerId);
+            res.put("sellerSenderInfo", sellerSenderVO);
+            res.put("total", total);
+            res.put("currentNum", sellerSenderVO.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

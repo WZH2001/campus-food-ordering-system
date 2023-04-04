@@ -17,4 +17,7 @@ import lombok.NoArgsConstructor;
 public class SellerSenderInfoVO extends SellerBaseInfoVO{
     private String senderName;
     private String senderTelephone;
+    private String workDate;
+    private String quitDate;
+    private Integer sendNumber;
 }

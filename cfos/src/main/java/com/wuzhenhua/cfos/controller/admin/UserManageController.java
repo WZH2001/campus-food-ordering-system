@@ -25,14 +25,14 @@ public class UserManageController {
     @Resource
     private UserManageService userManageService;
 
-    @GetMapping("/studentBaseInfoFuzzy")
-    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfoDTO){
-        return userManageService.studentBaseInfoFuzzy(studentBaseInfoDTO);
-    }
-
     @GetMapping("/studentBaseInfo")
     public Response studentBaseInfo(PageUtil pageInfo){
         return userManageService.studentBaseInfo(pageInfo);
+    }
+
+    @GetMapping("/studentBaseInfoFuzzy")
+    public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfoDTO){
+        return userManageService.studentBaseInfoFuzzy(studentBaseInfoDTO);
     }
 
     @GetMapping("/studentOrderInfo")
@@ -61,8 +61,8 @@ public class UserManageController {
     }
 
     @GetMapping("/sellerSenderInfo")
-    public Response sellerSenderInfo(@RequestParam String sellerId) {
-        return userManageService.sellerSenderInfo(sellerId);
+    public Response sellerSenderInfo(@RequestParam String sellerId, PageUtil pageInfo) {
+        return userManageService.sellerSenderInfo(sellerId, pageInfo);
     }
 
 }

@@ -18,8 +18,6 @@ public class SellerBaseInfoVO {
     private String sellerId;
     private String username;
     private String principalName;
-    private String principalTelephone;
     private String windowName;
     private String windowAddress;
-    private String workTime;
 }

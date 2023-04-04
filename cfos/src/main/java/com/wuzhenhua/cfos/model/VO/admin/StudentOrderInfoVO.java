@@ -17,8 +17,11 @@ import lombok.NoArgsConstructor;
 public class StudentOrderInfoVO extends StudentBaseInfoVO {
     private String orderTime;
     private String takeTime;
+    private String sendTime;
     private String foodName;
     private String foodPrice;
     private String windowName;
     private String windowAddress;
+    private String senderName;
+    private String finishTime;
 }

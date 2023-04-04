@@ -18,5 +18,8 @@ public class SellerFoodInfoVO extends SellerBaseInfoVO{
     private String foodName;
     private String foodPrice;
     private String foodDescription;
+    private String createTime;
+    private String updateTime;
+    private Integer todaySell;
     private String isRecommend;
 }

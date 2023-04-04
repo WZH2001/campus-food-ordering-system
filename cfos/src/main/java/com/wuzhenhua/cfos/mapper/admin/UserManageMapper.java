@@ -146,7 +146,17 @@ public interface UserManageMapper {
      * 查找商家配送员信息
      *
      * @param sellerId 商家Id
+     * @param pageNum pageNum
+     * @param pageSize pageSize
      * @return List<SellerSenderInfoVO>
      */
-    List<SellerSenderInfoVO> sellerSenderInfo(@Param("sellerId") String sellerId);
+    List<SellerSenderInfoVO> sellerSenderInfo(@Param("sellerId") String sellerId, @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 查找商家配送员信息条数
+     *
+     * @param sellerId 商家Id
+     * @return Integer
+     */
+    Integer sellerSenderInfoTotal(@Param("sellerId") String sellerId);
 }

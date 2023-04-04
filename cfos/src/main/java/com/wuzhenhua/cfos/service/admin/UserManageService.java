@@ -76,8 +76,9 @@ public interface UserManageService {
      * 查找商家配送员信息
      *
      * @param sellerId 商家Id
+     * @param pageInfo pageInfo
      * @return Response
      */
-    Response sellerSenderInfo(String sellerId);
+    Response sellerSenderInfo(String sellerId, PageUtil pageInfo);
 }
 
