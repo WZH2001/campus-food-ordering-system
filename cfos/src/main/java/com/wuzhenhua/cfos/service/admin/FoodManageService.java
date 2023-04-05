@@ -26,4 +26,20 @@ public interface FoodManageService {
      * @return Response
      */
     Response menuBaseInfoFuzzy(MenuBaseInfoDTO menuBaseInfoDTO);
+
+    /**
+     * 查找已推荐菜品信息列表
+     *
+     * @param pageInfo 分页信息
+     * @return Response
+     */
+    Response menuHaveRecommend(PageUtil pageInfo);
+
+    /**
+     * 模糊查找已推荐菜品信息列表
+     *
+     * @param menuBaseInfoDTO 查询参数及分页信息
+     * @return Response
+     */
+    Response menuHaveRecommendFuzzy(MenuBaseInfoDTO menuBaseInfoDTO);
 }

@@ -28,39 +28,93 @@ public class FoodManageServiceImpl implements FoodManageService {
 
     @Override
     public Response menuBaseInfo(PageUtil pageInfo) {
-        Integer pageNum = (pageInfo.getPageNum() - 1) * pageInfo.getPageSize();
-        Integer pageSize = pageInfo.getPageSize();
-        List<FoodBaseInfoVO> menuBaseInfo =  foodManageMapper.menuBaseInfo(pageNum, pageSize);
-        for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfo) {
-            if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
-                foodBaseInfoVO.setIsRecommend("已推荐");
-            } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
-                foodBaseInfoVO.setIsRecommend("未推荐");
-            }
-        }
-        Integer total = foodManageMapper.menuBaseInfoTotal();
+        List<FoodBaseInfoVO> menuBaseInfo;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("menuBaseInfo", menuBaseInfo);
-        res.put("total", total);
+        try {
+            menuBaseInfo =  foodManageMapper.menuBaseInfo(pageInfo.getPageNum(), pageInfo.getPageSize());
+            for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfo) {
+                if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
+                    foodBaseInfoVO.setIsRecommend("已推荐");
+                } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
+                    foodBaseInfoVO.setIsRecommend("未推荐");
+                }
+            }
+            total = foodManageMapper.menuBaseInfoTotal();
+            res.put("menuBaseInfo", menuBaseInfo);
+            res.put("total", total);
+            res.put("currentNum", menuBaseInfo.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
     public Response menuBaseInfoFuzzy(MenuBaseInfoDTO menuBaseInfoDTO) {
-        Integer pageNum = (menuBaseInfoDTO.getPageNum() - 1) * menuBaseInfoDTO.getPageSize();
-        Integer pageSize = menuBaseInfoDTO.getPageSize();
-        List<FoodBaseInfoVO> menuBaseInfoFuzzy =  foodManageMapper.menuBaseInfoFuzzy(pageNum, pageSize, menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
-        for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfoFuzzy) {
-            if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
-                foodBaseInfoVO.setIsRecommend("已推荐");
-            } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
-                foodBaseInfoVO.setIsRecommend("未推荐");
-            }
-        }
-        Integer total = foodManageMapper.menuBaseInfoFuzzyTotal(menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+        List<FoodBaseInfoVO> menuBaseInfoFuzzy;
+        Integer total;
         Map<String, Object> res = new HashMap<>(20);
-        res.put("menuBaseInfoFuzzy", menuBaseInfoFuzzy);
-        res.put("total", total);
+        try {
+            menuBaseInfoFuzzy =  foodManageMapper.menuBaseInfoFuzzy(menuBaseInfoDTO.getPageNum(), menuBaseInfoDTO.getPageSize(), menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+            for (FoodBaseInfoVO foodBaseInfoVO : menuBaseInfoFuzzy) {
+                if ("1".equals(foodBaseInfoVO.getIsRecommend())) {
+                    foodBaseInfoVO.setIsRecommend("已推荐");
+                } else if ("0".equals(foodBaseInfoVO.getIsRecommend())) {
+                    foodBaseInfoVO.setIsRecommend("未推荐");
+                }
+            }
+            total = foodManageMapper.menuBaseInfoFuzzyTotal(menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+            res.put("menuBaseInfoFuzzy", menuBaseInfoFuzzy);
+            res.put("total", total);
+            res.put("currentNum", menuBaseInfoFuzzy.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response menuHaveRecommend(PageUtil pageInfo) {
+        List<FoodBaseInfoVO> menuHaveRecommend;
+        Integer total;
+        Map<String, Object> res = new HashMap<>(20);
+        try {
+            menuHaveRecommend =  foodManageMapper.menuHaveRecommend(pageInfo.getPageNum(), pageInfo.getPageSize());
+            for (FoodBaseInfoVO foodBaseInfoVO : menuHaveRecommend) {
+                foodBaseInfoVO.setIsRecommend("已推荐");
+            }
+            total = foodManageMapper.menuHaveRecommendTotal();
+            res.put("menuHaveRecommend", menuHaveRecommend);
+            res.put("total", total);
+            res.put("currentNum", menuHaveRecommend.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response menuHaveRecommendFuzzy(MenuBaseInfoDTO menuBaseInfoDTO) {
+        List<FoodBaseInfoVO> menuHaveRecommendFuzzy;
+        Integer total;
+        Map<String, Object> res = new HashMap<>(20);
+        try {
+            menuHaveRecommendFuzzy =  foodManageMapper.menuHaveRecommendFuzzy(menuBaseInfoDTO.getPageNum(), menuBaseInfoDTO.getPageSize(), menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+            for (FoodBaseInfoVO foodBaseInfoVO : menuHaveRecommendFuzzy) {
+                foodBaseInfoVO.setIsRecommend("已推荐");
+            }
+            total = foodManageMapper.menuHaveRecommendFuzzyTotal(menuBaseInfoDTO.getFoodName(), menuBaseInfoDTO.getFoodPrice());
+            res.put("menuHaveRecommendFuzzy", menuHaveRecommendFuzzy);
+            res.put("total", total);
+            res.put("currentNum", menuHaveRecommendFuzzy.size());
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

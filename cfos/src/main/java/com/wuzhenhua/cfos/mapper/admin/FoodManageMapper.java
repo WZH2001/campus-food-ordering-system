@@ -49,4 +49,40 @@ public interface FoodManageMapper {
      * @return Integer
      */
     Integer menuBaseInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice);
+
+    /**
+     * 查找已推荐菜品信息列表
+     *
+     * @param  pageNum pageNum
+     * @param  pageSize pageSize
+     * @return List<SellerFoodInfoVO>
+     */
+    List<FoodBaseInfoVO> menuHaveRecommend(Integer pageNum, Integer pageSize);
+
+    /**
+     * 查找已推荐菜品信息列表条数
+     *
+     * @return Integer
+     */
+    Integer menuHaveRecommendTotal();
+
+    /**
+     * 模糊查找已推荐菜品信息列表
+     *
+     * @param  pageNum pageNum
+     * @param  pageSize pageSize
+     * @param  foodName foodName
+     * @param  foodPrice foodPrice
+     * @return List<SellerFoodInfoVO>
+     */
+    List<FoodBaseInfoVO> menuHaveRecommendFuzzy(Integer pageNum, Integer pageSize, String foodName, String foodPrice);
+
+    /**
+     * 模糊查找已推荐菜品信息列表条数
+     *
+     * @param  foodName foodName
+     * @param  foodPrice foodPrice
+     * @return Integer
+     */
+    Integer menuHaveRecommendFuzzyTotal(String foodName, String foodPrice);
 }

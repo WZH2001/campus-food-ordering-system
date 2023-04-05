@@ -32,4 +32,14 @@ public class FoodManageController {
     public Response menuBaseInfoFuzzy(MenuBaseInfoDTO menuBaseInfoDTO){
         return foodManageService.menuBaseInfoFuzzy(menuBaseInfoDTO);
     }
+
+    @GetMapping("/menuHaveRecommend")
+    private Response menuHaveRecommend(PageUtil pageInfo){
+        return foodManageService.menuHaveRecommend(pageInfo);
+    }
+
+    @GetMapping("/menuHaveRecommendFuzzy")
+    public Response menuHaveRecommendFuzzy(MenuBaseInfoDTO menuBaseInfoDTO){
+        return foodManageService.menuHaveRecommendFuzzy(menuBaseInfoDTO);
+    }
 }

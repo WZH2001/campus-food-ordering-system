@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.admin.OrderManageMapper">
+    <sql id="orderBaseInfo">
+        st.student_name as studentName, st.student_address as studentAddress, f.food_name as foodName,
+               f.food_price as foodPrice, s.window_name as windowName, s.window_address as windowAddress,
+               fo.order_time as orderTime, fo.take_time as takeTime, fo.send_time as sendTime
+    </sql>
+
+    <select id="orderUnfinishedInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO">
+        select <include refid="orderBaseInfo"></include>
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 0
+        and s.is_delete = 0
+        and st.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="orderUnfinishedInfoTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+                 inner join student st
+                            on fo.student_id = st.student_id
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 inner join seller s
+                            on s.seller_id = f.seller_id
+                 left join sender se
+                           on se.sender_id = fo.sender_id
+        where fo.is_finish = 0
+          and s.is_delete = 0
+          and st.is_delete = 0
+    </select>
+
+    <select id="orderUnfinishedInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO">
+        select <include refid="orderBaseInfo"></include>
+        from forder fo
+                 inner join student st
+                            on fo.student_id = st.student_id
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 inner join seller s
+                            on s.seller_id = f.seller_id
+                 left join sender se
+                           on se.sender_id = fo.sender_id
+        where fo.is_finish = 0
+          and s.is_delete = 0
+          and st.is_delete = 0
+          <if test="orderBaseInfoDTO.studentName != null and orderBaseInfoDTO.studentName != ''">
+              and st.student_name like concat('%', #{orderBaseInfoDTO.studentName}, '%')
+          </if>
+        <if test="orderBaseInfoDTO.windowName != null and orderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%', #{orderBaseInfoDTO.windowName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodName != null and orderBaseInfoDTO.foodName != ''">
+            and f.food_name like concat('%', #{orderBaseInfoDTO.foodName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodPrice != null and orderBaseInfoDTO.foodPrice != ''">
+            and f.food_price = #{orderBaseInfoDTO.foodPrice}
+        </if>
+            limit #{orderBaseInfoDTO.pageNum}, #{orderBaseInfoDTO.pageSize}
+    </select>
+
+    <select id="orderUnfinishedInfoFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 0
+        and s.is_delete = 0
+        and st.is_delete = 0
+        <if test="orderBaseInfoDTO.studentName != null and orderBaseInfoDTO.studentName != ''">
+            and st.student_name like concat('%', #{orderBaseInfoDTO.studentName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.windowName != null and orderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%', #{orderBaseInfoDTO.windowName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodName != null and orderBaseInfoDTO.foodName != ''">
+            and f.food_name like concat('%', #{orderBaseInfoDTO.foodName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodPrice != null and orderBaseInfoDTO.foodPrice != ''">
+            and f.food_price = #{orderBaseInfoDTO.foodPrice}
+        </if>
+    </select>
+
+    <select id="orderBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO">
+        select <include refid="orderBaseInfo"></include>,
+        se.sender_name as senderName, fo.finish_time as finishTime
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 1
+        and s.is_delete = 0
+        and st.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="orderBaseInfoTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 1
+        and s.is_delete = 0
+        and st.is_delete = 0
+    </select>
+
+    <select id="orderBaseInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO">
+        select <include refid="orderBaseInfo"></include>,
+        se.sender_name as senderName, fo.finish_time as finishTime
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 1
+        and s.is_delete = 0
+        and st.is_delete = 0
+        <if test="orderBaseInfoDTO.studentName != null and orderBaseInfoDTO.studentName != ''">
+            and st.student_name like concat('%', #{orderBaseInfoDTO.studentName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.windowName != null and orderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%', #{orderBaseInfoDTO.windowName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodName != null and orderBaseInfoDTO.foodName != ''">
+            and f.food_name like concat('%', #{orderBaseInfoDTO.foodName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodPrice != null and orderBaseInfoDTO.foodPrice != ''">
+            and f.food_price = #{orderBaseInfoDTO.foodPrice}
+        </if>
+        limit #{orderBaseInfoDTO.pageNum}, #{orderBaseInfoDTO.pageSize}
+    </select>
+
+    <select id="orderBaseInfoFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        inner join seller s
+        on s.seller_id = f.seller_id
+        left join sender se
+        on se.sender_id = fo.sender_id
+        where fo.is_finish = 1
+        and s.is_delete = 0
+        and st.is_delete = 0
+        <if test="orderBaseInfoDTO.studentName != null and orderBaseInfoDTO.studentName != ''">
+            and st.student_name like concat('%', #{orderBaseInfoDTO.studentName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.windowName != null and orderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%', #{orderBaseInfoDTO.windowName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodName != null and orderBaseInfoDTO.foodName != ''">
+            and f.food_name like concat('%', #{orderBaseInfoDTO.foodName}, '%')
+        </if>
+        <if test="orderBaseInfoDTO.foodPrice != null and orderBaseInfoDTO.foodPrice != ''">
+            and f.food_price = #{orderBaseInfoDTO.foodPrice}
+        </if>
+    </select>
+</mapper>

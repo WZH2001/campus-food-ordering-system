@@ -6,18 +6,19 @@ import lombok.NoArgsConstructor;
 
 /**
  * @program: campus-food-ordering-system
- * @description: 菜品基本信息返回参数
+ * @description: 收藏信息返回参数
  * @author: wuzhenhua
- * @create: 2023-03-17 12:31
+ * @create: 2023-04-05 18:50
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FoodBaseInfoVO {
+public class CollectionBaseInfoVO {
+    private String studentName;
+    private String studentAddress;
     private String foodName;
     private String foodPrice;
-    private String createTime;
-    private String isRecommend;
     private String windowName;
-    private Integer todaySell;
+    private String windowAddress;
+    private String collectTime;
 }

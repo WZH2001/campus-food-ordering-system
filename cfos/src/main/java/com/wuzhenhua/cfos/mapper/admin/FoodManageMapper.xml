@@ -3,14 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.admin.FoodManageMapper">
-
-    <select id="menuBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
-        select f.food_name as foodName,
+    <sql id="foodBaseInfo">
+        f.food_name as foodName,
                f.food_price as foodPrice,
-               f.description as foodDescription,
+               f.create_time as createTime,
                f.is_recommend as isRecommend,
                f.today_sell as todaySell,
                s.window_name as windowName
+    </sql>
+
+    <select id="menuBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
+        select <include refid="foodBaseInfo"></include>
         from food f
         inner join seller s
         on s.seller_id = f.seller_id
@@ -27,12 +30,7 @@
     </select>
 
     <select id="menuBaseInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
-        select f.food_name as foodName,
-               f.food_price as foodPrice,
-               f.description as foodDescription,
-               f.is_recommend as isRecommend,
-               f.today_sell as todaySell,
-               s.window_name as windowName
+        select <include refid="foodBaseInfo"></include>
         from food f
                  inner join seller s
                             on s.seller_id = f.seller_id
@@ -52,6 +50,56 @@
                  inner join seller s
                             on s.seller_id = f.seller_id
         where f.is_delete = 0
+        <if test="foodName != null and foodName != ''">
+            and food_name like concat('%', #{foodName}, '%')
+        </if>
+        <if test="foodPrice != null and foodPrice != ''">
+            and food_price = #{foodPrice}
+        </if>
+    </select>
+
+    <select id="menuHaveRecommend" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
+        select <include refid="foodBaseInfo"></include>
+        from food f
+        inner join seller s
+        on s.seller_id = f.seller_id
+        where f.is_delete = 0
+        and f.is_recommend = 1
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="menuHaveRecommendTotal" resultType="java.lang.Integer">
+        select count(*)
+        from food f
+        inner join seller s
+        on s.seller_id = f.seller_id
+        where f.is_delete = 0
+        and f.is_recommend = 1
+    </select>
+
+    <select id="menuHaveRecommendFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
+        select <include refid="foodBaseInfo"></include>
+        from food f
+        inner join seller s
+        on s.seller_id = f.seller_id
+        where f.is_delete = 0
+        and f.is_recommend = 1
+        <if test="foodName != null and foodName != ''">
+            and food_name like concat('%', #{foodName}, '%')
+        </if>
+        <if test="foodPrice != null and foodPrice != ''">
+            and food_price = #{foodPrice}
+        </if>
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="menuHaveRecommendFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from food f
+        inner join seller s
+        on s.seller_id = f.seller_id
+        where f.is_delete = 0
+        and f.is_recommend = 1
         <if test="foodName != null and foodName != ''">
             and food_name like concat('%', #{foodName}, '%')
         </if>
