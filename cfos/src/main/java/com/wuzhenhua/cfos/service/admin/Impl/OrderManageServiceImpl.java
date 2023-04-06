@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class OrderManageServiceImpl implements OrderManageService {
     @Resource
-    OrderManageMapper orderManageMapper;
+    private OrderManageMapper orderManageMapper;
 
     @Override
     public Response orderUnfinishedInfo(PageUtil pageInfo) {

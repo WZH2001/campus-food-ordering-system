@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.admin.SenderManageMapper">
+    <sql id="senderBaseInfo">
+        s.window_name as windowName, s.window_address as windowAddress,
+               se.sender_name as senderName, se.sender_telephone as senderTelephone,
+               se.work_date as workDate,
+    </sql>
+
+    <select id="senderAtWorkInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO">
+        select <include refid="senderBaseInfo"></include> se.send_number as sendNumber
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 0
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="senderAtWorkInfoTotal" resultType="java.lang.Integer">
+        select count(*)
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 0
+    </select>
+
+    <select id="senderAtWorkInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO">
+        select <include refid="senderBaseInfo"></include> se.quit_date as quitDate
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 0
+        <if test="senderBaseInfoDTO.windowName != null and senderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%',#{senderBaseInfoDTO.windowName},'%')
+        </if>
+        <if test="senderBaseInfoDTO.senderName != null and senderBaseInfoDTO.senderName != ''">
+            and se.sender_name like concat('%',#{senderBaseInfoDTO.senderName},'%')
+        </if>
+        limit #{senderBaseInfoDTO.pageNum}, #{senderBaseInfoDTO.pageSize}
+    </select>
+
+    <select id="senderAtWorkInfoFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 0
+        <if test="senderBaseInfoDTO.windowName != null and senderBaseInfoDTO.windowName != ''">
+          and s.window_name like concat('%',#{senderBaseInfoDTO.windowName},'%')
+        </if>
+        <if test="senderBaseInfoDTO.senderName != null and senderBaseInfoDTO.senderName != ''">
+            and se.sender_name like concat('%',#{senderBaseInfoDTO.senderName},'%')
+        </if>
+    </select>
+
+    <select id="senderBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO">
+        select <include refid="senderBaseInfo"></include> se.quit_date as quitDate
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 1
+        limit #{pageNum}, #{pageSize}
+    </select>
+
+    <select id="senderBaseInfoTotal" resultType="java.lang.Integer">
+        select count(*)
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 1
+    </select>
+
+    <select id="senderBaseInfoFuzzy" resultType="com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO">
+        select <include refid="senderBaseInfo"></include> se.quit_date as quitDate
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 1
+        <if test="senderBaseInfoDTO.windowName != null and senderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%',#{senderBaseInfoDTO.windowName},'%')
+        </if>
+        <if test="senderBaseInfoDTO.senderName != null and senderBaseInfoDTO.senderName != ''">
+            and se.sender_name like concat('%',#{senderBaseInfoDTO.senderName},'%')
+        </if>
+        limit #{senderBaseInfoDTO.pageNum}, #{senderBaseInfoDTO.pageSize}
+    </select>
+
+    <select id="senderBaseInfoFuzzyTotal" resultType="java.lang.Integer">
+        select count(*)
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where s.is_delete = 0
+        and se.is_delete = 1
+        <if test="senderBaseInfoDTO.windowName != null and senderBaseInfoDTO.windowName != ''">
+            and s.window_name like concat('%',#{senderBaseInfoDTO.windowName},'%')
+        </if>
+        <if test="senderBaseInfoDTO.senderName != null and senderBaseInfoDTO.senderName != ''">
+            and se.sender_name like concat('%',#{senderBaseInfoDTO.senderName},'%')
+        </if>
+    </select>
+</mapper>

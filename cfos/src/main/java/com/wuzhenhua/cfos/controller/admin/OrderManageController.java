@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @RequestMapping("/order")
 public class OrderManageController {
     @Resource
-    OrderManageService orderManageService;
+    private OrderManageService orderManageService;
 
     @GetMapping("/orderUnfinishedInfo")
     public Response orderUnfinishedInfo(PageUtil pageInfo){
