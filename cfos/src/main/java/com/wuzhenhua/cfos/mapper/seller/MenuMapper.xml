@@ -28,12 +28,9 @@
         update food set is_delete = 1 where food_id = #{foodId}
     </update>
 
-    <update id="batchDelete">
-        update food set is_delete = 1 where food_id in
-        <foreach collection="foodIds" item="foodId" open="(" separator="," close=")">
-            #{foodId}
-        </foreach>
-    </update>
+    <delete id="deleteCollectionOfFood">
+        delete from collect where food_id = #{foodId}
+    </delete>
 
     <select id="menuInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.MenuVO">
         select <include refid="menuVO"></include>
@@ -102,5 +99,12 @@
             food_name = #{foodName}
         and
             is_delete = 0
+    </select>
+
+    <select id="queryOrderInfo" resultType="java.lang.Integer">
+        select count(order_id) from forder where food_id = #{foodId}
+        and is_delete_for_seller = 0
+        and is_finish = 0
+        and DATE(order_time) = CURDATE()
     </select>
 </mapper>

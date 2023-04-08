@@ -20,4 +20,5 @@ public class StudentBaseInfoVO {
     private String name;
     private String telephone;
     private String address;
+    private String enrollmentDate;
 }

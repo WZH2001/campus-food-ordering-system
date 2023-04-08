@@ -92,10 +92,17 @@ public interface MenuMapper {
     Integer foodDelete(@Param("foodId") String foodId);
 
     /**
-     * 批量删除菜品
+     * 查询订单表中是否有该菜品信息
      *
-     * @param foodIds foodIds
+     * @param foodId foodId
      * @return Integer
      */
-    Integer batchDelete(@Param("foodIds") List<String> foodIds);
+    Integer queryOrderInfo(@Param("foodId") String foodId);
+
+    /**
+     * 删除所有关于该菜品的收藏
+     *
+     * @param foodId foodId
+     */
+    void deleteCollectionOfFood(@Param("foodId") String foodId);
 }

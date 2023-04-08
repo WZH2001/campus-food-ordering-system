@@ -159,4 +159,20 @@ public interface UserManageMapper {
      * @return Integer
      */
     Integer sellerSenderInfoTotal(@Param("sellerId") String sellerId);
+
+    /**
+     * 查询学生的毕业时间
+     *
+     * @param studentId studentId
+     * @return String
+     */
+    String queryStudentGraduateTime(@Param("studentId") String studentId);
+
+    /**
+     * 删除单个学生
+     *
+     * @param studentId studentId
+     * @return Integer
+     */
+    Integer deleteSingleStudent(@Param("studentId") String studentId);
 }

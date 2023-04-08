@@ -11,6 +11,8 @@ import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -107,26 +109,46 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response foodDelete(String foodId) {
         try {
-            if(menuMapper.foodDelete(foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+            if(menuMapper.queryOrderInfo(foodId) != 0){
+                return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+            } else {
+                menuMapper.deleteCollectionOfFood(foodId);
+                if(menuMapper.foodDelete(foodId) == 0){
+                    return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response batchDelete(List<String> foodIds) {
         try {
-            if(menuMapper.batchDelete(foodIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+            int num = 0;
+            for (String foodId : foodIds) {
+                if (menuMapper.queryOrderInfo(foodId) != 0) {
+                    num++;
+                } else {
+                    menuMapper.deleteCollectionOfFood(foodId);
+                    if(menuMapper.foodDelete(foodId) == 0){
+                        return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                    }
+                }
             }
+           if(num == foodIds.size()){
+               return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+           }
         } catch (Exception e){
             e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());

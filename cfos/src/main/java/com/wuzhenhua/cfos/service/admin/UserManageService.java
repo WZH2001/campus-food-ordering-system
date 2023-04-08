@@ -1,9 +1,11 @@
 package com.wuzhenhua.cfos.service.admin;
 
-import com.wuzhenhua.cfos.utils.PageUtil;
-import com.wuzhenhua.cfos.utils.Response;
 import com.wuzhenhua.cfos.model.DTO.admin.SellerBaseInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
+import com.wuzhenhua.cfos.utils.PageUtil;
+import com.wuzhenhua.cfos.utils.Response;
+
+import java.util.List;
 
 /**
  * @Author wuzhenhua
@@ -80,5 +82,21 @@ public interface UserManageService {
      * @return Response
      */
     Response sellerSenderInfo(String sellerId, PageUtil pageInfo);
+
+    /**
+     * 删除单个学生
+     *
+     * @param studentId studentId
+     * @return Response
+     */
+    Response deleteSingleStudent(String studentId);
+
+    /**
+     * 批量删除学生信息
+     *
+     * @param studentIds studentIds
+     * @return Response
+     */
+    Response batchDeleteStudent(List<String> studentIds);
 }
 

@@ -20,4 +20,5 @@ public class SellerBaseInfoVO {
     private String principalName;
     private String windowName;
     private String windowAddress;
+    private String principalTelephone;
 }

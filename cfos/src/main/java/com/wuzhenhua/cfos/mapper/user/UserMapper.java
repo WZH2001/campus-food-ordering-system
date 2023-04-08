@@ -54,4 +54,12 @@ public interface UserMapper {
      * @return UserBaseInfoVO 商家信息
      */
     UserBaseInfoVO sellerLogin(@Param("login") UserLoginDTO userLogin);;
+
+    /**
+     * 注册前查询是否有该用户
+     *
+     * @param userName userName
+     * @return Integer
+     */
+    Integer userRegister(@Param("userName") String userName);
 }

@@ -37,6 +37,7 @@
         and se.is_delete = 0
         and f.is_delete = 0
         and s.is_delete = 0
+        and DATE(fo.order_time) = CURDATE()
         Order By fo.take_time desc
         limit #{pageNum}, #{pageSize}
     </select>
@@ -56,6 +57,7 @@
         and se.is_delete = 0
         and f.is_delete = 0
         and s.is_delete = 0
+        and DATE(fo.order_time) = CURDATE()
     </select>
 
     <select id="takeOrderUnfinishedInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.TodayOrderVO">
@@ -95,8 +97,7 @@
     </select>
 
     <select id="sendOrderFinishedInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.TodayOrderVO">
-        select <include refid="todayOrderVo"></include>,
-                sen.sender_name as senderName
+        select <include refid="todayOrderVo"></include>,sen.sender_name as senderName
         from forder fo
         inner join food f
         on fo.food_id = f.food_id
@@ -113,6 +114,7 @@
         and f.is_delete = 0
         and s.is_delete = 0
         and sen.is_delete = 0
+        and DATE(fo.order_time) = CURDATE()
         Order By fo.send_time desc
         limit #{pageNum}, #{pageSize}
     </select>
@@ -135,6 +137,7 @@
           and f.is_delete = 0
           and sen.is_delete = 0
           and s.is_delete = 0
+          and DATE(fo.order_time) = CURDATE()
     </select>
 
     <select id="sendOrderUnfinishedInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.TodayOrderVO">

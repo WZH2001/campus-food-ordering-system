@@ -5,12 +5,12 @@ import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
 import com.wuzhenhua.cfos.service.admin.UserManageService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author wuzhenhua
@@ -65,4 +65,13 @@ public class UserManageController {
         return userManageService.sellerSenderInfo(sellerId, pageInfo);
     }
 
+    @PostMapping("/deleteSingleStudent")
+    public Response deleteSingleStudent(@RequestBody @NotNull Map<String, String> studentId){
+        return userManageService.deleteSingleStudent(studentId.get("studentId"));
+    }
+
+    @PostMapping("/batchDeleteStudent")
+    public Response batchDeleteStudent(@RequestBody List<String> studentIds){
+        return userManageService.batchDeleteStudent(studentIds);
+    }
 }

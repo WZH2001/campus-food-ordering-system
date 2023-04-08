@@ -8,9 +8,13 @@ import com.wuzhenhua.cfos.model.VO.admin.*;
 import com.wuzhenhua.cfos.service.admin.UserManageService;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import com.wuzhenhua.cfos.utils.Response;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +32,35 @@ public class UserManageServiceImpl implements UserManageService {
     @Resource
     private UserManageMapper userManageMapper;
 
+    public void checkUserInfoIsOrNotExist(@NotNull List<StudentBaseInfoVO> studentBaseInfoS){
+        for(StudentBaseInfoVO studentBaseInfoVO : studentBaseInfoS){
+            if(studentBaseInfoVO.getName() == null){
+                studentBaseInfoVO.setName("该信息未完善");
+            }
+            if(studentBaseInfoVO.getTelephone() == null){
+                studentBaseInfoVO.setTelephone("该信息未完善");
+            }
+            if(studentBaseInfoVO.getAddress() == null){
+                studentBaseInfoVO.setAddress("该信息未完善");
+            }
+            if(studentBaseInfoVO.getEnrollmentDate() == null){
+                studentBaseInfoVO.setEnrollmentDate("该信息未完善");
+            }
+        }
+    }
+
     @Override
     public Response studentBaseInfo(PageUtil pageInfo) {
-        List<StudentBaseInfoVO> studentBaseInfoVO;
+        List<StudentBaseInfoVO> studentBaseInfoS;
         Integer total;
         Map<String, Object> res = new HashMap<>(20);
         try {
-            studentBaseInfoVO = userManageMapper.studentBaseInfo(pageInfo.getPageNum(), pageInfo.getPageSize());
+            studentBaseInfoS = userManageMapper.studentBaseInfo(pageInfo.getPageNum(), pageInfo.getPageSize());
+            checkUserInfoIsOrNotExist(studentBaseInfoS);
             total = userManageMapper.studentBaseInfoTotal();
-            res.put("studentBaseInfo", studentBaseInfoVO);
+            res.put("studentBaseInfo", studentBaseInfoS);
             res.put("total", total);
-            res.put("currentNum", studentBaseInfoVO.size());
+            res.put("currentNum", studentBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
@@ -53,6 +75,7 @@ public class UserManageServiceImpl implements UserManageService {
         Map<String, Object> res = new HashMap<>(20);
         try {
             studentBaseInfoFuzzy =  userManageMapper.studentBaseInfoFuzzy(studentBaseInfo.getPageNum(), studentBaseInfo.getPageSize(), studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
+            checkUserInfoIsOrNotExist(studentBaseInfoFuzzy);
             total = userManageMapper.studentBaseInfoFuzzyTotal(studentBaseInfo.getUsername(), studentBaseInfo.getAddress());
             res.put("studentBaseInfoFuzzy", studentBaseInfoFuzzy);
             res.put("total", total);
@@ -197,5 +220,47 @@ public class UserManageServiceImpl implements UserManageService {
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response deleteSingleStudent(String studentId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            if(sdf.parse(userManageMapper.queryStudentGraduateTime(studentId)).getTime() > System.currentTimeMillis()){
+                return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+            } else{
+                if(userManageMapper.deleteSingleStudent(studentId) == 0){
+                    return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+    }
+
+    @Override
+    public Response batchDeleteStudent(List<String> studentIds) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            int num = 0;
+            for (String studentId : studentIds) {
+                if (sdf.parse(userManageMapper.queryStudentGraduateTime(studentId)).getTime() > System.currentTimeMillis()) {
+                    num++;
+                } else {
+                    if (userManageMapper.deleteSingleStudent(studentId) == 0) {
+                        return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                    }
+                }
+            }
+            if(num == studentIds.size()){
+                return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+        }
+        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

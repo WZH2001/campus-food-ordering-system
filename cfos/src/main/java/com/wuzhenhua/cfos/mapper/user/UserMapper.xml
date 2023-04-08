@@ -48,4 +48,13 @@
         where
             seller_username = #{login.username}
     </select>
+
+    <select id="userRegister" resultType="java.lang.Integer">
+        select count(*) from(
+                                    (select admin_username as username from admin)
+                                    union all (select student_username as username from student)
+                                    union all (select seller_username as username from seller)
+                            ) register
+            where register.username = #{userName}
+    </select>
 </mapper>

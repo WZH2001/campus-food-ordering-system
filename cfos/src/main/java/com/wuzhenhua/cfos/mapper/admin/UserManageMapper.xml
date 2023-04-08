@@ -3,13 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wuzhenhua.cfos.mapper.admin.UserManageMapper">
+    <update id="deleteSingleStudent">
+        update student set is_delete = 1 where student_id = #{studentId}
+    </update>
+
     <select id="studentBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentBaseInfoVO">
         select
             s.student_id as studentId,
             s.student_username as username,
             s.student_name as name,
             s.student_telephone as telephone,
-            s.student_address as address
+            s.student_address as address,
+            s.enrollment_date as enrollmentDate
         from
             student s
         where
@@ -301,5 +306,9 @@
             sender se
         where
             se.seller_id = #{sellerId}
+    </select>
+
+    <select id="queryStudentGraduateTime" resultType="java.lang.String">
+        select graduate_date from student where student_id = #{studentId}
     </select>
 </mapper>
