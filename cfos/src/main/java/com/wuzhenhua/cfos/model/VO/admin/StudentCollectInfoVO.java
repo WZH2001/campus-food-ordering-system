@@ -2,6 +2,7 @@ package com.wuzhenhua.cfos.model.VO.admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  * @Description: 学生收藏信息返回参数
  * @Date 2022/12/14 14:18
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

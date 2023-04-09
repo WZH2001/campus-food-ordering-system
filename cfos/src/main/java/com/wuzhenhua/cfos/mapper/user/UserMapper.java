@@ -2,6 +2,8 @@ package com.wuzhenhua.cfos.mapper.user;
 
 import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
+import com.wuzhenhua.cfos.model.VO.user.SellerBaseInfoVO;
+import com.wuzhenhua.cfos.model.VO.user.StudentBaseInfoVO;
 import com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -42,18 +44,18 @@ public interface UserMapper {
     /**
      * 学生登录
      *
-     * @param userLogin 用户名，密码
-     * @return UserBaseInfoVO 学生信息
+     * @param login 用户名，密码
+     * @return StudentBaseInfoVO 学生信息
      */
-    UserBaseInfoVO studentLogin(@Param("login") UserLoginDTO userLogin);
+    StudentBaseInfoVO studentLogin(@Param("login") UserLoginDTO login);
 
     /**
      * 商家登录
      *
-     * @param userLogin 用户名，密码
-     * @return UserBaseInfoVO 商家信息
+     * @param login 用户名，密码
+     * @return SellerBaseInfoVO 商家信息
      */
-    UserBaseInfoVO sellerLogin(@Param("login") UserLoginDTO userLogin);;
+    SellerBaseInfoVO sellerLogin(@Param("login") UserLoginDTO login);
 
     /**
      * 注册前查询是否有该用户

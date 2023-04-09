@@ -25,28 +25,39 @@
             admin_username = #{login.username}
     </select>
 
-    <select id="studentLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+    <select id="studentLogin" resultType="com.wuzhenhua.cfos.model.VO.user.StudentBaseInfoVO">
         select
             student_id as userId,
             student_username as username,
             student_password as password,
+            student_name as studentName,
+            student_telephone as studentTelephone,
+            student_address as studentAddress,
+            enrollment_date as enrollmentDate,
+            graduate_date as graduateDate,
             role_id as roleId
         from
             student
         where
             student_username = #{login.username}
+          and (graduate_date is null or graduate_date > now())
     </select>
 
-    <select id="sellerLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+    <select id="sellerLogin" resultType="com.wuzhenhua.cfos.model.VO.user.SellerBaseInfoVO">
         select
             seller_id as userId,
             seller_username as username,
             seller_password as password,
+            principal_name as principalName,
+            principal_telephone as principalTelephone,
+            window_name as windowName,
+            window_address as windowAddress,
             role_id as roleId
         from
             seller
         where
             seller_username = #{login.username}
+        and is_delete = 0
     </select>
 
     <select id="userRegister" resultType="java.lang.Integer">

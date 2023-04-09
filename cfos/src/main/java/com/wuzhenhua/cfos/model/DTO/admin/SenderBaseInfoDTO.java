@@ -3,6 +3,7 @@ package com.wuzhenhua.cfos.model.DTO.admin;
 import com.wuzhenhua.cfos.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  * @author: wuzhenhua
  * @create: 2023-04-05 18:47
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
