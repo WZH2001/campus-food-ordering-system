@@ -35,4 +35,14 @@ public class SellerHomeController {
     public Response queryMonthSellAndMonthIncome(@RequestHeader String token){
         return sellerHomeService.queryMonthSellAndMonthIncome(token);
     }
+
+    @GetMapping("/queryEveryDayIncomeInThisMonth")
+    public Response queryEveryDayIncomeInThisMonth(@RequestHeader String token){
+        return sellerHomeService.queryEveryDayIncomeInThisMonth(token);
+    }
+
+    @GetMapping("/queryEveryMonthIncomeInThisYear")
+    public Response queryEveryMonthIncomeInThisYear(@RequestHeader String token){
+        return sellerHomeService.queryEveryMonthIncomeInThisYear(token);
+    }
 }

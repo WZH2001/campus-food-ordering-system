@@ -1,6 +1,7 @@
 package com.wuzhenhua.cfos.mapper.student;
 
 import com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber;
+import com.wuzhenhua.cfos.model.temp.WindowNameAndOrderNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,7 +29,7 @@ public interface StudentHomeMapper {
      * @param studentId studentId
      * @return List<UnitPriceAndOrderNumber>
      */
-    List<UnitPriceAndOrderNumber> queryWeekOrderWeekDayConsume(String studentId);
+    List<UnitPriceAndOrderNumber> queryWeekOrderWeekDayConsume(@Param("studentId") String studentId);
 
     /**
      * 查询本月点餐份数及消费
@@ -36,5 +37,13 @@ public interface StudentHomeMapper {
      * @param studentId studentId
      * @return List<UnitPriceAndOrderNumber>
      */
-    List<UnitPriceAndOrderNumber> queryMonthOrderAndMonthConsume(String studentId);
+    List<UnitPriceAndOrderNumber> queryMonthOrderAndMonthConsume(@Param("studentId") String studentId);
+
+    /**
+     * 查询本月订餐窗口和订单数量
+     *
+     * @param studentId studentId
+     * @return List<WindowNameAndOrderNumber>
+     */
+    List<WindowNameAndOrderNumber> queryWindowNameAndOrderNumbersAtThisMonth(@Param("studentId") String studentId);
 }

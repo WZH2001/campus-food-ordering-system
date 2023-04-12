@@ -1,5 +1,6 @@
 package com.wuzhenhua.cfos.mapper.seller;
 
+import com.wuzhenhua.cfos.model.temp.SomeDayAndUnitPriceAndOrderNumber;
 import com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,7 +29,7 @@ public interface SellerHomeMapper {
      * @param sellerId sellerId
      * @return List<UnitPriceAndOrderNumber>
      */
-    List<UnitPriceAndOrderNumber> queryWeekSellAndWeekIncome(String sellerId);
+    List<UnitPriceAndOrderNumber> queryWeekSellAndWeekIncome(@Param("sellerId") String sellerId);
 
     /**
      * 查询本月销量及收入
@@ -36,5 +37,14 @@ public interface SellerHomeMapper {
      * @param sellerId sellerId
      * @return List<UnitPriceAndOrderNumber>
      */
-    List<UnitPriceAndOrderNumber> queryMonthSellAndMonthIncome(String sellerId);
+    List<UnitPriceAndOrderNumber> queryMonthSellAndMonthIncome(@Param("sellerId") String sellerId);
+
+    /**
+     * 查询当前月每天的收入
+     *
+     * @param currentMonth currentMonth
+     * @param sellerId sellerId
+     * @return List<SomeDayAndUnitPriceAndOrderNumber>
+     */
+    List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisMonth(@Param("currentMonth") Integer currentMonth, @Param("sellerId") String sellerId);
 }

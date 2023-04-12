@@ -30,4 +30,17 @@
         where fo.food_id in (select food_id from food where seller_id = #{sellerId})
           and date_format(fo.order_time, '%Y-%m') = date_format(now(),'%Y-%m')
     </select>
+
+    <select id="queryEveryDayIncomeInThisMonth" resultType="com.wuzhenhua.cfos.model.temp.SomeDayAndUnitPriceAndOrderNumber">
+        select sum(fo.order_number) as orderNumber, f.food_price as unitPrice, DATE_FORMAT(fo.finish_time,'%e') dayInMonth
+        from forder fo
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 inner join seller s
+                            on s.seller_id = f.seller_id
+        where s.seller_id = #{sellerId}
+          and DATE_FORMAT(fo.finish_time,'%m') = #{currentMonth}
+        GROUP BY dayInMonth
+        order by fo.finish_time
+    </select>
 </mapper>

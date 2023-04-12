@@ -32,4 +32,17 @@
         where fo.student_id = #{studentId}
           and date_format(fo.order_time, '%Y-%m') = date_format(now(),'%Y-%m')
     </select>
+
+    <select id="queryWindowNameAndOrderNumbersAtThisMonth"
+            resultType="com.wuzhenhua.cfos.model.temp.WindowNameAndOrderNumber">
+        select sum(order_number) as value, s.window_name as name
+        from forder fo
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 inner join seller s
+                            on s.seller_id = f.seller_id
+        where fo.student_id = #{studentId}
+        and date_format(fo.order_time, '%Y-%m') = date_format(now(),'%Y-%m')
+        GROUP BY s.window_name
+    </select>
 </mapper>

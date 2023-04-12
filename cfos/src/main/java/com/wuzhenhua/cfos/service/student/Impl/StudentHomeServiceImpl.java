@@ -10,7 +10,6 @@ import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +29,11 @@ public class StudentHomeServiceImpl implements StudentHomeService {
     public Response queryDayOrderAndDayConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
         List<UnitPriceAndOrderNumber> unitPriceAndOrderNumbers;
-        Map<String,Integer> res = new HashMap<>(20);
+        Map<String, Object> res = new HashMap<>(20);
         try {
             unitPriceAndOrderNumbers = studentHomeMapper.queryDayOrderAndDayConsume(studentId);
             int allOrders = 0;
-            int allPrice = 0;
+            double allPrice = 0;
             for (UnitPriceAndOrderNumber unitPriceAndOrderNumber : unitPriceAndOrderNumbers) {
                 allOrders += unitPriceAndOrderNumber.getOrderNumber();
                 allPrice += unitPriceAndOrderNumber.getOrderNumber() * unitPriceAndOrderNumber.getUnitPrice();
@@ -52,11 +51,11 @@ public class StudentHomeServiceImpl implements StudentHomeService {
     public Response queryWeekOrderWeekDayConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
         List<UnitPriceAndOrderNumber> unitPriceAndOrderNumbers;
-        Map<String,Integer> res = new HashMap<>(20);
+        Map<String, Object> res = new HashMap<>(20);
         try {
             unitPriceAndOrderNumbers = studentHomeMapper.queryWeekOrderWeekDayConsume(studentId);
             int allOrders = 0;
-            int allPrice = 0;
+            double allPrice = 0;
             for (UnitPriceAndOrderNumber unitPriceAndOrderNumber : unitPriceAndOrderNumbers) {
                 allOrders += unitPriceAndOrderNumber.getOrderNumber();
                 allPrice += unitPriceAndOrderNumber.getOrderNumber() * unitPriceAndOrderNumber.getUnitPrice();
@@ -74,11 +73,11 @@ public class StudentHomeServiceImpl implements StudentHomeService {
     public Response queryMonthOrderAndMonthConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
         List<UnitPriceAndOrderNumber> unitPriceAndOrderNumbers;
-        Map<String,Integer> res = new HashMap<>(20);
+        Map<String, Object> res = new HashMap<>(20);
         try {
             unitPriceAndOrderNumbers = studentHomeMapper.queryMonthOrderAndMonthConsume(studentId);
             int allOrders = 0;
-            int allPrice = 0;
+            double allPrice = 0;
             for (UnitPriceAndOrderNumber unitPriceAndOrderNumber : unitPriceAndOrderNumbers) {
                 allOrders += unitPriceAndOrderNumber.getOrderNumber();
                 allPrice += unitPriceAndOrderNumber.getOrderNumber() * unitPriceAndOrderNumber.getUnitPrice();
@@ -94,9 +93,13 @@ public class StudentHomeServiceImpl implements StudentHomeService {
 
     @Override
     public Response queryWindowNameAndOrderNumbersAtThisMonth(String token) {
-        List<WindowNameAndOrderNumber> ss = new ArrayList<>();
-          ss.add(0, new WindowNameAndOrderNumber(1, "ss"));
-          ss.add(1, new WindowNameAndOrderNumber(2, "bb"));
-        return Response.successResponse(ss, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        String studentId = TokenUtils.getUserId(token);
+        List<WindowNameAndOrderNumber> windowNameAndOrderNumbers = null;
+        try {
+            windowNameAndOrderNumbers = studentHomeMapper.queryWindowNameAndOrderNumbersAtThisMonth(studentId);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return Response.successResponse(windowNameAndOrderNumbers, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }

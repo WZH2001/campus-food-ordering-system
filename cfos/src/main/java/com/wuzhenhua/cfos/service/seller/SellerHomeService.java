@@ -32,4 +32,20 @@ public interface SellerHomeService {
      * @return Response
      */
     Response queryMonthSellAndMonthIncome(String token);
+
+    /**
+     * 查询每天的收入
+     *
+     * @param token token
+     * @return Response
+     */
+    Response queryEveryDayIncomeInThisMonth(String token);
+
+    /**
+     * 查询每月的收入
+     *
+     * @param token token
+     * @return Response
+     */
+    Response queryEveryMonthIncomeInThisYear(String token);
 }
