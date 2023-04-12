@@ -21,4 +21,5 @@ public class SellerBaseInfoVO {
     private String windowName;
     private String windowAddress;
     private String principalTelephone;
+    private String writeOffTime;
 }

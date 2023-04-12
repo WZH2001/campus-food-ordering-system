@@ -43,14 +43,14 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (StrUtil.isBlank(token)) {
             return false;
         }
-        // 获取token中的用户密码
-        String password = TokenUtils.getPassword(token);
-        if(password == null){
+        // 获取token中的用户Id
+        String userId = TokenUtils.getUserId(token);
+        if(userId == null){
             return false;
         }
         try {
-            // 用户密码加签验证token
-            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(password)).build();
+            // 用户Id加签验证token
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userId)).build();
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
             return false;

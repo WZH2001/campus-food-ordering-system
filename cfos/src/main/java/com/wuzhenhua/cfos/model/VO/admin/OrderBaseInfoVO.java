@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderBaseInfoVO {
+    private String orderId;
     private String studentName;
     private String studentAddress;
     private String foodName;

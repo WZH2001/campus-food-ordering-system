@@ -86,10 +86,11 @@ public interface MenuMapper {
     /**
      * 删除菜品
      *
+     * @param deleteTime deleteTime
      * @param foodId 菜品Id
      * @return Integer
      */
-    Integer foodDelete(@Param("foodId") String foodId);
+    Integer foodDelete(@Param("deleteTime") String deleteTime, @Param("foodId") String foodId);
 
     /**
      * 查询订单表中是否有该菜品信息
@@ -98,11 +99,4 @@ public interface MenuMapper {
      * @return Integer
      */
     Integer queryOrderInfo(@Param("foodId") String foodId);
-
-    /**
-     * 删除所有关于该菜品的收藏
-     *
-     * @param foodId foodId
-     */
-    void deleteCollectionOfFood(@Param("foodId") String foodId);
 }

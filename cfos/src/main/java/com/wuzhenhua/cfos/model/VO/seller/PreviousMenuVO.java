@@ -19,5 +19,5 @@ public class PreviousMenuVO {
     private String foodPrice;
     private String isRecommend;
     private String createTime;
-    private String updateTime;
+    private String deleteTime;
 }

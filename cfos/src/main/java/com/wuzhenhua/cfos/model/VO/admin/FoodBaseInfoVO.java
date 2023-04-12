@@ -14,10 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoodBaseInfoVO {
+    private String foodId;
     private String foodName;
     private String foodPrice;
     private String createTime;
     private String isRecommend;
     private String windowName;
     private Integer todaySell;
+    private String deleteTime;
 }

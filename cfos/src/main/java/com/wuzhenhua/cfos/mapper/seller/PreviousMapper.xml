@@ -15,22 +15,22 @@
     </update>
 
     <update id="deletePreviousFood">
-        update food set is_delete = 2 where food_id = #{foodId}
+        update food set is_delete = 2, delete_time = #{deleteTime} where food_id = #{foodId}
     </update>
 
     <update id="batchDeletePreviousFood">
-        update food set is_delete = 2 where food_id in
+        update food set is_delete = 2, delete_time = #{deleteTime} where food_id in
         <foreach collection="foodIds" item="foodId" open="(" separator="," close=")">
             #{foodId}
         </foreach>
     </update>
 
     <update id="deletePreviousSender">
-        update sender set is_delete = 2 where sender_id = #{senderId}
+        update sender set is_delete = 2, delete_time = #{deleteTime} where sender_id = #{senderId}
     </update>
 
     <update id="batchDeletePreviousSender">
-        update sender set is_delete = 2 where sender_id in
+        update sender set is_delete = 2, delete_time = #{deleteTime} where sender_id in
         <foreach collection="senderIds" item="senderId" open="(" separator="," close=")">
             #{senderId}
         </foreach>
@@ -49,7 +49,7 @@
 
     <select id="previousFoodInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.PreviousMenuVO">
         select food_id as foodId, food_name as foodName, food_price as foodPrice,
-               is_recommend as isRecommend, create_time as createTime, update_time as updateTime
+               is_recommend as isRecommend, create_time as createTime, delete_time as deleteTime
         from food
         where is_delete = 1
         and seller_id = #{sellerId}

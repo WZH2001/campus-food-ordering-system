@@ -25,12 +25,8 @@
     </update>
 
     <update id="foodDelete">
-        update food set is_delete = 1 where food_id = #{foodId}
+        update food set is_delete = 1, delete_time = #{deleteTime} where food_id = #{foodId}
     </update>
-
-    <delete id="deleteCollectionOfFood">
-        delete from collect where food_id = #{foodId}
-    </delete>
 
     <select id="menuInfo" resultType="com.wuzhenhua.cfos.model.VO.seller.MenuVO">
         select <include refid="menuVO"></include>

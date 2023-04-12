@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.seller.SellerHomeMapper">
+    <select id="queryDaySellAndDayIncome" resultType="com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber">
+        select fo.order_number as orderNumber, f.food_price as unitPrice
+        from forder fo
+        inner join food f
+        on fo.food_id = f.food_id
+        where fo.food_id in (select food_id from food where seller_id = #{sellerId})
+        and DATE(fo.order_time) = CURDATE()
+    </select>
+
+    <select id="queryWeekSellAndWeekIncome" resultType="com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber">
+        select fo.order_number as orderNumber, f.food_price as unitPrice
+        from forder fo
+                 inner join food f
+                            on fo.food_id = f.food_id
+        where fo.food_id in (select food_id from food where seller_id = #{sellerId})
+          and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<=]]> date(fo.order_time)
+    </select>
+
+    <select id="queryMonthSellAndMonthIncome"
+            resultType="com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber">
+        select fo.order_number as orderNumber, f.food_price as unitPrice
+        from forder fo
+                 inner join food f
+                            on fo.food_id = f.food_id
+        where fo.food_id in (select food_id from food where seller_id = #{sellerId})
+          and date_format(fo.order_time, '%Y-%m') = date_format(now(),'%Y-%m')
+    </select>
+</mapper>

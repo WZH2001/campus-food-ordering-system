@@ -12,6 +12,8 @@ import com.wuzhenhua.cfos.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -55,8 +57,10 @@ public class PreviousServiceImpl implements PreviousService {
 
     @Override
     public Response deletePreviousFood(String foodId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
-            if(previousMapper.deletePreviousFood(foodId) == 0){
+            if(previousMapper.deletePreviousFood(deleteTime, foodId) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
@@ -68,8 +72,10 @@ public class PreviousServiceImpl implements PreviousService {
 
     @Override
     public Response batchDeletePreviousFood(List<String> foodIds) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
-            if(previousMapper.batchDeletePreviousFood(foodIds) == 0){
+            if(previousMapper.batchDeletePreviousFood(deleteTime, foodIds) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
@@ -180,8 +186,10 @@ public class PreviousServiceImpl implements PreviousService {
 
     @Override
     public Response deletePreviousSender(String senderId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
-            if(previousMapper.deletePreviousSender(senderId) == 0){
+            if(previousMapper.deletePreviousSender(deleteTime, senderId) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){
@@ -193,8 +201,10 @@ public class PreviousServiceImpl implements PreviousService {
 
     @Override
     public Response batchDeletePreviousSender(List<String> senderIds) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
-            if(previousMapper.batchDeletePreviousSender(senderIds) == 0){
+            if(previousMapper.batchDeletePreviousSender(deleteTime, senderIds) == 0){
                 return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
             }
         } catch (Exception e){

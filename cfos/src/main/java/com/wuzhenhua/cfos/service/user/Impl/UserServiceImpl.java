@@ -4,8 +4,6 @@ import com.wuzhenhua.cfos.common.ResponseCodeEnum;
 import com.wuzhenhua.cfos.mapper.user.UserMapper;
 import com.wuzhenhua.cfos.model.DTO.user.UserLoginDTO;
 import com.wuzhenhua.cfos.model.DTO.user.UserRegisterDTO;
-import com.wuzhenhua.cfos.model.VO.user.SellerBaseInfoVO;
-import com.wuzhenhua.cfos.model.VO.user.StudentBaseInfoVO;
 import com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO;
 import com.wuzhenhua.cfos.service.user.UserService;
 import com.wuzhenhua.cfos.utils.Response;
@@ -64,26 +62,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response userLogin(UserLoginDTO userDTO) {
         try {
-            UserBaseInfoVO userBaseInfoVO = userMapper.adminLogin(userDTO);
+            UserBaseInfoVO userBaseInfoVO = userMapper.adminLogin(userDTO.getUsername());
             if(userBaseInfoVO == null){
-                StudentBaseInfoVO studentBaseInfoVO = userMapper.studentLogin(userDTO);
-                if(studentBaseInfoVO == null){
-                    SellerBaseInfoVO sellerBaseInfoVO = userMapper.sellerLogin(userDTO);
-                    if(sellerBaseInfoVO == null){
+                userBaseInfoVO = userMapper.studentLogin(userDTO.getUsername());
+                if(userBaseInfoVO == null){
+                    userBaseInfoVO = userMapper.sellerLogin(userDTO.getUsername());
+                    if(userBaseInfoVO == null){
                         return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0002.getCode(), ResponseCodeEnum.USER_ERROR_B0002.getDescription());
                     } else {
-                        if(sellerBaseInfoVO.getPassword().equals(userDTO.getPassword())){
-                            sellerBaseInfoVO.setToken(TokenUtils.genToken(sellerBaseInfoVO));
-                            return Response.successResponse(sellerBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+                        if(userBaseInfoVO.getPassword().equals(userDTO.getPassword())){
+                            userBaseInfoVO.setToken(TokenUtils.genToken(userBaseInfoVO));
+                            return Response.successResponse(userBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
                         }
                         else {
                             return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0001.getCode(), ResponseCodeEnum.USER_ERROR_B0001.getDescription());
                         }
                     }
                 } else {
-                    if(studentBaseInfoVO.getPassword().equals(userDTO.getPassword())){
-                        studentBaseInfoVO.setToken(TokenUtils.genToken(studentBaseInfoVO));
-                        return Response.successResponse(studentBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+                    if(userBaseInfoVO.getPassword().equals(userDTO.getPassword())){
+                        userBaseInfoVO.setToken(TokenUtils.genToken(userBaseInfoVO));
+                        return Response.successResponse(userBaseInfoVO, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
                     } else {
                         return Response.errorResponse(ResponseCodeEnum.USER_ERROR_B0001.getCode(), ResponseCodeEnum.USER_ERROR_B0001.getDescription());
                     }

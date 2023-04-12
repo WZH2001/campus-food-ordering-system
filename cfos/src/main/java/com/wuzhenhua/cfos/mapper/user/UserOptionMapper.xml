@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.user.UserOptionMapper">
+        <update id="prefectStudentInfo">
+            update student set student_username = #{studentBaseInfoDAO.username}, student_name = #{studentBaseInfoDAO.studentName},
+                               student_telephone = #{studentBaseInfoDAO.studentTelephone}, student_address = #{studentBaseInfoDAO.studentAddress},
+                               enrollment_date = #{studentBaseInfoDAO.enrollmentDate}, graduate_date = #{studentBaseInfoDAO.graduateDate}
+            where student_id = #{studentId}
+        </update>
+
+    <update id="editStudentPassword">
+        update student set student_password = #{password} where student_id = #{studentId}
+    </update>
+
+    <update id="prefectSellerInfo">
+        update seller set seller_username = #{sellerBaseInfoDAO.username}, principal_name = #{sellerBaseInfoDAO.principalName},
+                           principal_telephone = #{sellerBaseInfoDAO.principalTelephone}, window_address = #{sellerBaseInfoDAO.windowAddress},
+                           window_name = #{sellerBaseInfoDAO.windowName}
+        where seller_id = #{sellerId}
+    </update>
+
+    <update id="editSellerPassword">
+        update seller set seller_password = #{password} where seller_id = #{sellerId}
+    </update>
+
+    <update id="unSubscribe">
+        update seller set is_delete = 1, write_off_time = #{writeOffTime} where seller_id = #{sellerId}
+    </update>
+
+    <update id="editAdminInfo">
+        update admin set admin_username = #{username} where admin_id = #{adminId}
+    </update>
+
+    <update id="editAdminPassword">
+        update admin set admin_password = #{password} where admin_id = #{adminId}
+    </update>
+
+    <select id="queryStudentBaseInfo" resultType="com.wuzhenhua.cfos.model.VO.user.StudentBaseInfoVO">
+                select student_id as studentId, student_username as username, student_name as studentName,
+                       student_telephone as studentTelephone, student_address as studentAddress,
+                       enrollment_date as enrollmentDate, graduate_date as graduateDate
+                from student
+                where student_id = #{studentId}
+        </select>
+
+    <select id="queryStudentPassword" resultType="java.lang.String">
+        select student_password from student where student_id = #{studentId}
+    </select>
+
+    <select id="queryStudent" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            student_id as userId,
+            role_id as roleId
+        from
+            student
+        where
+            student_id = #{studentId}
+        and graduate_date > now()
+    </select>
+
+    <select id="querySellerInfo" resultType="com.wuzhenhua.cfos.model.VO.user.SellerBaseInfoVO">
+        select seller_id as sellerId, seller_username as username, principal_name as principalName,
+               principal_telephone as principalTelephone, window_address as windowAddress,
+               window_name as windowName
+        from seller
+        where seller_id = #{sellerId}
+    </select>
+
+    <select id="querySellerPassword" resultType="java.lang.String">
+        select seller_password from seller where seller_id = #{sellerId}
+    </select>
+
+    <select id="querySeller" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            seller_id as userId,
+            role_id as roleId
+        from
+            seller
+        where
+            seller_id = #{sellerId}
+          and is_delete = 0
+    </select>
+
+    <select id="queryAdminPassword" resultType="java.lang.String">
+        select admin_password from admin where admin_Id = #{adminId}
+    </select>
+
+    <select id="queryAdmin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+        select
+            admin_id as userId,
+            role_id as roleId
+        from
+            admin
+        where
+            admin_id = #{adminId}
+    </select>
+
+    <select id="queryAdminInfo" resultType="java.lang.String">
+        select admin_username from admin where admin_id = #{adminId}
+    </select>
+</mapper>

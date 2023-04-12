@@ -111,12 +111,13 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response foodDelete(String foodId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
             if(menuMapper.queryOrderInfo(foodId) != 0){
                 return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
             } else {
-                menuMapper.deleteCollectionOfFood(foodId);
-                if(menuMapper.foodDelete(foodId) == 0){
+                if(menuMapper.foodDelete(deleteTime, foodId) == 0){
                     return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
                 }
             }
@@ -131,14 +132,15 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response batchDelete(List<String> foodIds) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String deleteTime = sdf.format(new Date());
         try {
             int num = 0;
             for (String foodId : foodIds) {
                 if (menuMapper.queryOrderInfo(foodId) != 0) {
                     num++;
                 } else {
-                    menuMapper.deleteCollectionOfFood(foodId);
-                    if(menuMapper.foodDelete(foodId) == 0){
+                    if(menuMapper.foodDelete(deleteTime, foodId) == 0){
                         return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
                     }
                 }

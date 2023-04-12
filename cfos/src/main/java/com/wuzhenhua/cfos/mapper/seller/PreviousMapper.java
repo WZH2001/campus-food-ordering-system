@@ -37,18 +37,20 @@ public interface PreviousMapper {
     /**
      * 删除往期菜品信息
      *
+     * @param deleteTime deleteTime
      * @param foodId foodId
      * @return Integer
      */
-    Integer deletePreviousFood(@Param("foodId") String foodId);
+    Integer deletePreviousFood(@Param("deleteTime") String deleteTime, @Param("foodId") String foodId);
 
     /**
      * 批量删除往期菜品信息
      *
+     * @param deleteTime deleteTime
      * @param foodIds foodIds
      * @return Integer
      */
-    Integer batchDeletePreviousFood(@Param("foodIds") List<String> foodIds);
+    Integer batchDeletePreviousFood(@Param("deleteTime") String deleteTime, @Param("foodIds") List<String> foodIds);
 
     /**
      * 恢复往期菜品信息
@@ -121,16 +123,18 @@ public interface PreviousMapper {
     /**
      * 删除配送员信息
      *
+     * @param deleteTime deleteTime
      * @param senderId senderId
      * @return Integer
      */
-    Integer deletePreviousSender(@Param("senderId") String senderId);
+    Integer deletePreviousSender(@Param("deleteTime") String deleteTime, @Param("senderId") String senderId);
 
     /**
      * 批量删除配送员信息
      *
+     * @param deleteTime deleteTime
      * @param senderIds senderIds
      * @return Integer
      */
-    Integer batchDeletePreviousSender(@Param("senderIds") List<String> senderIds);
+    Integer batchDeletePreviousSender(@Param("deleteTime") String deleteTime, @Param("senderIds") List<String> senderIds);
 }

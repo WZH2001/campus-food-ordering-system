@@ -1,21 +1,21 @@
-package com.wuzhenhua.cfos.model.VO.user;
+package com.wuzhenhua.cfos.model.DTO.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
  * @program: campus-food-ordering-system
- * @description: 学生信息返回
+ * @description: 学生基本信息请求参数
  * @author: wuzhenhua
- * @create: 2023-04-09 02:04
+ * @create: 2023-04-10 09:33
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentBaseInfoVO extends UserBaseInfoVO {
+public class StudentBaseInfoDTO {
+    private String oldUsername;
+    private String username;
     private String studentName;
     private String studentTelephone;
     private String studentAddress;

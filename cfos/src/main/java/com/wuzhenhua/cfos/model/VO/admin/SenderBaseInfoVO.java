@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SenderBaseInfoVO {
+    private String senderId;
     private String windowName;
     private String windowAddress;
     private String senderName;
@@ -21,4 +22,5 @@ public class SenderBaseInfoVO {
     private String workDate;
     private String quitDate;
     private String sendNumber;
+    private String deleteTime;
 }

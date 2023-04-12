@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuzhenhua.cfos.mapper.admin.AdminPreviousMapper">
+    <delete id="deletePreviousStudent">
+        delete from student where student_id = #{studentId}
+    </delete>
+
+    <delete id="batchDeleteStudent">
+        delete from student where student_id in
+        <foreach collection="studentIds" item="studentId" open="(" separator="," close=")">
+            #{studentId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCollectionInfoByStudentId">
+        delete from collect where student_id = #{studentId}
+    </delete>
+
+    <delete id="deleteOrderInfoByStudentId">
+        delete from forder where student_id = #{studentId}
+    </delete>
+
+    <delete id="deleteFoodInfo">
+        delete from food where seller_id = #{sellerId}
+    </delete>
+
+    <delete id="deleteSenderInfo">
+        delete from sender where seller_id = #{sellerId}
+    </delete>
+
+    <delete id="deletePreviousSeller">
+        delete from seller where seller_id = #{sellerId}
+    </delete>
+
+    <delete id="batchDeleteSeller">
+        delete from seller where seller_id in
+        <foreach collection="sellerIds" item="sellerId" open="(" separator="," close=")">
+            #{sellerId}
+        </foreach>
+    </delete>
+
+    <delete id="deletePreviousOrder">
+        delete from forder where order_id = #{orderId}
+    </delete>
+
+    <delete id="batchDeleteOrder">
+        delete from forder where order_id in
+        <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <delete id="deletePreviousFood">
+        delete from food where food_id = #{foodId}
+    </delete>
+
+    <delete id="batchDeleteFood">
+        delete from food where food_id in
+        <foreach collection="foodIds" item="foodId" open="(" separator="," close=")">
+            #{foodId}
+        </foreach>
+    </delete>
+
+    <delete id="deletePreviousSender">
+        delete from sender where sender_id = #{senderId}
+    </delete>
+
+    <delete id="batchDeleteSender">
+        delete from sender where sender_id in
+        <foreach collection="senderIds" item="senderId" open="(" separator="," close=")">
+            #{senderId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCollectionInfoByFoodId">
+        delete from collect where food_id = #{foodId}
+    </delete>
+
+    <delete id="deleteOrderInfoByFoodId">
+        delete from forder where food_id = #{foodId}
+    </delete>
+
+    <delete id="deleteOrderInfoBySenderId">
+        delete from forder where sender_id = #{senderId}
+    </delete>
+
+    <select id="previousStudent" resultType="com.wuzhenhua.cfos.model.VO.admin.StudentBaseInfoVO">
+        select student_id as studentId, student_username as username, student_name as name,
+               enrollment_date as enrollmentDate, graduate_date as graduateDate, student_telephone as telephone,
+               student_address as address
+        from student
+        where graduate_date <![CDATA[<]]> #{now}
+    </select>
+
+    <select id="previousStudentTotal" resultType="java.lang.Integer">
+        select count(*)
+        from student
+        where graduate_date <![CDATA[<]]> #{now}
+    </select>
+
+    <select id="previousSeller" resultType="com.wuzhenhua.cfos.model.VO.admin.SellerBaseInfoVO">
+        select seller_id as sellerId, seller_username as username, principal_name as principalName,
+               principal_telephone as principalTelephone, window_name as windowName, window_address as windowAddress,
+               write_off_time as writeOffTime
+        from seller
+        where is_delete = 1
+    </select>
+
+    <select id="previousSellerTotal" resultType="java.lang.Integer">
+        select count(*)
+        from seller
+            where is_delete = 1
+    </select>
+
+    <select id="previousOrder" resultType="com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO">
+        select fo.order_id as orderId, st.student_name as studentName, st.student_address as studentAddress, f.food_name as foodName,
+               f.food_price as foodPrice, s.window_name as windowName, s.window_address as windowAddress,
+               fo.order_time as orderTime, fo.take_time as takeTime,
+               fo.send_time as sendTime, se.sender_name as senderName, fo.finish_time as finishTime
+        from forder fo
+        inner join student st
+        on fo.student_id = st.student_id
+        inner join food f
+        on fo.food_id = f.food_id
+        left join sender se
+        on fo.sender_id = se.sender_id
+        inner join seller s
+        on f.seller_id = s.seller_id
+        where fo.is_delete_for_student = 1
+        and fo.is_delete_for_seller = 1
+    </select>
+
+    <select id="previousOrderTotal" resultType="java.lang.Integer">
+        select count(*)
+        from forder fo
+                 inner join student st
+                            on fo.student_id = st.student_id
+                 inner join food f
+                            on fo.food_id = f.food_id
+                 left join sender se
+                           on fo.sender_id = se.sender_id
+                 inner join seller s
+                            on f.seller_id = s.seller_id
+        where fo.is_delete_for_student = 1
+          and fo.is_delete_for_seller = 1
+    </select>
+
+    <select id="previousFood" resultType="com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO">
+        select f.food_id as foodId, f.food_name as foodName, f.food_price as foodPrice,
+               f.create_time as createTime, f.is_recommend as isRecommend,
+               f.delete_time as deleteTime, s.window_name as windowName
+        from food f
+        inner join seller s
+        on f.seller_id = s.seller_id
+        where f.is_delete = 2
+    </select>
+
+    <select id="previousFoodTotal" resultType="java.lang.Integer">
+        select count(*)
+        from food f
+                 inner join seller s
+                            on f.seller_id = s.seller_id
+        where f.is_delete = 2
+    </select>
+
+    <select id="previousSender" resultType="com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO">
+        select se.sender_id as senderId, se.sender_name as senderName, sender_telephone as senderTelephone,
+               se.work_date as workDate, se.quit_date as quitDate, se.delete_time as deleteTime, s.window_name as windowName
+        from sender se
+        inner join seller s
+        on se.seller_id = s.seller_id
+        where se.is_delete = 2
+    </select>
+
+    <select id="previousSenderTotal" resultType="java.lang.Integer">
+        select count(*)
+        from sender se
+                 inner join seller s
+                            on se.seller_id = s.seller_id
+        where se.is_delete = 2
+    </select>
+</mapper>

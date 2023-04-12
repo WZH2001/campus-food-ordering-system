@@ -22,50 +22,41 @@
         from
             admin
         where
-            admin_username = #{login.username}
+            admin_username = #{adminUsername}
     </select>
 
-    <select id="studentLogin" resultType="com.wuzhenhua.cfos.model.VO.user.StudentBaseInfoVO">
+    <select id="studentLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
         select
             student_id as userId,
             student_username as username,
             student_password as password,
-            student_name as studentName,
-            student_telephone as studentTelephone,
-            student_address as studentAddress,
-            enrollment_date as enrollmentDate,
-            graduate_date as graduateDate,
             role_id as roleId
         from
             student
         where
-            student_username = #{login.username}
+            student_username = #{studentUsername}
           and (graduate_date is null or graduate_date > now())
     </select>
 
-    <select id="sellerLogin" resultType="com.wuzhenhua.cfos.model.VO.user.SellerBaseInfoVO">
+    <select id="sellerLogin" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
         select
             seller_id as userId,
             seller_username as username,
             seller_password as password,
-            principal_name as principalName,
-            principal_telephone as principalTelephone,
-            window_name as windowName,
-            window_address as windowAddress,
             role_id as roleId
         from
             seller
         where
-            seller_username = #{login.username}
+            seller_username = #{sellerUsername}
         and is_delete = 0
     </select>
 
     <select id="userRegister" resultType="java.lang.Integer">
         select count(*) from(
-                                    (select admin_username as username from admin)
-                                    union all (select student_username as username from student)
-                                    union all (select seller_username as username from seller)
-                            ) register
-            where register.username = #{userName}
+            (select admin_username as username from admin)
+            union all (select student_username as username from student)
+            union all (select seller_username as username from seller)
+        ) register
+        where register.username = #{userName}
     </select>
 </mapper>
