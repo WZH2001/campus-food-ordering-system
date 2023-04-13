@@ -10,6 +10,7 @@
         on fo.food_id = f.food_id
         where fo.food_id in (select food_id from food where seller_id = #{sellerId})
         and DATE(fo.order_time) = CURDATE()
+        and fo.is_finish = 1
     </select>
 
     <select id="queryWeekSellAndWeekIncome" resultType="com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber">
@@ -19,6 +20,7 @@
                             on fo.food_id = f.food_id
         where fo.food_id in (select food_id from food where seller_id = #{sellerId})
           and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <![CDATA[<=]]> date(fo.order_time)
+          and fo.is_finish = 1
     </select>
 
     <select id="queryMonthSellAndMonthIncome"
@@ -29,6 +31,7 @@
                             on fo.food_id = f.food_id
         where fo.food_id in (select food_id from food where seller_id = #{sellerId})
           and date_format(fo.order_time, '%Y-%m') = date_format(now(),'%Y-%m')
+          and fo.is_finish = 1
     </select>
 
     <select id="queryEveryDayIncomeInThisMonth" resultType="com.wuzhenhua.cfos.model.temp.SomeDayAndUnitPriceAndOrderNumber">
@@ -39,8 +42,9 @@
                  inner join seller s
                             on s.seller_id = f.seller_id
         where s.seller_id = #{sellerId}
-          and DATE_FORMAT(fo.finish_time,'%m') = #{currentMonth}
+          and DATE_FORMAT(fo.finish_time,'%y-%m') = #{currentYearMonth}
         GROUP BY dayInMonth
+                     and fo.is_finish = 1
         order by fo.finish_time
     </select>
 </mapper>

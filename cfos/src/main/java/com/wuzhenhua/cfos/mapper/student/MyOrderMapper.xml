@@ -18,12 +18,12 @@
         update food set today_sell = today_sell + #{differ} where food_id = #{foodId}
     </update>
 
-    <update id="cancelSingleOrder">
-        update forder set is_delete_for_student = 1 where order_id = #{orderId}
-    </update>
+    <delete id="cancelSingleOrder">
+        delete from forder where order_id = #{orderId}
+    </delete>
 
     <update id="batchCancelOrder">
-        update forder set is_delete_for_student = 1 where order_id in
+        delete from forder where order_id in
         <foreach collection="orderIds" item="orderId" open="(" separator="," close=")">
            #{orderId}
         </foreach>

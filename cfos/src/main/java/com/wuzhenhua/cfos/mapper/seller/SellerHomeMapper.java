@@ -42,9 +42,9 @@ public interface SellerHomeMapper {
     /**
      * 查询当前月每天的收入
      *
-     * @param currentMonth currentMonth
+     * @param currentYearMonth currentYearMonth
      * @param sellerId sellerId
      * @return List<SomeDayAndUnitPriceAndOrderNumber>
      */
-    List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisMonth(@Param("currentMonth") Integer currentMonth, @Param("sellerId") String sellerId);
+    List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisMonth(@Param("currentYearMonth") String  currentYearMonth, @Param("sellerId") String sellerId);
 }

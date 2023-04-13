@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: campus-food-ordering-system
@@ -94,18 +91,32 @@ public class SellerHomeServiceImpl implements SellerHomeService {
         return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 
-    public Double[] dayIncome(@NotNull List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers, String[] days){
-        Double[] dayIncome = new Double[35];
+    public List<Integer> daysSell(@NotNull List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers, String[] days){
+        List<Integer> daysSell = new ArrayList<>();
         int j = 0;
         for(int i = 0; i < someDayAndUnitPriceAndOrderNumbers.size();){
             if(Integer.parseInt(days[j]) != someDayAndUnitPriceAndOrderNumbers.get(i).getDayInMonth()){
-                dayIncome[j++] = 0.0;
+                daysSell.add(j++, 0);
             } else{
-                dayIncome[j++] = someDayAndUnitPriceAndOrderNumbers.get(i).getUnitPrice() * someDayAndUnitPriceAndOrderNumbers.get(i).getOrderNumber();
+                daysSell.add(j++, someDayAndUnitPriceAndOrderNumbers.get(i).getOrderNumber());
                 i++;
             }
         }
-        return dayIncome;
+        return daysSell;
+    }
+
+    public List<Double> daysIncome(@NotNull List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers, String[] days){
+        List<Double> daysIncome = new ArrayList<>();
+        int j = 0;
+        for(int i = 0; i < someDayAndUnitPriceAndOrderNumbers.size();){
+            if(Integer.parseInt(days[j]) != someDayAndUnitPriceAndOrderNumbers.get(i).getDayInMonth()){
+                daysIncome.add(j++, 0.0);
+            } else{
+                daysIncome.add(j++, someDayAndUnitPriceAndOrderNumbers.get(i).getUnitPrice() * someDayAndUnitPriceAndOrderNumbers.get(i).getOrderNumber());
+                i++;
+            }
+        }
+        return daysIncome;
     }
 
     @Override
@@ -129,25 +140,31 @@ public class SellerHomeServiceImpl implements SellerHomeService {
         int currentYear = Integer.parseInt(sdf.format(new Date()));
         sdf = new SimpleDateFormat("MM");
         int currentMonth = Integer.parseInt(sdf.format(new Date()));
+        sdf = new SimpleDateFormat("yy-MM");
+        String currentYearMonth = sdf.format(new Date());
         try {
-            someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(currentMonth, sellerId);
+            someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(currentYearMonth, sellerId);
             if((currentYear % 4 == 0 && currentYear % 100 != 0) || currentYear % 400 == 0){
                 if(currentMonth == 2){
                     res.put("days", februaryInLeapDays);
-                    res.put("dayIncome", dayIncome(someDayAndUnitPriceAndOrderNumbers, februaryInLeapDays));
+                    res.put("daysSell", daysSell(someDayAndUnitPriceAndOrderNumbers, februaryInLeapDays));
+                    res.put("daysIncome", daysIncome(someDayAndUnitPriceAndOrderNumbers, februaryInLeapDays));
                 }
             } else{
                 if(currentMonth == 2){
                     res.put("days", commonFebruaryDays);
-                    res.put("dayIncome", dayIncome(someDayAndUnitPriceAndOrderNumbers, commonFebruaryDays));
+                    res.put("daysSell", daysSell(someDayAndUnitPriceAndOrderNumbers, commonFebruaryDays));
+                    res.put("daysIncome", daysIncome(someDayAndUnitPriceAndOrderNumbers, commonFebruaryDays));
                 }
             }
             if(currentMonth == 1 || currentMonth == 3 || currentMonth == 5 || currentMonth == 7 || currentMonth == 8 || currentMonth == 10 || currentMonth == 12){
                 res.put("days", bigMonthDays);
-                res.put("dayIncome", dayIncome(someDayAndUnitPriceAndOrderNumbers, bigMonthDays));
+                res.put("daysIncome", daysIncome(someDayAndUnitPriceAndOrderNumbers, bigMonthDays));
+                res.put("daysSell", daysSell(someDayAndUnitPriceAndOrderNumbers, bigMonthDays));
             } else if(currentMonth == 4 || currentMonth == 6 || currentMonth == 9 || currentMonth == 11){
                 res.put("days", smallMonthDays);
-                res.put("dayIncome", dayIncome(someDayAndUnitPriceAndOrderNumbers, smallMonthDays));
+                res.put("daysSell", daysSell(someDayAndUnitPriceAndOrderNumbers, smallMonthDays));
+                res.put("daysIncome", daysIncome(someDayAndUnitPriceAndOrderNumbers, smallMonthDays));
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -159,23 +176,36 @@ public class SellerHomeServiceImpl implements SellerHomeService {
     @Override
     public Response queryEveryMonthIncomeInThisYear(String token) {
         String sellerId = TokenUtils.getUserId(token);
-        Double[] everyMonthIncome = new Double[15];
+        List<Integer> everyMonthSell = new ArrayList<>();
+        List<Double> everyMonthIncome = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("MM");
         List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers;
         int currentMonth = Integer.parseInt(sdf.format(new Date()));
+        sdf = new SimpleDateFormat("yy");
+        String currentYear = sdf.format(new Date());
+        Map<String ,Object> res = new HashMap<>(20);
         try {
             for(int i = 1; i <= currentMonth; i++){
-                someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(i, sellerId);
+                if(i < 10){
+                    someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(currentYear + "-0" + i, sellerId);
+                } else{
+                    someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(currentYear + "-" + i, sellerId);
+                }
+                int currentMonthSell = 0;
                 double currentMonthIncome = 0.0;
                 for (SomeDayAndUnitPriceAndOrderNumber someDayAndUnitPriceAndOrderNumber : someDayAndUnitPriceAndOrderNumbers) {
+                    currentMonthSell += someDayAndUnitPriceAndOrderNumber.getOrderNumber();
                     currentMonthIncome += someDayAndUnitPriceAndOrderNumber.getUnitPrice() * someDayAndUnitPriceAndOrderNumber.getOrderNumber();
                 }
-                everyMonthIncome[i - 1] = currentMonthIncome;
+                everyMonthSell.add(i - 1, currentMonthSell);
+                everyMonthIncome.add(i - 1, currentMonthIncome);
             }
+            res.put("monthsSell", everyMonthSell);
+            res.put("monthsIncome", everyMonthIncome);
         } catch (Exception e){
             e.printStackTrace();
             return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(everyMonthIncome, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
     }
 }
