@@ -13,11 +13,11 @@ import com.wuzhenhua.cfos.utils.Response;
 public interface SenderService {
 
     /**
-     * 查找配送员信息列表
+     * 分页查询配送员信息
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 配送员信息
      */
     Response senderInfo(PageUtil pageInfo, String token);
 
@@ -26,7 +26,7 @@ public interface SenderService {
      *
      * @param senderInfoDTO senderInfoDTO
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response senderAdd(SenderInfoDTO senderInfoDTO, String token);
 
@@ -35,7 +35,7 @@ public interface SenderService {
      *
      * @param senderInfoDTO senderInfoDTO
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response senderUpdate(SenderInfoDTO senderInfoDTO, String token);
 
@@ -43,15 +43,15 @@ public interface SenderService {
      * 删除配送员信息
      *
      * @param senderId senderId
-     * @return Response
+     * @return 返回状态
      */
     Response senderDelete(String senderId);
 
     /**
-     * 查找所有配送员信息列表
+     * 查找所有配送员信息
      *
      * @param token token
-     * @return Response
+     * @return 所有配送员信息
      */
     Response allSenderInfo(String token);
 }

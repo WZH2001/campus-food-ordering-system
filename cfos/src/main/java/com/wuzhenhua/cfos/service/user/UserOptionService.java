@@ -15,16 +15,16 @@ public interface UserOptionService {
      * 查询学生信息
      *
      * @param token token
-     * @return Response
+     * @return 学生信息
      */
     Response queryStudentInfo(String token);
 
     /**
      * 学生完善个人信息
      *
-     * @param studentBaseInfoDTO studentBaseInfoDTO
+     * @param studentBaseInfoDTO 学生信息参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response prefectStudentInfo(StudentBaseInfoDTO studentBaseInfoDTO, String token);
 
@@ -33,7 +33,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response queryStudentPassword(String password, String token);
 
@@ -42,7 +42,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response editStudentPassword(String password, String token);
 
@@ -50,16 +50,16 @@ public interface UserOptionService {
      * 查询商家信息
      *
      * @param token token
-     * @return Response
+     * @return 商家信息
      */
     Response querySellerInfo(String token);
 
     /**
      * 商家完善个人信息
      *
-     * @param sellerBaseInfoDTO sellerBaseInfoDTO
+     * @param sellerBaseInfoDTO 商家信息参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response prefectSellerInfo(SellerBaseInfoDTO sellerBaseInfoDTO, String token);
 
@@ -68,7 +68,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response querySellerPassword(String password, String token);
 
@@ -77,7 +77,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response editSellerPassword(String password, String token);
 
@@ -85,17 +85,17 @@ public interface UserOptionService {
      * 商家注销用户
      *
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response unSubscribe(String token);
 
     /**
      * 管理员修改用户名
      *
-     * @param oldUsername oldUsername
-     * @param username username
+     * @param oldUsername 旧的密码
+     * @param username 新的密码
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response editAdminInfo(String oldUsername, String username, String token);
 
@@ -104,7 +104,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response queryAdminPassword(String password, String token);
 
@@ -113,7 +113,7 @@ public interface UserOptionService {
      *
      * @param password password
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response editAdminPassword(String password, String token);
 
@@ -121,7 +121,7 @@ public interface UserOptionService {
      * 查询管理员信息
      *
      * @param token token
-     * @return Response
+     * @return 管理员用户名
      */
     Response queryAdminInfo(String token);
 }

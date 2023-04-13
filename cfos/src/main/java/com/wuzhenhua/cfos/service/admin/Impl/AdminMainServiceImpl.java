@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.AdminMainMapper;
 import com.wuzhenhua.cfos.model.temp.SomeDayAndUnitPriceAndOrderNumber;
 import com.wuzhenhua.cfos.model.temp.WindowNamesAndSellerIds;
@@ -25,6 +25,11 @@ public class AdminMainServiceImpl implements AdminMainService {
     @Resource
     private AdminMainMapper adminMainMapper;
 
+    /**
+     * 查询窗口名及商家每月，每季度和每年收入信息
+     *
+     * @return 窗口名及商家每月，每季度和每年收入信息
+     */
     @Override
     public Response queryWindNamesAndIncomeInfo() {
         Map<String, Object> res = new HashMap<>(20);
@@ -58,8 +63,8 @@ public class AdminMainServiceImpl implements AdminMainService {
             res.put("windowNames", windowNames);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

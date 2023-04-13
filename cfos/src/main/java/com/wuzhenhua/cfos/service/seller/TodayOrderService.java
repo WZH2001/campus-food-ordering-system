@@ -15,7 +15,7 @@ public interface TodayOrderService {
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 已完成的取餐订单信息
      */
     Response takeOrderFinishedInfo(PageUtil pageInfo, String token);
 
@@ -24,7 +24,7 @@ public interface TodayOrderService {
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 未完成的取餐订单信息
      */
     Response takeOrderUnfinishedInfo(PageUtil pageInfo, String token);
 
@@ -33,7 +33,7 @@ public interface TodayOrderService {
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 已完成的送餐订单信息
      */
     Response sendOrderFinishedInfo(PageUtil pageInfo, String token);
 
@@ -42,7 +42,7 @@ public interface TodayOrderService {
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 未完成的送餐订单信息
      */
     Response sendOrderUnfinishedInfo(PageUtil pageInfo, String token);
 
@@ -50,7 +50,7 @@ public interface TodayOrderService {
      * 完成订单
      *
      * @param orderId orderId
-     * @return Response
+     * @return 返回状态
      */
     Response achieveOrder(String orderId);
 
@@ -59,7 +59,7 @@ public interface TodayOrderService {
      *
      * @param orderId orderId
      * @param senderId senderId
-     * @return Response
+     * @return 返回状态
      */
     Response sendOrder(String orderId, String senderId);
 }

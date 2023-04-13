@@ -15,7 +15,7 @@ public interface SenderManageService {
      * 查询在职配送员信息
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 在职配送员信息
      */
     Response senderAtWorkInfo(PageUtil pageInfo);
 
@@ -23,7 +23,7 @@ public interface SenderManageService {
      * 模糊查询在职配送员信息
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return Response
+     * @return 在职配送员信息(模糊查询)
      */
     Response senderAtWorkInfoFuzzy(SenderBaseInfoDTO senderBaseInfoDTO);
 
@@ -31,7 +31,7 @@ public interface SenderManageService {
      * 查询离职配送员信息
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 离职配送员信息
      */
     Response senderBaseInfo(PageUtil pageInfo);
 
@@ -39,7 +39,7 @@ public interface SenderManageService {
      * 模糊查询离职配送员信息
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return Response
+     * @return 离职配送员信息(模糊查询)
      */
     Response senderBaseInfoFuzzy(SenderBaseInfoDTO senderBaseInfoDTO);
 }

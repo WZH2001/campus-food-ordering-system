@@ -17,20 +17,20 @@ import java.util.List;
 @Mapper
 public interface PreviousMapper {
     /**
-     * 查询往期菜品信息
+     * 查询往期菜品信息(已删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<PreviousMenuVO>
+     * @return 往期菜品信息(已删除)
      */
     List<PreviousMenuVO> previousFoodInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
 
     /**
-     * 查询往期菜品信息条数
+     * 查询往期菜品信息条数(已删除)
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 往期菜品信息条数(已删除)
      */
     Integer previousFoodInfoTotal(@Param("sellerId") String sellerId);
 
@@ -39,7 +39,7 @@ public interface PreviousMapper {
      *
      * @param deleteTime deleteTime
      * @param foodId foodId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousFood(@Param("deleteTime") String deleteTime, @Param("foodId") String foodId);
 
@@ -48,7 +48,7 @@ public interface PreviousMapper {
      *
      * @param deleteTime deleteTime
      * @param foodIds foodIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeletePreviousFood(@Param("deleteTime") String deleteTime, @Param("foodIds") List<String> foodIds);
 
@@ -56,7 +56,7 @@ public interface PreviousMapper {
      * 恢复往期菜品信息
      *
      * @param foodId foodId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer recoverPreviousFood(@Param("foodId") String foodId);
 
@@ -64,25 +64,25 @@ public interface PreviousMapper {
      * 批量恢复往期菜品信息
      *
      * @param foodIds foodIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchRecoverPreviousFood(@Param("foodIds") List<String> foodIds);
 
     /**
-     * 查询往期订单信息
+     * 查询往期订单信息(已删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<PreviousOrderVO>
+     * @return 往期订单信息(已删除)
      */
     List<PreviousOrderVO> previousOrderInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
 
     /**
-     * 查询往期订单信息条数
+     * 查询往期订单信息条数(已删除)
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 往期订单信息条数(已删除)
      */
     Integer previousOrderInfoTotal(@Param("sellerId") String sellerId);
 
@@ -90,7 +90,7 @@ public interface PreviousMapper {
      * 删除往期订单信息
      *
      * @param orderId orderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousOrderFromSeller(@Param("orderId") String orderId);
 
@@ -98,25 +98,25 @@ public interface PreviousMapper {
      * 批量删除往期订单信息
      *
      * @param orderIds orderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeletePreviousOrderFromSeller(@Param("orderIds") List<String> orderIds);
 
     /**
-     * 查询往期配送员信息
+     * 查询往期配送员信息(已删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<PreviousSenderVO>
+     * @return 往期配送员信息(已删除)
      */
     List<PreviousSenderVO> previousSenderInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
 
     /**
-     * 查询往期配送员信息条数
+     * 查询往期配送员信息条数(已删除)
      *
      * @param sellerId sellerId
-     * @return Response
+     * @return 往期配送员信息条数(已删除)
      */
     Integer previousSenderInfoTotal(@Param("sellerId") String sellerId);
 
@@ -125,7 +125,7 @@ public interface PreviousMapper {
      *
      * @param deleteTime deleteTime
      * @param senderId senderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousSender(@Param("deleteTime") String deleteTime, @Param("senderId") String senderId);
 
@@ -134,7 +134,7 @@ public interface PreviousMapper {
      *
      * @param deleteTime deleteTime
      * @param senderIds senderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeletePreviousSender(@Param("deleteTime") String deleteTime, @Param("senderIds") List<String> senderIds);
 }

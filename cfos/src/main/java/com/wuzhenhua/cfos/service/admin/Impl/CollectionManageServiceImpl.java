@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.CollectionManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.OrderBaseInfoDTO;
 import com.wuzhenhua.cfos.model.VO.admin.CollectionBaseInfoVO;
@@ -24,6 +24,12 @@ public class CollectionManageServiceImpl implements CollectionManageService {
     @Resource
     CollectionManageMapper collectionManageMapper;
 
+    /**
+     * 查询最近收藏信息(7天内)
+     *
+     * @param pageInfo pageInfo
+     * @return 最近收藏信息(7天内)
+     */
     @Override
     public Response recentCollectionInfo(PageUtil pageInfo) {
         List<CollectionBaseInfoVO> collectionBaseInfo;
@@ -37,11 +43,17 @@ public class CollectionManageServiceImpl implements CollectionManageService {
             res.put("currentNum", collectionBaseInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询最近收藏信息(7天内)
+     *
+     * @param orderBaseInfoDTO orderBaseInfoDTO
+     * @return 最近收藏信息(模糊查询，7天内)
+     */
     @Override
     public Response recentCollectionInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO) {
         List<CollectionBaseInfoVO> recentCollectionInfoFuzzy;
@@ -55,11 +67,17 @@ public class CollectionManageServiceImpl implements CollectionManageService {
             res.put("currentNum", recentCollectionInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询所有收藏信息
+     *
+     * @param pageInfo pageInfo
+     * @return 所有收藏信息
+     */
     @Override
     public Response collectionBaseInfo(PageUtil pageInfo) {
         List<CollectionBaseInfoVO> collectionBaseInfo;
@@ -73,11 +91,17 @@ public class CollectionManageServiceImpl implements CollectionManageService {
             res.put("currentNum", collectionBaseInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询所有收藏信息
+     *
+     * @param orderBaseInfoDTO orderBaseInfoDTO
+     * @return 查询所有收藏信息(模糊查询)
+     */
     @Override
     public Response collectionBaseInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO) {
         List<CollectionBaseInfoVO> collectionBaseInfoFuzzy;
@@ -91,8 +115,8 @@ public class CollectionManageServiceImpl implements CollectionManageService {
             res.put("currentNum", collectionBaseInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

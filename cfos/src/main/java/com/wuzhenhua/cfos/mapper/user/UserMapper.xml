@@ -51,7 +51,7 @@
         and is_delete = 0
     </select>
 
-    <select id="userRegister" resultType="java.lang.Integer">
+    <select id="queryUserInfoByUsername" resultType="java.lang.Integer">
         select count(*) from(
             (select admin_username as username from admin)
             union all (select student_username as username from student)

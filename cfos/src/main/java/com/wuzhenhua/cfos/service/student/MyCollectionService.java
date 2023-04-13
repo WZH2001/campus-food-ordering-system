@@ -16,9 +16,9 @@ public interface MyCollectionService {
     /**
      * 查询收藏信息
      *
-     * @param pageInfo pageInfo
+     * @param pageInfo 分页参数
      * @param token token
-     * @return Response
+     * @return 收藏信息
      */
     Response myCollection(PageUtil pageInfo, String token);
 
@@ -27,7 +27,7 @@ public interface MyCollectionService {
      *
      * @param allMenuInfoDTO allMenuInfoDTO
      * @param token token
-     * @return Response
+     * @return 收藏信息(模糊查询)
      */
     Response collectionInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token);
 
@@ -35,7 +35,7 @@ public interface MyCollectionService {
      * 取消单个收藏
      *
      * @param collectId collectId
-     * @return Response
+     * @return 返回状态
      */
     Response cancelSingleCollection(String collectId);
 
@@ -43,7 +43,7 @@ public interface MyCollectionService {
      * 批量取消收藏
      *
      * @param collectIds collectIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchCancelCollection(List<String> collectIds);
 }

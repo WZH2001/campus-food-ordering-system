@@ -16,29 +16,29 @@ import java.util.List;
  */
 public interface MenuService {
     /**
-     * 查找菜单信息列表
+     * 查询菜品信息(未删除)
      *
      * @param pageInfo 分页信息
      * @param token token
-     * @return Response
+     * @return 菜品信息(未删除)
      */
     Response menuInfo(PageUtil pageInfo, String token);
 
     /**
-     * 模糊查找菜单信息列表
+     * 模糊查询菜品信息(未删除)
      *
      * @param queryMenuInfoDTO 查询参数及分页信息
      * @param token token
-     * @return Response
+     * @return 菜品信息(模糊查询，未删除)
      */
     Response menuInfoFuzzy(QueryMenuInfoDTO queryMenuInfoDTO, String token);
 
     /**
      * 添加菜品
      *
-     * @param foodInfoDTO 菜品信息
+     * @param foodInfoDTO 菜品信息请求参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response foodAdd(FoodInfoDTO foodInfoDTO, String token);
 
@@ -46,7 +46,7 @@ public interface MenuService {
      * 删除菜品
      *
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response foodDelete(String foodId);
 
@@ -54,16 +54,16 @@ public interface MenuService {
      * 批量删除菜品
      *
      * @param foodIds foodIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDelete(List<String> foodIds);
 
     /**
-     * 修改菜品
+     * 修改菜品信息
      *
-     * @param foodInfoDTO foodInfoDTO
+     * @param foodInfoDTO 修改参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response foodUpdate(FoodInfoDTO foodInfoDTO, String token);
 }

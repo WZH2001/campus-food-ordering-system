@@ -42,9 +42,9 @@
                  inner join seller s
                             on s.seller_id = f.seller_id
         where s.seller_id = #{sellerId}
-          and DATE_FORMAT(fo.finish_time,'%y-%m') = #{currentYearMonth}
+          and DATE_FORMAT(fo.finish_time,'%Y-%m') = #{currentYearMonth}
+          and fo.is_finish = 1
         GROUP BY dayInMonth
-                     and fo.is_finish = 1
         order by fo.finish_time
     </select>
 </mapper>

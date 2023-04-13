@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.AdminPreviousMapper;
 import com.wuzhenhua.cfos.model.VO.admin.*;
 import com.wuzhenhua.cfos.service.admin.AdminPreviousService;
@@ -24,6 +24,11 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
     @Resource
     AdminPreviousMapper adminPreviousMapper;
 
+    /**
+     * 查询往期学生信息(已删除)
+     *
+     * @return 往期学生信息(已删除)
+     */
     @Override
     public Response previousStudent() {
         List<StudentBaseInfoVO> studentBaseInfoVOList;
@@ -38,11 +43,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
             res.put("currentNum", studentBaseInfoVOList.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 首先删除收藏表和订单表中的学生信息，然后删除往期学生信息
+     *
+     * @param studentId studentId
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response deletePreviousStudent(String studentId) {
@@ -53,11 +64,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 首先删除收藏表和订单表中的学生信息，然后批量删除往期学生信息
+     *
+     * @param studentIds studentIds
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response batchDeleteStudent(List<String> studentIds) {
@@ -70,11 +87,16 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期商家信息(已删除)
+     *
+     * @return 往期商家信息(已删除)
+     */
     @Override
     public Response previousSeller() {
         List<SellerBaseInfoVO> sellerBaseInfoVO;
@@ -88,11 +110,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
             res.put("currentNum", sellerBaseInfoVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 先删除菜品表和配送员表中的商家数据，然后删除往期商家信息
+     *
+     * @param sellerId sellerId
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response deletePreviousSeller(String sellerId) {
@@ -103,12 +131,19 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除往期商家信息
+     *
+     * @param sellerIds sellerIds
+     * @return 返回状态
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response batchDeleteSeller(List<String> sellerIds) {
         try {
             for (String sellerId : sellerIds) {
@@ -119,11 +154,16 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期订单信息(已删除)
+     *
+     * @return 往期订单信息(已删除)
+     */
     @Override
     public Response previousOrder() {
         List<OrderBaseInfoVO> orderBaseInfoVOList;
@@ -146,33 +186,50 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
             res.put("currentNum", orderBaseInfoVOList.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除以往的订单
+     *
+     * @param orderId orderId
+     * @return 返回状态
+     */
     @Override
     public Response deletePreviousOrder(String orderId) {
         try {
             adminPreviousMapper.deletePreviousOrder(orderId);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除以往的订单
+     *
+     * @param orderIds orderIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeleteOrder(List<String> orderIds) {
         try {
             adminPreviousMapper.batchDeleteOrder(orderIds);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期菜品信息(已删除)
+     *
+     * @return 往期菜品信息(已删除)
+     */
     @Override
     public Response previousFood() {
         List<FoodBaseInfoVO> foodBaseInfoVOList;
@@ -194,11 +251,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
             res.put("currentNum", foodBaseInfoVOList.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 先删除收藏表和订单表中的菜品信息，然后再删除往期菜品信息
+     *
+     * @param foodId foodId
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response deletePreviousFood(String foodId) {
@@ -209,11 +272,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 先删除收藏表和订单表中的菜品信息，然后批量删除往期菜品信息
+     *
+     * @param foodIds foodIds
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response batchDeleteFood(List<String> foodIds) {
@@ -226,11 +295,16 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期配送员信息(已删除)
+     *
+     * @return 往期配送员信息(已删除)
+     */
     @Override
     public Response previousSender() {
         List<SenderBaseInfoVO> senderBaseInfoVOList;
@@ -244,11 +318,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
             res.put("currentNum", senderBaseInfoVOList.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 先删除订单表中的配送员信息，然后删除往期配送员信息
+     *
+     * @param senderId senderId
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response deletePreviousSender(String senderId) {
@@ -258,11 +338,17 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 先删除订单表中的配送员信息，然后批量删除往期配送员信息
+     *
+     * @param senderIds senderIds
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response batchDeleteSender(List<String> senderIds) {
@@ -274,8 +360,8 @@ public class AdminPreviousServiceImpl implements AdminPreviousService {
         } catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

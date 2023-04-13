@@ -20,7 +20,7 @@ public interface TodayOrderMapper {
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<TodayOrderVO>
+     * @return 已完成的取餐订单信息
      */
     List<TodayOrderVO> takeOrderFinishedInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
 
@@ -28,7 +28,7 @@ public interface TodayOrderMapper {
      * 查询已完成的取餐订单信息条数
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 已完成的取餐订单信息条数
      */
     Integer takeOrderFinishedInfoTotal(@Param("sellerId") String sellerId);
 
@@ -46,7 +46,7 @@ public interface TodayOrderMapper {
      * 查询未完成的取餐订单信息条数
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 未完成的取餐订单信息条数
      */
     Integer takeOrderUnfinishedInfoTotal(@Param("sellerId") String sellerId);
 
@@ -56,25 +56,25 @@ public interface TodayOrderMapper {
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<TodayOrderVO>
+     * @return 已完成的送餐订单信息
      */
     List<TodayOrderVO> sendOrderFinishedInfo(Integer pageNum, Integer pageSize, String sellerId);
 
     /**
-     * 查询已完成的送餐订单信息
+     * 查询已完成的送餐订单信息条数
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 已完成的送餐订单信息条数
      */
     Integer sendOrderFinishedInfoTotal(String sellerId);
 
     /**
-     * 查询未完成的送餐订单信息条数
+     * 查询未完成的送餐订单信息
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId sellerId
-     * @return List<TodayOrderVO>
+     * @return 未完成的送餐订单信息
      */
     List<TodayOrderVO> sendOrderUnfinishedInfo(Integer pageNum, Integer pageSize, String sellerId);
 
@@ -82,7 +82,7 @@ public interface TodayOrderMapper {
      * 查询未完成的送餐订单信息条数
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 未完成的送餐订单信息条数
      */
     Integer sendOrderUnfinishedInfoTotal(String sellerId);
 
@@ -91,7 +91,7 @@ public interface TodayOrderMapper {
      *
      * @param orderId orderId
      * @param finishTime finishTime
-     * @return Integer
+     * @return 受影响条数
      */
     Integer achieveOrder(@Param("orderId") String orderId, @Param("finishTime") String finishTime);
 
@@ -101,7 +101,7 @@ public interface TodayOrderMapper {
      * @param senderId senderId
      * @param orderId orderId
      * @param finishTime finishTime
-     * @return Integer
+     * @return 受影响条数
      */
     Integer sendOrder(@Param("senderId") String senderId, @Param("orderId") String orderId, @Param("finishTime") String finishTime);
 
@@ -109,7 +109,7 @@ public interface TodayOrderMapper {
      * 修改配送员信息
      *
      * @param senderId senderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer updateSenderInfo(@Param("senderId") String senderId);
 }

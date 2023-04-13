@@ -16,18 +16,18 @@ public interface CollectService {
     /**
      * 查询未收藏菜品信息
      *
-     * @param pageInfo pageInfo
+     * @param pageInfo 分页参数
      * @param token token
-     * @return Response
+     * @return 未收藏的菜品信息
      */
     Response notCollectFoodInfo(PageUtil pageInfo, String token);
 
     /**
      * 模糊查询未收藏菜品信息
      *
-     * @param allMenuInfoDTO allMenuInfoDTO
+     * @param allMenuInfoDTO 查询参数
      * @param token token
-     * @return Response
+     * @return 未收藏的菜品信息(模糊查询)
      */
     Response notCollectFoodInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token);
 
@@ -36,7 +36,7 @@ public interface CollectService {
      *
      * @param foodId foodId
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response singleCollect(String foodId, String token);
 
@@ -45,7 +45,7 @@ public interface CollectService {
      *
      * @param foodIds foodIds
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response batchCollect(List<String> foodIds, String token);
 }

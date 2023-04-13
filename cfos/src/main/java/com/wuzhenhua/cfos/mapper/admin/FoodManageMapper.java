@@ -15,74 +15,74 @@ import java.util.List;
 @Mapper
 public interface FoodManageMapper {
     /**
-     * 查找菜品信息列表
+     * 查询菜品信息
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
-     * @return List<SellerFoodInfoVO>
+     * @return 菜品信息
      */
     List<FoodBaseInfoVO> menuBaseInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
-     * 查找菜品信息列表条数
+     * 查询菜品信息条数
      *
-     * @return Integer
+     * @return 菜品信息条数
      */
     Integer menuBaseInfoTotal();
 
     /**
-     * 模糊查找菜品信息列表
+     * 模糊查询菜品信息
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
      * @param  foodName foodName
      * @param  foodPrice foodPrice
-     * @return List<SellerFoodInfoVO>
+     * @return 菜品信息(模糊查询)
      */
     List<FoodBaseInfoVO> menuBaseInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice);
 
     /**
-     * 模糊查找菜品信息列表条数
+     * 模糊查询菜品信息条数
      *
      * @param  foodName foodName
      * @param  foodPrice foodPrice
-     * @return Integer
+     * @return 菜品信息条数(模糊查询)
      */
     Integer menuBaseInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice);
 
     /**
-     * 查找已推荐菜品信息列表
+     * 查询已推荐菜品信息
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
-     * @return List<SellerFoodInfoVO>
+     * @return 已推荐菜品信息
      */
     List<FoodBaseInfoVO> menuHaveRecommend(Integer pageNum, Integer pageSize);
 
     /**
-     * 查找已推荐菜品信息列表条数
+     * 查询已推荐菜品信息条数
      *
-     * @return Integer
+     * @return 已推荐菜品信息条数
      */
     Integer menuHaveRecommendTotal();
 
     /**
-     * 模糊查找已推荐菜品信息列表
+     * 模糊查询已推荐菜品信息
      *
      * @param  pageNum pageNum
      * @param  pageSize pageSize
      * @param  foodName foodName
      * @param  foodPrice foodPrice
-     * @return List<SellerFoodInfoVO>
+     * @return 已推荐菜品信息(模糊查询)
      */
     List<FoodBaseInfoVO> menuHaveRecommendFuzzy(Integer pageNum, Integer pageSize, String foodName, String foodPrice);
 
     /**
-     * 模糊查找已推荐菜品信息列表条数
+     * 模糊查询已推荐菜品信息条数
      *
      * @param  foodName foodName
      * @param  foodPrice foodPrice
-     * @return Integer
+     * @return 查询已推荐菜品信息条数(模糊查询)
      */
     Integer menuHaveRecommendFuzzyTotal(String foodName, String foodPrice);
 }

@@ -15,15 +15,15 @@ public interface OrderManageService {
      * 查询未完成的订单信息
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 未完成的订单信息
      */
     Response orderUnfinishedInfo(PageUtil pageInfo);
 
     /**
-     * 模糊查询未完成的订单信息
+     * 模糊查询未完成的订单信息(模糊查询)
      *
      * @param orderBaseInfoDTO pageInfo
-     * @return Response
+     * @return 未完成的订单信息(模糊查询)
      */
     Response orderUnfinishedInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -31,7 +31,7 @@ public interface OrderManageService {
      * 查询所有订单信息
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 所有订单信息
      */
     Response orderBaseInfo(PageUtil pageInfo);
 
@@ -39,7 +39,7 @@ public interface OrderManageService {
      * 模糊查询所有订单信息
      *
      * @param orderBaseInfoDTO pageInfo
-     * @return Response
+     * @return 所有订单信息(模糊查询)
      */
     Response orderBaseInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO);
 }

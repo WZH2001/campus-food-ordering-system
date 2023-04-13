@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.SenderManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.SenderBaseInfoDTO;
 import com.wuzhenhua.cfos.model.VO.admin.SenderBaseInfoVO;
@@ -24,6 +24,12 @@ public class SenderManageServiceImpl implements SenderManageService {
     @Resource
     private SenderManageMapper senderManageMapper;
 
+    /**
+     * 查询在职配送员信息
+     *
+     * @param pageInfo pageInfo
+     * @return 在职配送员信息
+     */
     @Override
     public Response senderAtWorkInfo(PageUtil pageInfo) {
         List<SenderBaseInfoVO> senderBaseInfoS;
@@ -37,11 +43,17 @@ public class SenderManageServiceImpl implements SenderManageService {
             res.put("currentNum", senderBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询在职配送员信息
+     *
+     * @param senderBaseInfoDTO senderBaseInfoDTO
+     * @return 在职配送员信息(模糊查询)
+     */
     @Override
     public Response senderAtWorkInfoFuzzy(SenderBaseInfoDTO senderBaseInfoDTO) {
         List<SenderBaseInfoVO> senderBaseInfoS;
@@ -55,11 +67,17 @@ public class SenderManageServiceImpl implements SenderManageService {
             res.put("currentNum", senderBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询离职配送员信息
+     *
+     * @param pageInfo pageInfo
+     * @return 离职配送员信息
+     */
     @Override
     public Response senderBaseInfo(PageUtil pageInfo) {
         List<SenderBaseInfoVO> senderBaseInfoS;
@@ -73,11 +91,17 @@ public class SenderManageServiceImpl implements SenderManageService {
             res.put("currentNum", senderBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询离职配送员信息
+     *
+     * @param senderBaseInfoDTO senderBaseInfoDTO
+     * @return 离职配送员信息(模糊查询)
+     */
     @Override
     public Response senderBaseInfoFuzzy(SenderBaseInfoDTO senderBaseInfoDTO) {
         List<SenderBaseInfoVO> senderBaseInfoS;
@@ -91,8 +115,8 @@ public class SenderManageServiceImpl implements SenderManageService {
             res.put("currentNum", senderBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

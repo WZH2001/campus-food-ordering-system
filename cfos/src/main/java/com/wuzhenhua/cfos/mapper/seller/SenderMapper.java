@@ -17,20 +17,20 @@ import java.util.List;
 public interface SenderMapper {
 
     /**
-     * 查找配送员信息列表
+     * 分页查询配送员信息
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param sellerId token
-     * @return List<SenderVO>
+     * @return 配送员信息
      */
     List<SenderVO> senderInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("sellerId") String sellerId);
 
     /**
-     * 查找配送员信息列表条数
+     * 分页查询配送员信息条数
      *
      * @param sellerId token
-     * @return Integer
+     * @return 配送员信息条数
      */
     Integer senderInfoTotal(@Param("sellerId") String sellerId);
 
@@ -38,7 +38,7 @@ public interface SenderMapper {
      * 添加配送员
      *
      * @param senderInfoDTO token
-     * @return Integer
+     * @return 受影响条数
      */
     Integer senderAdd(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 
@@ -46,7 +46,7 @@ public interface SenderMapper {
      * 修改配送员信息
      *
      * @param senderInfoDTO senderInfoDTO
-     * @return Integer
+     * @return 受影响条数
      */
     Integer senderUpdate(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 
@@ -55,7 +55,7 @@ public interface SenderMapper {
      *
      * @param senderId senderId
      * @param quitDate quitDate
-     * @return Integer
+     * @return 受影响条数
      */
     Integer senderDelete(@Param("senderId") String senderId, @Param("quitDate") String quitDate);
 
@@ -63,15 +63,15 @@ public interface SenderMapper {
      * 检查是否存在该配送员
      *
      * @param senderInfoDTO senderInfoDTO
-     * @return Integer
+     * @return 查询条数
      */
     Integer isHaveSender(@Param("senderInfoDTO") SenderInfoDTO senderInfoDTO);
 
     /**
-     * 查找所有配送员信息列表
+     * 查找所有配送员信息
      *
      * @param sellerId sellerId
-     * @return List<SenderVO>
+     * @return 所有配送员信息
      */
     List<SenderVO> allSenderInfo(@Param("sellerId") String sellerId);
 }

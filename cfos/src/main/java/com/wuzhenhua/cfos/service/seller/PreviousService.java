@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface PreviousService {
     /**
-     * 查询往期菜品信息
+     * 查询往期菜品信息(已删除)
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 往期菜品信息(已删除)
      */
     Response previousFoodInfo(PageUtil pageInfo, String token);
 
@@ -25,7 +25,7 @@ public interface PreviousService {
      * 删除往期菜品信息
      *
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousFood(String foodId);
 
@@ -33,7 +33,7 @@ public interface PreviousService {
      * 批量删除往期菜品信息
      *
      * @param foodIds foodIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeletePreviousFood(List<String> foodIds);
 
@@ -41,7 +41,7 @@ public interface PreviousService {
      * 恢复往期菜品信息
      *
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response recoverPreviousFood(String foodId);
 
@@ -49,16 +49,16 @@ public interface PreviousService {
      * 批量恢复往期菜品信息
      *
      * @param foodIds foodIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchRecoverPreviousFood(List<String> foodIds);
 
     /**
-     * 查询往期订单信息
+     * 查询往期订单信息(已删除)
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 往期订单信息(已删除)
      */
     Response previousOrderInfo(PageUtil pageInfo, String token);
 
@@ -66,7 +66,7 @@ public interface PreviousService {
      * 删除往期订单信息
      *
      * @param orderId orderId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousOrderFromSeller(String orderId);
 
@@ -74,16 +74,16 @@ public interface PreviousService {
      * 批量删除往期订单信息
      *
      * @param orderIds orderIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeletePreviousOrderFromSeller(List<String> orderIds);
 
     /**
-     * 查询往期配送员信息
+     * 查询往期配送员信息(已删除)
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 往期配送员信息(已删除)
      */
     Response previousSenderInfo(PageUtil pageInfo, String token);
 
@@ -91,7 +91,7 @@ public interface PreviousService {
      * 删除配送员信息
      *
      * @param senderId senderId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousSender(String senderId);
 
@@ -99,7 +99,7 @@ public interface PreviousService {
      * 批量删除配送员信息
      *
      * @param senderIds senderIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeletePreviousSender(List<String> senderIds);
 }

@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface PreviousOrderService {
     /**
-     * 查询往期订单信息
+     * 查询往期订单信息(已完成，对学生未删除)
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 往期订单信息(已完成，对学生未删除)
      */
     Response previousOrderInfo(PageUtil pageInfo, String token);
 
@@ -25,7 +25,7 @@ public interface PreviousOrderService {
      * 删除往期订单
      *
      * @param orderId orderId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousOrder(String orderId);
 
@@ -33,7 +33,7 @@ public interface PreviousOrderService {
      * 批量删除往期订单
      *
      * @param orderIds orderIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeletePreviousOrder(List<String> orderIds);
 }

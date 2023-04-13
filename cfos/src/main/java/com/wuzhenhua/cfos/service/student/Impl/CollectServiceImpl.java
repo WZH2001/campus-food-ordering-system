@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.student.CollectMapper;
 import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.student.BatchCollectDTO;
@@ -27,6 +27,13 @@ public class CollectServiceImpl implements CollectService {
     @Resource
     private CollectMapper collectMapper;
 
+    /**
+     * 查询未收藏的菜品信息和未收藏的菜品数量
+     *
+     * @param pageInfo 分页参数
+     * @param token token
+     * @return 未收藏的菜品信息
+     */
     @Override
     public Response notCollectFoodInfo(PageUtil pageInfo, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -48,11 +55,18 @@ public class CollectServiceImpl implements CollectService {
             res.put("currentNum", notCollectFoodInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 根据模糊条件模糊查询未收藏的菜品信息和未收藏的菜品数量
+     *
+     * @param allMenuInfoDTO 查询参数
+     * @param token token
+     * @return 未收藏的菜品信息(模糊查询)
+     */
     @Override
     public Response notCollectFoodInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -74,11 +88,18 @@ public class CollectServiceImpl implements CollectService {
             res.put("currentNum", notCollectFoodInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 收藏单个菜品
+     *
+     * @param foodId foodId
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     public Response singleCollect(String foodId, String token) {
         String collectId = UUID.randomUUID().toString().replace("-", "");
@@ -87,15 +108,22 @@ public class CollectServiceImpl implements CollectService {
         String studentId = TokenUtils.getUserId(token);
         try {
             if(collectMapper.singleCollect(collectId, collectTime, studentId, foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量收藏菜品
+     *
+     * @param foodIds foodIds
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     public Response batchCollect(@NotNull List<String> foodIds, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -109,12 +137,12 @@ public class CollectServiceImpl implements CollectService {
         }
         try{
             if(collectMapper.batchCollect(batchCollectDTOList) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

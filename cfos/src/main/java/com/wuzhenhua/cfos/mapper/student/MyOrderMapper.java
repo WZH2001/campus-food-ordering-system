@@ -21,7 +21,7 @@ public interface MyOrderMapper {
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param studentId studentId
-     * @return List<MyOrderInfoVO>
+     * @return 我的订单信息
      */
     List<MyOrderInfoVO> myOrderInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("studentId") String studentId);
 
@@ -47,7 +47,7 @@ public interface MyOrderMapper {
      *
      * @param orderId orderId
      * @param senderId senderId
-     * @return MyOrderInfoDetailsVO
+     * @return 我的订单详情信息
      */
     MyOrderInfoDetailsVO myOrderInfoDetails(@Param("orderId") String orderId, @Param("senderId") String senderId);
 
@@ -56,16 +56,16 @@ public interface MyOrderMapper {
      *
      * @param orderId orderId
      * @param foodNumber foodNumber
-     * @return Integer
+     * @return 受影响条数
      */
     Integer orderUpdate(@Param("orderId") String orderId, @Param("foodNumber") String foodNumber);
 
     /**
-     * 修改今日订单数量
+     * 修改今日订单的数量
      *
      * @param differ differ
      * @param foodId foodId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer todaySellUpdate(@Param("differ") Integer differ, @Param("foodId") String foodId);
 
@@ -73,7 +73,7 @@ public interface MyOrderMapper {
      * 取消单个订单
      *
      * @param orderId orderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer cancelSingleOrder(@Param("orderId") String orderId);
 
@@ -81,7 +81,7 @@ public interface MyOrderMapper {
      * 批量取消订单
      *
      * @param orderIds orderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchCancelOrder(@Param("orderIds") List<String> orderIds);
 }

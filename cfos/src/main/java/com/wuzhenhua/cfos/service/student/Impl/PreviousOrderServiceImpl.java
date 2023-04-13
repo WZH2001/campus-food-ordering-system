@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.student.PreviousOrderMapper;
 import com.wuzhenhua.cfos.model.VO.student.MyOrderInfoDetailsVO;
 import com.wuzhenhua.cfos.service.student.PreviousOrderService;
@@ -24,6 +24,13 @@ public class PreviousOrderServiceImpl implements PreviousOrderService {
     @Resource
     private PreviousOrderMapper previousOrderMapper;
 
+    /**
+     * 查询往期订单信息(已完成，对学生未删除)
+     *
+     * @param pageInfo pageInfo
+     * @param token token
+     * @return 往期订单信息(已完成，对学生未删除)
+     */
     @Override
     public Response previousOrderInfo(PageUtil pageInfo, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -47,34 +54,46 @@ public class PreviousOrderServiceImpl implements PreviousOrderService {
             res.put("currentNum", previousOrderInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除往期订单
+     *
+     * @param orderId orderId
+     * @return 返回状态
+     */
     @Override
     public Response deletePreviousOrder(String orderId) {
         try {
             if(previousOrderMapper.deletePreviousOrder(orderId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除往期订单
+     *
+     * @param orderIds orderIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeletePreviousOrder(List<String> orderIds) {
         try {
             if(previousOrderMapper.batchDeletePreviousOrder(orderIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

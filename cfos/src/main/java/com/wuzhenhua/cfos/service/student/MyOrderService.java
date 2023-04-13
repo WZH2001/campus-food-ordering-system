@@ -16,7 +16,7 @@ public interface MyOrderService {
      *
      * @param pageInfo pageInfo
      * @param token token
-     * @return Response
+     * @return 我的订单信息
      */
     Response myOrderInfo(PageUtil pageInfo, String token);
 
@@ -25,7 +25,7 @@ public interface MyOrderService {
      *
      * @param orderId orderId
      * @param senderId senderId
-     * @return Response
+     * @return 订单详情信息
      */
     Response myOrderInfoDetails(String orderId, String senderId);
 
@@ -36,7 +36,7 @@ public interface MyOrderService {
      * @param foodNumber foodNumber
      * @param differ differ
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response orderUpdate(String orderId, String foodNumber, Integer differ, String foodId);
 
@@ -46,7 +46,7 @@ public interface MyOrderService {
      * @param orderId orderId
      * @param differ differ
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response cancelSingleOrder(String orderId, Integer differ, String foodId);
 
@@ -54,7 +54,7 @@ public interface MyOrderService {
      * 批量取消订单
      *
      * @param batchCancelDTOList batchCancelDTOList
-     * @return Response
+     * @return 返回状态
      */
     Response batchCancelOrder(BatchCancelDTO batchCancelDTOList);
 }

@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.student.MyCollectionMapper;
 import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
 import com.wuzhenhua.cfos.model.VO.student.CollectionFoodVO;
@@ -25,6 +25,13 @@ public class MyCollectionServiceImpl implements MyCollectionService {
     @Resource
     private MyCollectionMapper myCollectionMapper;
 
+    /**
+     * 查询学生的收藏信息
+     *
+     * @param pageInfo 分页参数
+     * @param token token
+     * @return 收藏信息
+     */
     @Override
     public Response myCollection(PageUtil pageInfo, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -39,11 +46,18 @@ public class MyCollectionServiceImpl implements MyCollectionService {
             res.put("currentNum", collectionFoodVOList.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 根据模糊条件查询学生的收藏信息
+     *
+     * @param allMenuInfoDTO allMenuInfoDTO
+     * @param token token
+     * @return 收藏信息(模糊查询)
+     */
     @Override
     public Response collectionInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO, String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -58,34 +72,46 @@ public class MyCollectionServiceImpl implements MyCollectionService {
             res.put("currentNum", collectionInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 取消单个收藏
+     *
+     * @param collectId collectId
+     * @return 返回状态
+     */
     @Override
     public Response cancelSingleCollection(String collectId) {
         try {
             if(myCollectionMapper.cancelSingleCollection(collectId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量取消收藏
+     *
+     * @param collectIds collectIds
+     * @return 返回状态
+     */
     @Override
     public Response batchCancelCollection(List<String> collectIds) {
         try {
             if(myCollectionMapper.batchCancelCollection(collectIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

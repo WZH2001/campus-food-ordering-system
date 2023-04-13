@@ -16,30 +16,30 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     /**
-     * 查询所有菜单信息
+     * 查询所用商家的菜品信息(未删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<AllMenuInfoVO>
+     * @return 未删除的菜品信息
      */
     List<AllMenuInfoVO> allMenuInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
-     * 查询所有菜单信息条数
+     * 查询所有菜单信息条数(未删除)
      *
-     * @return Integer
+     * @return 未删除的菜品信息条数
      */
     Integer allMenuInfoTotal();
 
     /**
-     * 模糊查询菜单信息
+     * 模糊查询菜单信息(未删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param foodName foodName
      * @param foodPrice foodPrice
      * @param windowName windowName
-     * @return List<AllMenuInfoVO>
+     * @return 菜单信息(模糊查询，未删除)
      */
     List<AllMenuInfoVO> menuInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName);
 
@@ -49,7 +49,7 @@ public interface OrderMapper {
      * @param foodName foodName
      * @param foodPrice foodPrice
      * @param windowName windowName
-     * @return Integer
+     * @return 菜单信息条数(模糊查询，未删除)
      */
     Integer menuInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName);
 
@@ -57,16 +57,16 @@ public interface OrderMapper {
      * 在学校吃订餐
      *
      * @param orderInfo orderInfo
-     * @return Integer
+     * @return 受影响条数
      */
     Integer eatAtCanteenOrder(@Param("orderInfo") OrderInfoDTO orderInfo);
 
     /**
-     * 跟新菜单表中菜品的今日销售量
+     * 更新菜单表中菜品的今日销售量
      *
      * @param number number
      * @param foodId foodId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer updateTodaySellFromFood(@Param("number") Integer number, @Param("foodId") String foodId);
 
@@ -74,7 +74,7 @@ public interface OrderMapper {
      * 在学校吃订餐
      *
      * @param orderInfo orderInfo
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deliveryOrder(@Param("orderInfo") OrderInfoDTO orderInfo);
 
@@ -82,15 +82,15 @@ public interface OrderMapper {
      * 自取餐多个订单
      *
      * @param orderInfos orderInfos
-     * @return Integer
+     * @return 受影响条数
      */
     Integer multipleOrderAtCanteen(@Param("orderInfos") List<OrderInfoDTO> orderInfos);
 
     /**
-     * 跟新菜单表中菜品的今日销售量
+     * 更新菜单表中菜品的今日销售量
      *
      * @param foodIds foodIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer multipleUpdateTodaySellFromFood(@Param("foodIds") List<String> foodIds);
 
@@ -98,7 +98,7 @@ public interface OrderMapper {
      * 食堂配送多个订单
      *
      * @param orderInfos orderInfos
-     * @return Integer
+     * @return 受影响条数
      */
     Integer multipleDeliveryOrder(@Param("orderInfos") List<OrderInfoDTO> orderInfos);
 }

@@ -2,12 +2,12 @@ package com.wuzhenhua.cfos.common;
 
 /**
  * @Author wuzhenhua
- * @Title ResponseCodeEnum
+ * @Title ResponseInfoEnum
  * @ProjectName: campus-food-ordering-system
- * @Description: 返回状态码
+ * @Description: 返回数据，状态码和描述
  * @Date 2022/12/14 14:18
  */
-public enum ResponseCodeEnum {
+public enum ResponseInfoEnum {
     SUCCESS("A0000", "成功"),
     ERROR("A0001", "失败"),
     FAIL("A0002", "无法删除"),
@@ -19,11 +19,10 @@ public enum ResponseCodeEnum {
     FOOD_ERROR_C0001("C0001", "菜品已存在"),
     SENDER_ERROR_D0001("D0001", "配送员已存在");
 
-
     private final String code;
     private final String description;
 
-    ResponseCodeEnum(String code, String description) {
+    ResponseInfoEnum(String code, String description) {
         this.code = code;
         this.description = description;
     }

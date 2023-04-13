@@ -13,7 +13,7 @@ public interface StudentHomeService {
      * 查询当天点餐份数及消费
      *
      * @param token token
-     * @return Response
+     * @return 当天点餐份数及消费
      */
     Response queryDayOrderAndDayConsume(String token);
 
@@ -21,7 +21,7 @@ public interface StudentHomeService {
      * 查询本周点餐份数及消费
      *
      * @param token token
-     * @return Response
+     * @return 本周点餐份数及消费
      */
     Response queryWeekOrderWeekDayConsume(String token);
 
@@ -29,15 +29,15 @@ public interface StudentHomeService {
      * 查询本月点餐份数及消费
      *
      * @param token token
-     * @return Response
+     * @return 本月点餐份数及消费
      */
     Response queryMonthOrderAndMonthConsume(String token);
 
     /**
-     * 查询本月订餐窗口和订单数量
+     * 查询本月订餐窗口和每个窗口的订单数量
      *
      * @param token token
-     * @return Response
+     * @return 本月订餐窗口和每个窗口的订单数量
      */
     Response queryWindowNameAndOrderNumbersAtThisMonth(String token);
 }

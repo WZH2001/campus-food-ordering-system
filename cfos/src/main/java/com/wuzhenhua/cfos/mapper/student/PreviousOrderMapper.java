@@ -15,20 +15,20 @@ import java.util.List;
 @Mapper
 public interface PreviousOrderMapper {
     /**
-     * 查询往期订单信息
+     * 查询往期订单信息(已完成，对学生未删除)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param studentId studentId
-     * @return Response
+     * @return 往期订单信息(已完成，对学生未删除)
      */
     List<MyOrderInfoDetailsVO> previousOrderInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("studentId") String studentId);
 
     /**
-     * 查询往期订单信息条数
+     * 查询往期订单信息条数(已完成，对学生未删除)
      *
      * @param studentId studentId
-     * @return Response
+     * @return 往期订单信息条数(已完成，对学生未删除)
      */
     Integer previousOrderInfoTotal(@Param("studentId") String studentId);
 
@@ -36,7 +36,7 @@ public interface PreviousOrderMapper {
      * 删除往期订单
      *
      * @param orderId orderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousOrder(@Param("orderId") String orderId);
 
@@ -44,7 +44,7 @@ public interface PreviousOrderMapper {
      * 批量删除往期订单
      *
      * @param orderIds orderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeletePreviousOrder(@Param("orderIds") List<String> orderIds);
 }

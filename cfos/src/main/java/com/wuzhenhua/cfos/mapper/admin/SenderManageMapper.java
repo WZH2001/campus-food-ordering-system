@@ -20,14 +20,14 @@ public interface SenderManageMapper {
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<SenderBaseInfoVO>
+     * @return 在职配送员信息
      */
     List<SenderBaseInfoVO> senderAtWorkInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询在职配送员信息条数
      *
-     * @return Integer
+     * @return 在职配送员信息条数
      */
     Integer senderAtWorkInfoTotal();
 
@@ -35,7 +35,7 @@ public interface SenderManageMapper {
      * 模糊查询在职配送员信息
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return List<SenderBaseInfoVO>
+     * @return 在职配送员信息(模糊查询)
      */
     List<SenderBaseInfoVO> senderAtWorkInfoFuzzy(@Param("senderBaseInfoDTO") SenderBaseInfoDTO senderBaseInfoDTO);
 
@@ -43,7 +43,7 @@ public interface SenderManageMapper {
      * 模糊查询在职配送员信息条数
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return Integer
+     * @return 在职配送员信息条数(模糊查询)
      */
     Integer senderAtWorkInfoFuzzyTotal(@Param("senderBaseInfoDTO") SenderBaseInfoDTO senderBaseInfoDTO);
 
@@ -52,14 +52,14 @@ public interface SenderManageMapper {
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<SenderBaseInfoVO>
+     * @return 离职配送员信息
      */
     List<SenderBaseInfoVO> senderBaseInfo(Integer pageNum, Integer pageSize);
 
     /**
      * 查询离职配送员信息条数
      *
-     * @return Integer
+     * @return 离职配送员信息条数
      */
     Integer senderBaseInfoTotal();
 
@@ -67,7 +67,7 @@ public interface SenderManageMapper {
      * 模糊查询离职配送员信息
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return List<SenderBaseInfoVO>
+     * @return 离职配送员信息(模糊查询)
      */
     List<SenderBaseInfoVO> senderBaseInfoFuzzy(@Param("senderBaseInfoDTO") SenderBaseInfoDTO senderBaseInfoDTO);
 
@@ -75,7 +75,7 @@ public interface SenderManageMapper {
      * 模糊查询离职配送员信息条数
      *
      * @param senderBaseInfoDTO senderBaseInfoDTO
-     * @return Integer
+     * @return 离职配送员信息条数(模糊查询)
      */
     Integer senderBaseInfoFuzzyTotal(@Param("senderBaseInfoDTO") SenderBaseInfoDTO senderBaseInfoDTO);
 }

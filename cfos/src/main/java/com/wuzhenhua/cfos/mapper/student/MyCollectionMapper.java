@@ -20,7 +20,7 @@ public interface MyCollectionMapper {
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param studentId studentId
-     * @return List<CollectionFoodVO>
+     * @return 收藏信息
      */
     List<CollectionFoodVO> myCollection(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("studentId") String studentId);
 
@@ -28,7 +28,7 @@ public interface MyCollectionMapper {
      * 查询收藏信息条数
      *
      * @param studentId studentId
-     * @return Integer
+     * @return 收藏条数
      */
     Integer myCollectionTotal(@Param("studentId") String studentId);
 
@@ -41,7 +41,7 @@ public interface MyCollectionMapper {
      * @param foodPrice foodPrice
      * @param windowName windowName
      * @param studentId studentId
-     * @return List<CollectionFoodVO>
+     * @return 收藏信息(模糊查询)
      */
     List<CollectionFoodVO> collectionInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName, @Param("studentId") String studentId);
 
@@ -52,7 +52,7 @@ public interface MyCollectionMapper {
      * @param foodPrice foodPrice
      * @param windowName windowName
      * @param studentId studentId
-     * @return Integer
+     * @return 收藏条数(模糊查询)
      */
     Integer collectionInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName, @Param("studentId") String studentId);
 
@@ -60,7 +60,7 @@ public interface MyCollectionMapper {
      * 取消单个收藏
      *
      * @param collectId collectId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer cancelSingleCollection(@Param("collectId") String collectId);
 
@@ -68,7 +68,7 @@ public interface MyCollectionMapper {
      * 批量取消收藏
      *
      * @param collectIds collectIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchCancelCollection(@Param("collectIds") List<String> collectIds);
 }

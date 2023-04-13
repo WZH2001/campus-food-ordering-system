@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.UserManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.SellerBaseInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.admin.StudentBaseInfoDTO;
@@ -30,6 +30,7 @@ public class UserManageServiceImpl implements UserManageService {
     @Resource
     private UserManageMapper userManageMapper;
 
+
     public void checkUserInfoIsOrNotExist(@NotNull List<StudentBaseInfoVO> studentBaseInfoS){
         for(StudentBaseInfoVO studentBaseInfoVO : studentBaseInfoS){
             if(studentBaseInfoVO.getName() == null){
@@ -47,6 +48,12 @@ public class UserManageServiceImpl implements UserManageService {
         }
     }
 
+    /**
+     * 查询学生信息
+     *
+     * @param pageInfo 分页信息
+     * @return 学生信息
+     */
     @Override
     public Response studentBaseInfo(PageUtil pageInfo) {
         List<StudentBaseInfoVO> studentBaseInfoS;
@@ -61,11 +68,17 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", studentBaseInfoS.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询学生信息
+     *
+     * @param studentBaseInfo 模糊查询信息及分页信息
+     * @return 学生信息(模糊查询)
+     */
     @Override
     public Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfo) {
         List<StudentBaseInfoVO> studentBaseInfoFuzzy;
@@ -80,11 +93,18 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", studentBaseInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询学生订餐信息
+     *
+     * @param studentId 学生Id
+     * @param pageUtil 分页信息
+     * @return 学生订餐信息
+     */
     @Override
     public Response studentOrderInfo(String studentId, PageUtil pageUtil) {
         List<StudentOrderInfoVO> studentOrderInfoVO;
@@ -113,11 +133,18 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", studentOrderInfoVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询学生收藏信息
+     *
+     * @param studentId 学生Id
+     * @param pageUtil 分页信息
+     * @return 学生收藏信息
+     */
     @Override
     public Response studentCollectInfo(String studentId, PageUtil pageUtil) {
         List<StudentCollectInfoVO> studentCollectInfoVO;
@@ -131,11 +158,17 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", studentCollectInfoVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询商家信息
+     *
+     * @param pageUtil 分页信息
+     * @return 商家信息
+     */
     @Override
     public Response sellerBaseInfo(PageUtil pageUtil) {
         List<SellerBaseInfoVO> sellerBaseInfoVO;
@@ -149,11 +182,17 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", sellerBaseInfoVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询商家信息
+     *
+     * @param sellerBaseInfoDTO 查询信息及分页信息
+     * @return 商家信息(模糊查询)
+     */
     @Override
     public Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO) {
         List<SellerBaseInfoVO> sellerBaseInfoFuzzy;
@@ -167,11 +206,18 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", sellerBaseInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询商家菜单信息
+     *
+     * @param sellerId 商家Id
+     * @param pageUtil 分页信息
+     * @return 家菜单信息
+     */
     @Override
     public Response sellerFoodInfo(String sellerId, PageUtil pageUtil) {
         List<SellerFoodInfoVO> sellerFoodVO;
@@ -192,11 +238,18 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", sellerFoodVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询商家配送员信息
+     *
+     * @param sellerId 商家Id
+     * @param pageInfo pageInfo
+     * @return 商家配送员信息
+     */
     @Override
     public Response sellerSenderInfo(String sellerId, PageUtil pageInfo) {
         List<SellerSenderInfoVO> sellerSenderVO;
@@ -215,29 +268,41 @@ public class UserManageServiceImpl implements UserManageService {
             res.put("currentNum", sellerSenderVO.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除单个学生
+     *
+     * @param studentId studentId
+     * @return 返回状态
+     */
     @Override
     public Response deleteSingleStudent(String studentId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             if(sdf.parse(userManageMapper.queryStudentGraduateTime(studentId)).getTime() > System.currentTimeMillis()){
-                return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.FAIL.getCode(), ResponseInfoEnum.FAIL.getDescription());
             } else{
                 if(userManageMapper.deleteSingleStudent(studentId) == 0){
-                    return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                    return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
                 }
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除学生信息
+     *
+     * @param studentIds studentIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeleteStudent(List<String> studentIds) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -248,17 +313,17 @@ public class UserManageServiceImpl implements UserManageService {
                     num++;
                 } else {
                     if (userManageMapper.deleteSingleStudent(studentId) == 0) {
-                        return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                        return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
                     }
                 }
             }
             if(num == studentIds.size()){
-                return Response.errorResponse(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.FAIL.getCode(), ResponseInfoEnum.FAIL.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

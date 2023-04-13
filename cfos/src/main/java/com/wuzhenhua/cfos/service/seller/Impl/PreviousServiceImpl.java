@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.seller.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.seller.PreviousMapper;
 import com.wuzhenhua.cfos.model.VO.seller.PreviousMenuVO;
 import com.wuzhenhua.cfos.model.VO.seller.PreviousOrderVO;
@@ -29,6 +29,13 @@ public class PreviousServiceImpl implements PreviousService {
     @Resource
     private PreviousMapper previousMapper;
 
+    /**
+     * 查询往期菜品信息(已删除)
+     *
+     * @param pageInfo pageInfo
+     * @param token token
+     * @return 往期菜品信息(已删除)
+     */
     @Override
     public Response previousFoodInfo(PageUtil pageInfo, String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -50,67 +57,98 @@ public class PreviousServiceImpl implements PreviousService {
             res.put("currentNum", previousMenuInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除往期菜品信息
+     *
+     * @param foodId foodId
+     * @return 返回状态
+     */
     @Override
     public Response deletePreviousFood(String foodId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String deleteTime = sdf.format(new Date());
         try {
             if(previousMapper.deletePreviousFood(deleteTime, foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除往期菜品信息
+     *
+     * @param foodIds foodIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeletePreviousFood(List<String> foodIds) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String deleteTime = sdf.format(new Date());
         try {
             if(previousMapper.batchDeletePreviousFood(deleteTime, foodIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 恢复往期菜品信息
+     *
+     * @param foodId foodId
+     * @return 返回状态
+     */
     @Override
     public Response recoverPreviousFood(String foodId) {
         try {
             if(previousMapper.recoverPreviousFood(foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量恢复往期菜品信息
+     *
+     * @param foodIds foodIds
+     * @return 返回状态
+     */
     @Override
     public Response batchRecoverPreviousFood(List<String> foodIds) {
         try {
             if(previousMapper.batchRecoverPreviousFood(foodIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期订单信息(已删除)
+     *
+     * @param pageInfo pageInfo
+     * @param token token
+     * @return 往期订单信息(已删除)
+     */
     @Override
     public Response previousOrderInfo(PageUtil pageInfo, String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -134,37 +172,56 @@ public class PreviousServiceImpl implements PreviousService {
             res.put("currentNum", previousOrderInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除往期订单信息
+     *
+     * @param orderId orderId
+     * @return 返回状态
+     */
     @Override
     public Response deletePreviousOrderFromSeller(String orderId) {
         try {
             if(previousMapper.deletePreviousOrderFromSeller(orderId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除往期订单信息
+     *
+     * @param orderIds orderIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeletePreviousOrderFromSeller(List<String> orderIds) {
         try {
             if(previousMapper.batchDeletePreviousOrderFromSeller(orderIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询往期配送员信息(已删除)
+     *
+     * @param pageInfo pageInfo
+     * @param token token
+     * @return 往期配送员信息(已删除)
+     */
     @Override
     public Response previousSenderInfo(PageUtil pageInfo, String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -179,38 +236,50 @@ public class PreviousServiceImpl implements PreviousService {
             res.put("currentNum", previousSenderInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 删除配送员信息
+     *
+     * @param senderId senderId
+     * @return 返回状态
+     */
     @Override
     public Response deletePreviousSender(String senderId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String deleteTime = sdf.format(new Date());
         try {
             if(previousMapper.deletePreviousSender(deleteTime, senderId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 批量删除配送员信息
+     *
+     * @param senderIds senderIds
+     * @return 返回状态
+     */
     @Override
     public Response batchDeletePreviousSender(List<String> senderIds) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String deleteTime = sdf.format(new Date());
         try {
             if(previousMapper.batchDeletePreviousSender(deleteTime, senderIds) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

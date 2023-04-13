@@ -18,7 +18,7 @@ public interface AdminMainMapper {
     /**
      * 查询所有窗口名称
      *
-     * @return List<String>
+     * @return 所有窗口名称
      */
     List<WindowNamesAndSellerIds> queryWindowNames();
 
@@ -26,23 +26,23 @@ public interface AdminMainMapper {
      * 查询本月每天的收入
      *
      * @param sellerId sellerId
-     * @return List<SomeDayAndUnitPriceAndOrderNumber>
+     * @return 本月每天的收入
      */
     List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisMonth(@Param("sellerId") String sellerId);
 
     /**
-     * 查询本季度的收入
+     * 查询本季度每天的收入
      *
      * @param sellerId sellerId
-     * @return List<SomeDayAndUnitPriceAndOrderNumber>
+     * @return 本季度每天的收入
      */
     List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisQuarter(@Param("sellerId") String sellerId);
 
     /**
-     * 查询本年的收入
+     * 查询本年每天的收入
      *
      * @param sellerId sellerId
-     * @return List<SomeDayAndUnitPriceAndOrderNumber>
+     * @return 本年每天的收入
      */
     List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisYear(@Param("sellerId") String sellerId);
 }

@@ -15,18 +15,18 @@ import java.util.List;
 @Mapper
 public interface AdminPreviousMapper {
     /**
-     * 查询往期学生
+     * 查询往期学生信息(已删除)
      *
      * @param now now
-     * @return List<StudentBaseInfoVO>
+     * @return 往期学生信息(已删除)
      */
     List<StudentBaseInfoVO> previousStudent(@Param("now") String now);
 
     /**
-     * 查询往期学生条数
+     * 查询往期学生条数(已删除)
      *
      * @param now now
-     * @return Integer
+     * @return 往期学生条数(已删除)
      */
     Integer previousStudentTotal(@Param("now") String now);
 
@@ -34,7 +34,7 @@ public interface AdminPreviousMapper {
      * 删除往期学生信息
      *
      * @param studentId studentId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousStudent(@Param("studentId") String studentId);
 
@@ -42,7 +42,7 @@ public interface AdminPreviousMapper {
      * 批量删除往期学生信息
      *
      * @param studentIds studentIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeleteStudent(@Param("studentIds") List<String> studentIds);
 
@@ -61,16 +61,16 @@ public interface AdminPreviousMapper {
     void deleteOrderInfoByStudentId(@Param("studentId") String studentId);
 
     /**
-     * 查询往期商家
+     * 查询往期商家信息(已删除)
      *
-     * @return List<SellerBaseInfoVO>
+     * @return 往期商家信息(已删除)
      */
     List<SellerBaseInfoVO> previousSeller();
 
     /**
-     * 查询往期商家条数
+     * 查询往期商家条数(已删除)
      *
-     * @return Integer
+     * @return 往期商家条数(已删除)
      */
     Integer previousSellerTotal();
 
@@ -92,7 +92,7 @@ public interface AdminPreviousMapper {
      * 删除商家信息
      *
      * @param sellerId sellerId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousSeller(@Param("sellerId") String sellerId);
 
@@ -100,21 +100,21 @@ public interface AdminPreviousMapper {
      * 批量删除往期商家信息
      *
      * @param sellerIds sellerIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeleteSeller(@Param("sellerIds") List<String> sellerIds);
 
     /**
-     * 查询往期订单
+     * 查询往期订单信息(已删除)
      *
-     * @return List<OrderBaseInfoVO>
+     * @return 往期订单信息(已删除)
      */
     List<OrderBaseInfoVO> previousOrder();
 
     /**
-     * 查询往期订单条数
+     * 查询往期订单条数(已删除)
      *
-     * @return Integer
+     * @return 往期订单条数(已删除)
      */
     Integer previousOrderTotal();
 
@@ -122,7 +122,7 @@ public interface AdminPreviousMapper {
      * 删除以往的订单
      *
      * @param orderId orderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousOrder(@Param("orderId") String orderId);
 
@@ -130,21 +130,21 @@ public interface AdminPreviousMapper {
      * 批量删除以往的订单
      *
      * @param orderIds orderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeleteOrder(@Param("orderIds") List<String> orderIds);
 
     /**
-     * 查询往期菜品信息
+     * 查询往期菜品信息(已删除)
      *
-     * @return List<FoodBaseInfoVO>
+     * @return 往期菜品信息(已删除)
      */
     List<FoodBaseInfoVO> previousFood();
 
     /**
-     * 查询往期菜品信息条数
+     * 查询往期菜品信息条数(已删除)
      *
-     * @return Integer
+     * @return 往期菜品信息条数(已删除)
      */
     Integer previousFoodTotal();
 
@@ -152,7 +152,7 @@ public interface AdminPreviousMapper {
      * 删除往期菜品信息
      *
      * @param foodId foodId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousFood(@Param("foodId") String foodId);
 
@@ -160,21 +160,21 @@ public interface AdminPreviousMapper {
      * 批量删除往期菜品信息
      *
      * @param foodIds foodIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeleteFood(@Param("foodIds") List<String> foodIds);
 
     /**
-     * 查询往期配送员信息
+     * 查询往期配送员信息(已删除)
      *
-     * @return List<SenderBaseInfoVO>
+     * @return 往期配送员信息(已删除)
      */
     List<SenderBaseInfoVO> previousSender();
 
     /**
-     * 查询往期配送员信息条数
+     * 查询往期配送员信息条数(已删除)
      *
-     * @return Integer
+     * @return 往期配送员信息条数(已删除)
      */
     Integer previousSenderTotal();
 
@@ -182,7 +182,7 @@ public interface AdminPreviousMapper {
      * 删除往期配送员信息
      *
      * @param senderId senderId
-     * @return Integer
+     * @return 受影响条数
      */
     Integer deletePreviousSender(@Param("senderId") String senderId);
 
@@ -190,7 +190,7 @@ public interface AdminPreviousMapper {
      * 批量删除往期配送员信息
      *
      * @param senderIds senderIds
-     * @return Integer
+     * @return 受影响条数
      */
     Integer batchDeleteSender(@Param("senderIds") List<String> senderIds);
 

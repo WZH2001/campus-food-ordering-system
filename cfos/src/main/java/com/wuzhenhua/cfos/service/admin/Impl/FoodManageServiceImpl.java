@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.FoodManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.MenuBaseInfoDTO;
 import com.wuzhenhua.cfos.model.VO.admin.FoodBaseInfoVO;
@@ -26,6 +26,12 @@ public class FoodManageServiceImpl implements FoodManageService {
     @Resource
     private FoodManageMapper foodManageMapper;
 
+    /**
+     * 查询菜品信息
+     *
+     * @param pageInfo 分页信息
+     * @return 菜品信息
+     */
     @Override
     public Response menuBaseInfo(PageUtil pageInfo) {
         List<FoodBaseInfoVO> menuBaseInfo;
@@ -46,11 +52,17 @@ public class FoodManageServiceImpl implements FoodManageService {
             res.put("currentNum", menuBaseInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询菜品信息
+     *
+     * @param menuBaseInfoDTO 查询参数及分页信息
+     * @return 菜品信息(模糊查询)
+     */
     @Override
     public Response menuBaseInfoFuzzy(MenuBaseInfoDTO menuBaseInfoDTO) {
         List<FoodBaseInfoVO> menuBaseInfoFuzzy;
@@ -71,11 +83,17 @@ public class FoodManageServiceImpl implements FoodManageService {
             res.put("currentNum", menuBaseInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询已推荐菜品信息
+     *
+     * @param pageInfo 分页信息
+     * @return 已推荐菜品信息
+     */
     @Override
     public Response menuHaveRecommend(PageUtil pageInfo) {
         List<FoodBaseInfoVO> menuHaveRecommend;
@@ -92,11 +110,17 @@ public class FoodManageServiceImpl implements FoodManageService {
             res.put("currentNum", menuHaveRecommend.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询已推荐菜品信息
+     *
+     * @param menuBaseInfoDTO 查询参数及分页信息
+     * @return 已推荐菜品信息(模糊查询)
+     */
     @Override
     public Response menuHaveRecommendFuzzy(MenuBaseInfoDTO menuBaseInfoDTO) {
         List<FoodBaseInfoVO> menuHaveRecommendFuzzy;
@@ -113,8 +137,8 @@ public class FoodManageServiceImpl implements FoodManageService {
             res.put("currentNum", menuHaveRecommendFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

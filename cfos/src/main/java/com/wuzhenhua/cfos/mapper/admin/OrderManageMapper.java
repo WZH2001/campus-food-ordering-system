@@ -20,30 +20,30 @@ public interface OrderManageMapper {
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<OrderBaseInfoVO>
+     * @return 未完成的订单信息
      */
     List<OrderBaseInfoVO> orderUnfinishedInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询未完成的订单信息条数
      *
-     * @return Integer
+     * @return 未完成的订单信息条数
      */
     Integer orderUnfinishedInfoTotal();
 
     /**
-     * 模糊查询未完成的订单信息
+     * 模糊查询未完成的订单信息(模糊查询)
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return List<OrderBaseInfoVO>
+     * @return 未完成的订单信息(模糊查询)
      */
     List<OrderBaseInfoVO> orderUnfinishedInfoFuzzy(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
     /**
-     * 模糊查询未完成的订单信息条数
+     * 模糊查询未完成的订单信息条数(模糊查询)
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Integer
+     * @return 未完成的订单信息条数(模糊查询)
      */
     Integer orderUnfinishedInfoFuzzyTotal(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -52,14 +52,14 @@ public interface OrderManageMapper {
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<OrderBaseInfoVO>
+     * @return 所有订单信息
      */
     List<OrderBaseInfoVO> orderBaseInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询所有订单信息条数
      *
-     * @return Integer
+     * @return 所有订单信息条数
      */
     Integer orderBaseInfoTotal();
 
@@ -67,7 +67,7 @@ public interface OrderManageMapper {
      * 模糊查询所有订单信息
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return List<OrderBaseInfoVO>
+     * @return 所有订单信息(模糊查询)
      */
     List<OrderBaseInfoVO> orderBaseInfoFuzzy(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -75,7 +75,7 @@ public interface OrderManageMapper {
      * 模糊查询所有订单信息条数
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Integer
+     * @return 所有订单信息条数(模糊查询)
      */
     Integer orderBaseInfoFuzzyTotal(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 }

@@ -16,70 +16,70 @@ import java.util.List;
  */
 public interface UserManageService {
     /**
-     * 查找学生信息列表
+     * 查询学生信息
      *
      * @param pageInfo 分页信息
-     * @return Response
+     * @return 学生信息
      */
     Response studentBaseInfo(PageUtil pageInfo);
 
     /**
-     * 模糊查找学生信息列表
+     * 模糊查询学生信息
      *
      * @param studentBaseInfoDTO 模糊查询信息及分页信息
-     * @return Response
+     * @return 学生信息(模糊查询)
      */
     Response studentBaseInfoFuzzy(StudentBaseInfoDTO studentBaseInfoDTO);
 
     /**
-     * 查找学生订餐信息
+     * 查询学生订餐信息
      *
      * @param studentId 学生Id
      * @param pageUtil 分页信息
-     * @return Response
+     * @return 学生订餐信息
      */
     Response studentOrderInfo(String studentId, PageUtil pageUtil);
 
     /**
-     * 查找学生收藏信息
+     * 查询学生收藏信息
      *
      * @param studentId 学生Id
      * @param pageUtil 分页信息
-     * @return Response
+     * @return 学生收藏信息
      */
     Response studentCollectInfo(String studentId, PageUtil pageUtil);
 
     /**
-     * 查找商家信息
+     * 查询商家信息
      *
      * @param pageUtil 分页信息
-     * @return Response
+     * @return 商家信息
      */
     Response sellerBaseInfo(PageUtil pageUtil);
 
     /**
-     * 模糊查找商家信息
+     * 模糊查询商家信息
      *
      * @param sellerBaseInfoDTO 查询信息及分页信息
-     * @return Response
+     * @return 商家信息(模糊查询)
      */
     Response sellerBaseInfoFuzzy(SellerBaseInfoDTO sellerBaseInfoDTO);
 
     /**
-     * 查找商家菜单信息
+     * 查询商家菜单信息
      *
      * @param sellerId 商家Id
      * @param pageUtil 分页信息
-     * @return Response
+     * @return 家菜单信息
      */
     Response sellerFoodInfo(String sellerId, PageUtil pageUtil);
 
     /**
-     * 查找商家配送员信息
+     * 查询商家配送员信息
      *
      * @param sellerId 商家Id
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 商家配送员信息
      */
     Response sellerSenderInfo(String sellerId, PageUtil pageInfo);
 
@@ -87,7 +87,7 @@ public interface UserManageService {
      * 删除单个学生
      *
      * @param studentId studentId
-     * @return Response
+     * @return 返回状态
      */
     Response deleteSingleStudent(String studentId);
 
@@ -95,7 +95,7 @@ public interface UserManageService {
      * 批量删除学生信息
      *
      * @param studentIds studentIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteStudent(List<String> studentIds);
 }

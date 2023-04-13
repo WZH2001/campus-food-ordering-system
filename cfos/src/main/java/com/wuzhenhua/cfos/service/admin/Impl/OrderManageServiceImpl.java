@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.admin.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.admin.OrderManageMapper;
 import com.wuzhenhua.cfos.model.DTO.admin.OrderBaseInfoDTO;
 import com.wuzhenhua.cfos.model.VO.admin.OrderBaseInfoVO;
@@ -24,6 +24,12 @@ public class OrderManageServiceImpl implements OrderManageService {
     @Resource
     private OrderManageMapper orderManageMapper;
 
+    /**
+     * 查询未完成的订单信息
+     *
+     * @param pageInfo pageInfo
+     * @return 未完成的订单信息
+     */
     @Override
     public Response orderUnfinishedInfo(PageUtil pageInfo) {
         List<OrderBaseInfoVO> orderUnfinishedInfo;
@@ -45,11 +51,17 @@ public class OrderManageServiceImpl implements OrderManageService {
             res.put("currentNum", orderUnfinishedInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询未完成的订单信息(模糊查询)
+     *
+     * @param orderBaseInfoDTO pageInfo
+     * @return 未完成的订单信息(模糊查询)
+     */
     @Override
     public Response orderUnfinishedInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO) {
         List<OrderBaseInfoVO> orderUnfinishedInfoFuzzy;
@@ -71,11 +83,17 @@ public class OrderManageServiceImpl implements OrderManageService {
             res.put("currentNum", orderUnfinishedInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询所有订单信息
+     *
+     * @param pageInfo pageInfo
+     * @return 所有订单信息
+     */
     @Override
     public Response orderBaseInfo(PageUtil pageInfo) {
         List<OrderBaseInfoVO> orderBaseInfo;
@@ -98,11 +116,17 @@ public class OrderManageServiceImpl implements OrderManageService {
             res.put("currentNum", orderBaseInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询所有订单信息
+     *
+     * @param orderBaseInfoDTO pageInfo
+     * @return 所有订单信息(模糊查询)
+     */
     @Override
     public Response orderBaseInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO) {
         List<OrderBaseInfoVO> orderBaseInfoFuzzy;
@@ -125,8 +149,8 @@ public class OrderManageServiceImpl implements OrderManageService {
             res.put("currentNum", orderBaseInfoFuzzy.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

@@ -13,7 +13,7 @@ public interface SellerHomeService {
      * 查询今日销量及收入
      *
      * @param token token
-     * @return Response
+     * @return 每月的收入
      */
     Response queryDaySellAndDayIncome(String token);
 
@@ -21,7 +21,7 @@ public interface SellerHomeService {
      * 查询本周销量及收入
      *
      * @param token token
-     * @return Response
+     * @return 本周销量及收入
      */
     Response queryWeekSellAndWeekIncome(String token);
 
@@ -29,23 +29,23 @@ public interface SellerHomeService {
      * 查询本月销量及收入
      *
      * @param token token
-     * @return Response
+     * @return 本月销量及收入
      */
     Response queryMonthSellAndMonthIncome(String token);
 
     /**
-     * 查询每天的收入
+     * 查询本月每天的收入
      *
      * @param token token
-     * @return Response
+     * @return 本月每天的收入
      */
     Response queryEveryDayIncomeInThisMonth(String token);
 
     /**
-     * 查询每月的收入
+     * 查询本年每月的收入
      *
      * @param token token
-     * @return Response
+     * @return 本年每月的收入
      */
     Response queryEveryMonthIncomeInThisYear(String token);
 }

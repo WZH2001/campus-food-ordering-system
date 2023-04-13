@@ -10,9 +10,9 @@ import com.wuzhenhua.cfos.utils.Response;
  */
 public interface AdminMainService {
     /**
-     * 查询窗口名及商家每个时间段收入信息
+     * 查询窗口名及商家每月，每季度和每年收入信息
      *
-     * @return Response
+     * @return 窗口名及商家每月，每季度和每年收入信息
      */
     Response queryWindNamesAndIncomeInfo();
 }

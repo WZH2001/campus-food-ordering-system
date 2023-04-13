@@ -49,7 +49,7 @@
         select student_password from student where student_id = #{studentId}
     </select>
 
-    <select id="queryStudent" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
+    <select id="queryStudentIdAndRoleId" resultType="com.wuzhenhua.cfos.model.VO.user.UserBaseInfoVO">
         select
             student_id as userId,
             role_id as roleId

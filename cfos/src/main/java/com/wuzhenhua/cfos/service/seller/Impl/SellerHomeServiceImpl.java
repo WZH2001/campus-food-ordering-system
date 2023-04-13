@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.seller.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.seller.SellerHomeMapper;
 import com.wuzhenhua.cfos.model.temp.SomeDayAndUnitPriceAndOrderNumber;
 import com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber;
@@ -25,6 +25,12 @@ public class SellerHomeServiceImpl implements SellerHomeService {
     @Resource
     SellerHomeMapper sellerHomeMapper;
 
+    /**
+     * 查询今日销量及收入
+     *
+     * @param token token
+     * @return 每月的收入
+     */
     @Override
     public Response queryDaySellAndDayIncome(String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -42,11 +48,17 @@ public class SellerHomeServiceImpl implements SellerHomeService {
             res.put("dayIncome", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本周销量及收入
+     *
+     * @param token token
+     * @return 本周销量及收入
+     */
     @Override
     public Response queryWeekSellAndWeekIncome(String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -64,11 +76,17 @@ public class SellerHomeServiceImpl implements SellerHomeService {
             res.put("weekIncome", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本月销量及收入
+     *
+     * @param token token
+     * @return 本月销量及收入
+     */
     @Override
     public Response queryMonthSellAndMonthIncome(String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -86,9 +104,9 @@ public class SellerHomeServiceImpl implements SellerHomeService {
             res.put("monthIncome", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
     public List<Integer> daysSell(@NotNull List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers, String[] days){
@@ -119,6 +137,12 @@ public class SellerHomeServiceImpl implements SellerHomeService {
         return daysIncome;
     }
 
+    /**
+     * 查询本月每天的收入
+     *
+     * @param token token
+     * @return 本月每天的收入
+     */
     @Override
     public Response queryEveryDayIncomeInThisMonth(String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -140,7 +164,7 @@ public class SellerHomeServiceImpl implements SellerHomeService {
         int currentYear = Integer.parseInt(sdf.format(new Date()));
         sdf = new SimpleDateFormat("MM");
         int currentMonth = Integer.parseInt(sdf.format(new Date()));
-        sdf = new SimpleDateFormat("yy-MM");
+        sdf = new SimpleDateFormat("yyyy-MM");
         String currentYearMonth = sdf.format(new Date());
         try {
             someDayAndUnitPriceAndOrderNumbers = sellerHomeMapper.queryEveryDayIncomeInThisMonth(currentYearMonth, sellerId);
@@ -168,11 +192,17 @@ public class SellerHomeServiceImpl implements SellerHomeService {
             }
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本年每月的收入
+     *
+     * @param token token
+     * @return 本年每月的收入
+     */
     @Override
     public Response queryEveryMonthIncomeInThisYear(String token) {
         String sellerId = TokenUtils.getUserId(token);
@@ -181,7 +211,7 @@ public class SellerHomeServiceImpl implements SellerHomeService {
         SimpleDateFormat sdf = new SimpleDateFormat("MM");
         List<SomeDayAndUnitPriceAndOrderNumber> someDayAndUnitPriceAndOrderNumbers;
         int currentMonth = Integer.parseInt(sdf.format(new Date()));
-        sdf = new SimpleDateFormat("yy");
+        sdf = new SimpleDateFormat("yyyy");
         String currentYear = sdf.format(new Date());
         Map<String ,Object> res = new HashMap<>(20);
         try {
@@ -204,8 +234,8 @@ public class SellerHomeServiceImpl implements SellerHomeService {
             res.put("monthsIncome", everyMonthIncome);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

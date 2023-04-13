@@ -12,18 +12,18 @@ import com.wuzhenhua.cfos.utils.Response;
  */
 public interface CollectionManageService {
     /**
-     * 查询最近收藏信息
+     * 查询最近收藏信息(7天内)
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 最近收藏信息(7天内)
      */
     Response recentCollectionInfo(PageUtil pageInfo);
 
     /**
-     * 模糊查询最近收藏信息
+     * 模糊查询最近收藏信息(7天内)
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Response
+     * @return 最近收藏信息(模糊查询，7天内)
      */
     Response recentCollectionInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -31,7 +31,7 @@ public interface CollectionManageService {
      * 查询所有收藏信息
      *
      * @param pageInfo pageInfo
-     * @return Response
+     * @return 所有收藏信息
      */
     Response collectionBaseInfo(PageUtil pageInfo);
 
@@ -39,7 +39,7 @@ public interface CollectionManageService {
      * 模糊查询所有收藏信息
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Response
+     * @return 查询所有收藏信息(模糊查询)
      */
     Response collectionBaseInfoFuzzy(OrderBaseInfoDTO orderBaseInfoDTO);
 }

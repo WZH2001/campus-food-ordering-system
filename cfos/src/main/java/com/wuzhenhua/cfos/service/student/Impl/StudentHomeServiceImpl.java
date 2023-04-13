@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.student.StudentHomeMapper;
 import com.wuzhenhua.cfos.model.temp.UnitPriceAndOrderNumber;
 import com.wuzhenhua.cfos.model.temp.WindowNameAndOrderNumber;
@@ -25,6 +25,12 @@ public class StudentHomeServiceImpl implements StudentHomeService {
     @Resource
     private StudentHomeMapper studentHomeMapper;
 
+    /**
+     * 查询当天点餐份数及消费
+     *
+     * @param token token
+     * @return 当天点餐份数及消费
+     */
     @Override
     public Response queryDayOrderAndDayConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -42,11 +48,17 @@ public class StudentHomeServiceImpl implements StudentHomeService {
             res.put("dayConsume", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本周点餐份数及消费
+     *
+     * @param token token
+     * @return 本周点餐份数及消费
+     */
     @Override
     public Response queryWeekOrderWeekDayConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -64,11 +76,17 @@ public class StudentHomeServiceImpl implements StudentHomeService {
             res.put("weekConsume", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本月点餐份数及消费
+     *
+     * @param token token
+     * @return 本月点餐份数及消费
+     */
     @Override
     public Response queryMonthOrderAndMonthConsume(String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -86,11 +104,17 @@ public class StudentHomeServiceImpl implements StudentHomeService {
             res.put("monthConsume", allPrice);
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 查询本月订餐窗口和每个窗口的订单数量
+     *
+     * @param token token
+     * @return 本月订餐窗口和每个窗口的订单数量
+     */
     @Override
     public Response queryWindowNameAndOrderNumbersAtThisMonth(String token) {
         String studentId = TokenUtils.getUserId(token);
@@ -100,6 +124,6 @@ public class StudentHomeServiceImpl implements StudentHomeService {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return Response.successResponse(windowNameAndOrderNumbers, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(windowNameAndOrderNumbers, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }

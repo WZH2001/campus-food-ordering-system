@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @Author wuzhenhua
  * @Title UserController
  * @ProjectName: campus-food-ordering-system
- * @Description: 用户操作
+ * @Description: 用户操登录和注册
  * @Date 2022/12/14 14:18
  */
 @RestController

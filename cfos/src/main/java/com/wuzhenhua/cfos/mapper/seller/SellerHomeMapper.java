@@ -19,7 +19,7 @@ public interface SellerHomeMapper {
      * 查询今日销量及收入
      *
      * @param sellerId sellerId
-     * @return List<UnitPriceAndOrderNumber>
+     * @return 今日销量及收入
      */
     List<UnitPriceAndOrderNumber> queryDaySellAndDayIncome(@Param("sellerId") String sellerId);
 
@@ -27,7 +27,7 @@ public interface SellerHomeMapper {
      * 查询本周销量及收入
      *
      * @param sellerId sellerId
-     * @return List<UnitPriceAndOrderNumber>
+     * @return 本周销量及收入
      */
     List<UnitPriceAndOrderNumber> queryWeekSellAndWeekIncome(@Param("sellerId") String sellerId);
 
@@ -35,7 +35,7 @@ public interface SellerHomeMapper {
      * 查询本月销量及收入
      *
      * @param sellerId sellerId
-     * @return List<UnitPriceAndOrderNumber>
+     * @return 月销量及收入
      */
     List<UnitPriceAndOrderNumber> queryMonthSellAndMonthIncome(@Param("sellerId") String sellerId);
 
@@ -44,7 +44,7 @@ public interface SellerHomeMapper {
      *
      * @param currentYearMonth currentYearMonth
      * @param sellerId sellerId
-     * @return List<SomeDayAndUnitPriceAndOrderNumber>
+     * @return 当前月每天的收入
      */
     List<SomeDayAndUnitPriceAndOrderNumber> queryEveryDayIncomeInThisMonth(@Param("currentYearMonth") String  currentYearMonth, @Param("sellerId") String sellerId);
 }

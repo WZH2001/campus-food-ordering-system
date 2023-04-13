@@ -21,7 +21,7 @@ public interface CollectMapper {
      * @param pageNum pageNum
      * @param pageSize pageSize
      * @param studentId studentId
-     * @return List<AllMenuInfoVO>
+     * @return 未收藏的菜品信息
      */
     List<AllMenuInfoVO> notCollectFoodInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("studentId") String studentId);
 
@@ -29,7 +29,7 @@ public interface CollectMapper {
      * 查询未收藏菜品信息条数
      *
      * @param studentId studentId
-     * @return Integer
+     * @return 未收藏的菜品数量
      */
     Integer notCollectFoodInfoTotal(@Param("studentId") String studentId);
 
@@ -42,9 +42,9 @@ public interface CollectMapper {
      * @param foodPrice foodPrice
      * @param windowName windowName
      * @param studentId studentId
-     * @return List<AllMenuInfoVO>
+     * @return 未收藏的菜品信息(模糊查询)
      */
-    List<AllMenuInfoVO> notCollectFoodInfoFuzzy(Integer pageNum, Integer pageSize, String foodName, String foodPrice, String windowName, String studentId);
+    List<AllMenuInfoVO> notCollectFoodInfoFuzzy(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName, @Param("studentId") String studentId);
 
     /**
      * 模糊查询未收藏菜品信息条数
@@ -53,9 +53,9 @@ public interface CollectMapper {
      * @param foodPrice foodPrice
      * @param windowName windowName
      * @param studentId studentId
-     * @return Integer
+     * @return 未收藏的菜品数量(模糊查询)
      */
-    Integer notCollectFoodInfoFuzzyTotal(String foodName, String foodPrice, String windowName, String studentId);
+    Integer notCollectFoodInfoFuzzyTotal(@Param("foodName") String foodName, @Param("foodPrice") String foodPrice, @Param("windowName") String windowName, @Param("studentId") String studentId);
 
     /**
      * 收藏单个菜品
@@ -64,15 +64,15 @@ public interface CollectMapper {
      * @param studentId studentId
      * @param collectionId collectionId
      * @param collectTime collectTime
-     * @return Integer
+     * @return 受影响条数
      */
     Integer singleCollect(@Param("collectId") String collectionId, @Param("collectTime") String collectTime, @Param("studentId") String studentId, @Param("foodId") String foodId);
 
     /**
      * 批量收藏菜品
      *
-     * @param batchCollectDTOList batchCollectDTOList
-     * @return Integer
+     * @param batchCollectDTOList 批量收藏菜品参数
+     * @return 受影响条数
      */
     Integer batchCollect(@Param("batchCollectDTOList") List<BatchCollectDTO> batchCollectDTOList);
 }

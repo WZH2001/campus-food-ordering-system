@@ -16,34 +16,34 @@ import java.util.List;
 @Mapper
 public interface CollectionManageMapper {
     /**
-     * 查询最近收藏信息
+     * 查询最近收藏信息(7天内)
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<CollectionBaseInfoVO>
+     * @return 最近收藏信息(7天内)
      */
     List<CollectionBaseInfoVO> recentCollectionInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
-     * 查询最近收藏信息条数
+     * 查询最近收藏信息条数(7天内)
      *
-     * @return Integer
+     * @return 最近收藏信息条数(7天内)
      */
     Integer recentCollectionInfoTotal();
 
     /**
-     * 模糊查询最近收藏信息
+     * 模糊查询最近收藏信息(7天内)
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return List<CollectionBaseInfoVO>
+     * @return 最近收藏信息(模糊查询，7天内)
      */
     List<CollectionBaseInfoVO> recentCollectionInfoFuzzy(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
     /**
-     * 模糊查询最近收藏信息条数
+     * 模糊查询最近收藏信息条数(7天内)
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Integer
+     * @return 最近收藏信息条数(模糊查询，7天内)
      */
     Integer recentCollectionInfoFuzzyTotal(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -52,14 +52,14 @@ public interface CollectionManageMapper {
      *
      * @param pageNum pageNum
      * @param pageSize pageSize
-     * @return List<CollectionBaseInfoVO>
+     * @return 所有收藏信息
      */
     List<CollectionBaseInfoVO> collectionBaseInfo(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     /**
      * 查询所有收藏信息条数
      *
-     * @return Integer
+     * @return 所有收藏信息条数
      */
     Integer collectionBaseInfoTotal();
 
@@ -67,7 +67,7 @@ public interface CollectionManageMapper {
      * 模糊查询所有收藏信息
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return List<CollectionBaseInfoVO>
+     * @return 所有收藏信息(模糊查询)
      */
     List<CollectionBaseInfoVO> collectionBaseInfoFuzzy(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 
@@ -75,7 +75,7 @@ public interface CollectionManageMapper {
      * 模糊查询所有收藏信息条数
      *
      * @param orderBaseInfoDTO orderBaseInfoDTO
-     * @return Integer
+     * @return 所有收藏信息条数(模糊查询)
      */
     Integer collectionBaseInfoFuzzyTotal(@Param("orderBaseInfoDTO") OrderBaseInfoDTO orderBaseInfoDTO);
 }

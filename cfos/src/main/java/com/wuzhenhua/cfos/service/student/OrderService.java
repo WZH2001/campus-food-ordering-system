@@ -13,18 +13,18 @@ import com.wuzhenhua.cfos.utils.Response;
  */
 public interface OrderService {
     /**
-     * 查询所有菜单信息
+     * 查询所有菜单信息(未删除)
      *
      * @param pageInfo 分页信息
-     * @return Response
+     * @return 菜单信息
      */
     Response allMenuInfo(PageUtil pageInfo);
 
     /**
-     * 模糊查询菜单信息
+     * 模糊查询菜单信息(未删除)
      *
      * @param allMenuInfoDTO 查询参数及分页信息
-     * @return Response
+     * @return 菜单信息(模糊查询，未删除)
      */
     Response menuInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO);
 
@@ -35,7 +35,7 @@ public interface OrderService {
      * @param takeTime takeTime
      * @param number number
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response eatAtCanteenOrder(String foodId, String takeTime, Integer number, String token);
 
@@ -46,25 +46,25 @@ public interface OrderService {
      * @param sendTime sendTime
      * @param number number
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response deliveryOrder(String foodId, String sendTime, Integer number, String token);
 
     /**
      * 自取餐多个订单
      *
-     * @param multipleOrderDTOList multipleOrderDTOList
+     * @param multipleOrderDTOList 自取餐多个订单请求参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response multipleOrderAtCanteen(MultipleOrderDTO multipleOrderDTOList, String token);
 
     /**
      * 食堂配送多个订单
      *
-     * @param multipleOrderDTOList multipleOrderDTOList
+     * @param multipleOrderDTOList 食堂配送多个订单请求参数
      * @param token token
-     * @return Response
+     * @return 返回状态
      */
     Response multipleDeliveryOrder(MultipleOrderDTO multipleOrderDTOList, String token);
 }

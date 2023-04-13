@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface AdminPreviousService {
     /**
-     * 查询往期学生信息
+     * 查询往期学生信息(已删除)
      *
-     * @return Response
+     * @return 往期学生信息(已删除)
      */
     Response previousStudent();
 
@@ -22,7 +22,7 @@ public interface AdminPreviousService {
      * 删除往期学生信息
      *
      * @param studentId studentId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousStudent(String studentId);
 
@@ -30,14 +30,14 @@ public interface AdminPreviousService {
      * 批量删除往期学生信息
      *
      * @param studentIds studentIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteStudent(List<String> studentIds);
 
     /**
-     * 查询往期商家信息
+     * 查询往期商家信息(已删除)
      *
-     * @return Response
+     * @return 往期商家信息(已删除)
      */
     Response previousSeller();
 
@@ -45,7 +45,7 @@ public interface AdminPreviousService {
      * 删除往期商家信息
      *
      * @param sellerId sellerId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousSeller(String sellerId);
 
@@ -53,14 +53,14 @@ public interface AdminPreviousService {
      * 批量删除往期商家信息
      *
      * @param sellerIds sellerIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteSeller(List<String> sellerIds);
 
     /**
-     * 查询往期订单信息
+     * 查询往期订单信息(已删除)
      *
-     * @return Response
+     * @return 往期订单信息(已删除)
      */
     Response previousOrder();
 
@@ -68,7 +68,7 @@ public interface AdminPreviousService {
      * 删除以往的订单
      *
      * @param orderId orderId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousOrder(String orderId);
 
@@ -76,14 +76,14 @@ public interface AdminPreviousService {
      * 批量删除以往的订单
      *
      * @param orderIds orderIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteOrder(List<String> orderIds);
 
     /**
-     * 查询往期菜品信息
+     * 查询往期菜品信息(已删除)
      *
-     * @return Response
+     * @return 往期菜品信息(已删除)
      */
     Response previousFood();
 
@@ -91,7 +91,7 @@ public interface AdminPreviousService {
      * 删除往期菜品信息
      *
      * @param foodId foodId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousFood(String foodId);
 
@@ -99,14 +99,14 @@ public interface AdminPreviousService {
      * 批量删除往期菜品信息
      *
      * @param foodIds foodIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteFood(List<String> foodIds);
 
     /**
-     * 查询往期配送员信息
+     * 查询往期配送员信息(已删除)
      *
-     * @return Response
+     * @return 往期配送员信息(已删除)
      */
     Response previousSender();
 
@@ -114,7 +114,7 @@ public interface AdminPreviousService {
      * 删除往期配送员信息
      *
      * @param senderId senderId
-     * @return Response
+     * @return 返回状态
      */
     Response deletePreviousSender(String senderId);
 
@@ -122,7 +122,7 @@ public interface AdminPreviousService {
      * 批量删除往期配送员信息
      *
      * @param senderIds senderIds
-     * @return Response
+     * @return 返回状态
      */
     Response batchDeleteSender(List<String> senderIds);
 }

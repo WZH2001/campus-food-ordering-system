@@ -1,6 +1,6 @@
 package com.wuzhenhua.cfos.service.student.Impl;
 
-import com.wuzhenhua.cfos.common.ResponseCodeEnum;
+import com.wuzhenhua.cfos.common.ResponseInfoEnum;
 import com.wuzhenhua.cfos.mapper.student.OrderMapper;
 import com.wuzhenhua.cfos.model.DTO.student.AllMenuInfoDTO;
 import com.wuzhenhua.cfos.model.DTO.student.MultipleOrderDTO;
@@ -30,6 +30,12 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderMapper orderMapper;
 
+    /**
+     * 查询所用商家的菜品信息(未删除)
+     *
+     * @param pageInfo 分页信息
+     * @return 菜单信息
+     */
     @Override
     public Response allMenuInfo(PageUtil pageInfo) {
         List<AllMenuInfoVO> allMenuInfo;
@@ -50,11 +56,17 @@ public class OrderServiceImpl implements OrderService {
             res.put("currentNum", allMenuInfo.size());
         } catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 模糊查询菜单信息(未删除)
+     *
+     * @param allMenuInfoDTO 查询参数及分页信息
+     * @return 菜单信息(模糊查询，未删除)
+     */
     @Override
     public Response menuInfoFuzzy(AllMenuInfoDTO allMenuInfoDTO) {
         List<AllMenuInfoVO> menuInfoFuzzy;
@@ -75,11 +87,20 @@ public class OrderServiceImpl implements OrderService {
             res.put("currentNum", menuInfoFuzzy.size());
         }catch (Exception e){
             e.printStackTrace();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(res, ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(res, ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 生成在学校吃的订单，然后更新商家的今日销量
+     *
+     * @param foodId foodId
+     * @param takeTime takeTime
+     * @param number number
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response eatAtCanteenOrder(String foodId, String takeTime, Integer number, String token) {
@@ -90,16 +111,25 @@ public class OrderServiceImpl implements OrderService {
         OrderInfoDTO orderInfoDTO = new OrderInfoDTO(studentId, foodId, orderId, null, orderTime, takeTime, null, 0, number);
         try {
             if(orderMapper.eatAtCanteenOrder(orderInfoDTO) == 0 || orderMapper.updateTodaySellFromFood(number, foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         }catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 生成食堂配送的订单，然后更新商家的今日销量
+     *
+     * @param foodId foodId
+     * @param sendTime sendTime
+     * @param number number
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response deliveryOrder(String foodId, String sendTime, Integer number, String token) {
@@ -110,16 +140,23 @@ public class OrderServiceImpl implements OrderService {
         OrderInfoDTO orderInfoDTO = new OrderInfoDTO(studentId, foodId, orderId, sendTime, orderTime, null, sendTime, 1, number);
         try {
             if(orderMapper.deliveryOrder(orderInfoDTO) == 0 || orderMapper.updateTodaySellFromFood(number, foodId) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         }catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 生成多个食堂配送的订单，然后更新商家的今日销量
+     *
+     * @param multipleOrderDTOList 自取餐多个订单请求参数
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response multipleOrderAtCanteen(@NotNull MultipleOrderDTO multipleOrderDTOList, String token) {
@@ -134,16 +171,23 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             if(orderMapper.multipleOrderAtCanteen(orderInfos) == 0 || orderMapper.multipleUpdateTodaySellFromFood(multipleOrderDTOList.getFoodIds()) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         }catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 
+    /**
+     * 生成多个食堂配送的订单，然后更新商家的今日销量
+     *
+     * @param multipleOrderDTOList 食堂配送多个订单请求参数
+     * @param token token
+     * @return 返回状态
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Response multipleDeliveryOrder(@NotNull MultipleOrderDTO multipleOrderDTOList, String token) {
@@ -158,13 +202,13 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             if(orderMapper.multipleDeliveryOrder(orderInfos) == 0 || orderMapper.multipleUpdateTodaySellFromFood(multipleOrderDTOList.getFoodIds()) == 0){
-                return Response.errorResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDescription());
+                return Response.errorResponse(ResponseInfoEnum.ERROR.getCode(), ResponseInfoEnum.ERROR.getDescription());
             }
         }catch (Exception e){
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return Response.errorResponse(ResponseCodeEnum.SERVER_EXCEPTION.getCode(), ResponseCodeEnum.SERVER_EXCEPTION.getDescription());
+            return Response.errorResponse(ResponseInfoEnum.SERVER_EXCEPTION.getCode(), ResponseInfoEnum.SERVER_EXCEPTION.getDescription());
         }
-        return Response.successResponse(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDescription());
+        return Response.successResponse(ResponseInfoEnum.SUCCESS.getCode(), ResponseInfoEnum.SUCCESS.getDescription());
     }
 }
